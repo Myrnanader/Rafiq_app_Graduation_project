@@ -116,7 +116,7 @@ static TextStyle font16Medium = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: AppFonts.poppins,
-    letterSpacing: 0.5.sp,
+    //letterSpacing: 0.5.sp,
   );
 
   // ---------- Font 22 sizes ----------

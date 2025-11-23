@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
+import 'package:rafiq_app/features/auth/login/presentation/views/login_screen.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
 import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
 
@@ -19,14 +20,15 @@ abstract class RouterGenerationConfig {
         GoRoute(
         path: AppRoutes.onBoardScreen,
         name: AppRoutes.onBoardScreen,
-        builder: (context, state) => const OnBoardingScreen(),
+        builder: (context, state) => const OnboardingScreen(),
       ),
-      /*
+      
       GoRoute(
         path: AppRoutes.loginScreen,
         name: AppRoutes.loginScreen,
         builder: (context, state) => const LoginScreen(),
       ),
+      /*
       GoRoute(
         path: AppRoutes.registerScreen,
         name: AppRoutes.registerScreen,

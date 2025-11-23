@@ -217,7 +217,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      context.go(AppRoutes.loginScreen);
+      context.go(AppRoutes.signInScreen);
     }
   }
 
@@ -262,7 +262,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               totalPages: pages.length,
               onNext: _nextPage,
               onPrevious: _previousPage,
-              onSkip: () => context.go(AppRoutes.loginScreen),
+              onSkip: () => context.go(AppRoutes.signInScreen),
             ),
 
             // Page indicator

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq_app/core/helpers/extensions.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
-import 'package:rafiq_app/core/theme/theme_manager/theme_extensions.dart';
+import 'package:rafiq_app/core/theming/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -46,11 +46,11 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: isborder
               ? Border.all(
-                  color: borderColor ?? context.customAppColors.primary800,
+                  color: borderColor ?? AppColors.onPrimary,
                 )
               : null,
-          borderRadius: BorderRadius.circular(border ?? 10.r),
-          color: color ?? context.customAppColors.primary800,
+          borderRadius: BorderRadius.circular(border ?? 8.r),
+          color: color ??  AppColors.onPrimary,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +68,7 @@ class CustomButton extends StatelessWidget {
               text,
               style:
                   style ??
-                  AppTextStyles.font14SemiBold.copyWith(
+                  AppTextStyles.font16Medium.copyWith(
                     color: textcolor ?? Colors.white,
                     fontWeight: FontWeight.w500,
                   ),

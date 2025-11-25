@@ -8,7 +8,7 @@ Future<void> launchCustomUrl(context, String? url) async {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {
-      showCustomSnackBar(context, 'Sorry.');
+      CustomSnackBar.error(context, 'Sorry.');
     }
   }
 }

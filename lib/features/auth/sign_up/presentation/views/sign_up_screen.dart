@@ -10,55 +10,65 @@ import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/custom
 import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/custom_outh_footer.dart';
 import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/custom_social_buttons.dart';
 import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/email_feild_widget.dart';
-import 'package:rafiq_app/features/auth/sign_in/presentation/widgets/header_widget.dart';
 import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/password_feild_widget.dart';
 
-class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+import 'package:rafiq_app/features/auth/sign_up/presentation/widgets/date_of_birth_feild.dart';
+import 'package:rafiq_app/features/auth/sign_up/presentation/widgets/full_name_feild.dart';
+
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final fullNameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
+    final dateController = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
     void submit() {
-      if (formKey.currentState?.validate() ?? false) {
-        context.go(AppRoutes.verifyOtpScreen);
-      }
-    }
+  if (formKey.currentState?.validate() ?? false) {
+    context.go(AppRoutes.selectRoleScreen);
+  }
+}
 
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
+            padding: EdgeInsets.symmetric(horizontal: 24.w, ),
             child: Form(
               key: formKey,
               child: Column(
                 children: [
-                  const SignInHeader(),
-                  42.h.ph,
+                  12.h.ph,
+                  Text(
+                    'Sign Up',
+                    style: AppTextStyles.font24SemiBold.copyWith(
+                      color: AppColors.onBackgroundLight,
+                    ),
+                  ),
+                  8.h.ph,
+                  Text(
+                    'Create your account',
+                    style: AppTextStyles.font14Medium.copyWith(
+                      color: AppColors.lightAppColors,
+                    ),
+                  ),
+                  39.h.ph,
+                  FullNameField(controller: fullNameController),
+                  16.h.ph,
                   EmailField(controller: emailController),
                   16.h.ph,
                   PasswordField(controller: passwordController),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        context.go(AppRoutes.forgetPasswordScreen);
-                      },
-                      child: Text(
-                        'Forget Password?',
-                        style: AppTextStyles.font13Medium.copyWith(
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ),
-                  ),
-                  24.h.ph,
+                  16.h.ph,
+                  PasswordField(controller: confirmPasswordController),
+                  16.h.ph,
+                  DateOfBirthField(controller: dateController),
+                  16.h.ph,
                   CustomButton(
-                    text: 'Sign in',
+                    text: 'Sign Up',
                     style: AppTextStyles.font16Medium.copyWith(
                       color: AppColors.lightBackground,
                     ),
@@ -66,15 +76,15 @@ class SignInScreen extends StatelessWidget {
                     color: AppColors.onPrimary,
                     borderColor: AppColors.onPrimary,
                   ),
-                  24.h.ph,
+                  12.h.ph,
                   const CustomOrLoginWidget(),
                   16.h.ph,
                   const CustomSocialLoginIcons(),
-                  32.h.ph,
+                  24.h.ph,
                   CustomAuthFooter(
-                    questionText: "Don't have an account?",
-                    actionText: "Sign Up",
-                    route: AppRoutes.signUpScreen,
+                    questionText: "Already have an account?",
+                    actionText: "Sign In",
+                    route: AppRoutes.signInScreen,
                   ),
                 ],
               ),

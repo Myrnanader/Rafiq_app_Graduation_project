@@ -10,4 +10,8 @@ class AppIcons {
   static const String pregnantWoman = 'assets/icons/pregnant_woman.svg';
   static const String stress = 'assets/icons/stress.svg';
   static const String verify = 'assets/icons/verify.svg';
+  static const String facebookSvgIcon ='assets/icons/google_svg_icon.svg';
+  static const String googleSvgIcon = 'assets/icons/facebook_svg_icon.svg';
+  static const String appleSvgIcon = 'assets/icons/apple_svg_icon.svg';
+  
 }

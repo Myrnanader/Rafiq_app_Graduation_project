@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
-import 'package:rafiq_app/core/theme/theme_manager/theme_extensions.dart';
+import 'package:rafiq_app/core/theming/app_colors.dart';
 
 
 class AppTextFormField extends StatelessWidget {
@@ -24,6 +24,10 @@ class AppTextFormField extends StatelessWidget {
   final bool isUnderline;
   final TextInputType? keyboardType;
   final TextAlign? textAlign;
+final bool readOnly;
+  final VoidCallback? onTap;
+
+
 
   const AppTextFormField({
     super.key,
@@ -46,6 +50,8 @@ class AppTextFormField extends StatelessWidget {
     this.isUnderline = false,
     this.keyboardType,
     this.textAlign,
+    this.readOnly = false, // default false
+    this.onTap,          
   });
 
   @override
@@ -55,14 +61,14 @@ class AppTextFormField extends StatelessWidget {
     InputBorder border = isUnderline
         ? UnderlineInputBorder(
             borderSide: BorderSide(
-              color: context.customAppColors.grey400,
+              color:  AppColors.onPrimary,
               width: 1.w,
             ),
           )
         : OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.r),
             borderSide: BorderSide(
-              color: context.customAppColors.grey400,
+              color:  AppColors.onPrimary,
               width: 1.w,
             ),
           );
@@ -84,7 +90,7 @@ class AppTextFormField extends StatelessWidget {
               },
               focusNode: focusNode,
               obscureText: isObscureText ?? false,
-              cursorColor: context.customAppColors.primary800,
+              cursorColor:  AppColors.onPrimary,
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding:
@@ -94,7 +100,7 @@ class AppTextFormField extends StatelessWidget {
                     focusedBorder ??
                     border.copyWith(
                       borderSide: BorderSide(
-                        color: context.customAppColors.primary600,
+                        color:  AppColors.onPrimary,
                         width: 1.5.w,
                       ),
                     ),

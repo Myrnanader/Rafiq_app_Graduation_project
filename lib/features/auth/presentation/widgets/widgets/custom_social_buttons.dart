@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:rafiq_app/core/utils/app_icons.dart';
-import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/custom_icon_button.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/custom_icon_button.dart';
 
 class CustomSocialLoginIcons extends StatelessWidget {
   const CustomSocialLoginIcons({super.key});

@@ -8,9 +8,8 @@ import 'package:rafiq_app/core/helpers/extensions.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
-import 'package:rafiq_app/core/utils/app_icons.dart';
 import 'package:rafiq_app/core/utils/app_images.dart';
-import 'package:rafiq_app/features/auth/roles/presentation/widgets/custom_role_card_widget.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/custom_role_card_widget.dart';
 
 class ChooseParentTypeScreen extends StatefulWidget {
   const ChooseParentTypeScreen({super.key});

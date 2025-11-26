@@ -6,15 +6,15 @@ import 'package:rafiq_app/core/common/widgets/custom_button.dart';
 import 'package:rafiq_app/core/helpers/extensions.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 
-import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/labled_form_field.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/labled_form_field.dart';
 
-class MotherInformationScreen extends StatelessWidget {
-  const MotherInformationScreen({super.key});
+class DoctorInformationScreen extends StatelessWidget {
+  const DoctorInformationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final fatherIdController = TextEditingController();
-    final pregnancyWeekController = TextEditingController();
+    final universityController = TextEditingController();
+    final specialtiesController = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
@@ -28,28 +28,30 @@ class MotherInformationScreen extends StatelessWidget {
               children: [
                 34.h.ph,
                 CustomAppBar(
-                  text: 'Mother information',
+                  text: 'Doctor information',
                   backRoute: AppRoutes.selectRoleScreen,
                 ),
                 146.h.ph,
 
+                // Graduation University field
                 LabeledFormField(
-                  labelText: "Father's ID",
-                  hintText: "Enter Father's id",
-                  controller: fatherIdController,
+                  labelText: "Graduation University",
+                  hintText: "Enter Graduation University",
+                  controller: universityController,
                   validator: (value) =>
                       value != null && value.isNotEmpty ? null : 'Required',
                 ),
                 16.h.ph,
 
+                // Medical Specialties field
                 LabeledFormField(
-                  labelText: "Current Pregnancy Week",
-                  hintText: "Enter Current Pregnancy week",
-                  controller: pregnancyWeekController,
-                  keyboardType: TextInputType.number,
+                  labelText: "Medical Specialties",
+                  hintText: "Enter Medical Specialties",
+                  controller: specialtiesController,
                   validator: (value) =>
                       value != null && value.isNotEmpty ? null : 'Required',
                 ),
+
                 280.h.ph,
                 CustomButton(
                   text: 'Continue',

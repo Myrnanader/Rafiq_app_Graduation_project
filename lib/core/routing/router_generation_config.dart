@@ -1,16 +1,16 @@
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
-import 'package:rafiq_app/features/auth/create_new_password/presentation/views/create_new_password_screen.dart';
-import 'package:rafiq_app/features/auth/success/account_created_screen.dart';
-import 'package:rafiq_app/features/auth/success/password_changed_screen.dart';
-import 'package:rafiq_app/features/auth/forget_password/presentation/views/forget_password_screen.dart';
-import 'package:rafiq_app/features/auth/information/presentation/views/doctor_information.dart';
-import 'package:rafiq_app/features/auth/information/presentation/views/mother_information.dart';
-import 'package:rafiq_app/features/auth/roles/presentation/views/choose_parent_type_screen.dart';
-import 'package:rafiq_app/features/auth/roles/presentation/views/select_role_screen.dart';
-import 'package:rafiq_app/features/auth/sign_in/presentation/views/sign_in_screen.dart';
-import 'package:rafiq_app/features/auth/sign_up/presentation/views/sign_up_screen.dart';
-import 'package:rafiq_app/features/auth/verify_otp/presentation/views/verify_otp_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/create_new_password_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/account_created_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/password_changed_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/forget_password_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/doctor_information.dart';
+import 'package:rafiq_app/features/auth/presentation/views/mother_information.dart';
+import 'package:rafiq_app/features/auth/presentation/views/choose_parent_type_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/select_role_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/sign_in_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/sign_up_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/verify_otp_screen.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
 import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
 

@@ -6,14 +6,14 @@ import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/helpers/extensions.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
-import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/custom_or_login_widget.dart';
-import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/custom_outh_footer.dart';
-import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/custom_social_buttons.dart';
-import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/email_feild_widget.dart';
-import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/password_feild_widget.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/custom_or_login_widget.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/custom_outh_footer.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/custom_social_buttons.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/email_feild_widget.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/password_feild_widget.dart';
 
-import 'package:rafiq_app/features/auth/sign_up/presentation/widgets/date_of_birth_feild.dart';
-import 'package:rafiq_app/features/auth/sign_up/presentation/widgets/full_name_feild.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/date_of_birth_feild.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/full_name_feild.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});

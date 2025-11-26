@@ -6,7 +6,7 @@ import 'package:rafiq_app/core/common/widgets/custom_button.dart';
 import 'package:rafiq_app/core/helpers/extensions.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/utils/app_images.dart';
-import 'package:rafiq_app/features/auth/Custom_presentations/view/widgets/email_feild_widget.dart';
+import 'package:rafiq_app/features/auth/presentation/widgets/widgets/email_feild_widget.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});

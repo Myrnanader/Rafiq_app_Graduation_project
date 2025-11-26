@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/common/widgets/custom_app_bar.dart';
 import 'package:rafiq_app/core/common/widgets/custom_button.dart';
 import 'package:rafiq_app/core/helpers/extensions.dart';

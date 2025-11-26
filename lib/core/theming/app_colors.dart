@@ -27,4 +27,5 @@ class AppColors {
   static const onSurfaceLight = Color(0xFF000000);
   static const onSurfaceDark = Color(0xFFFFFFFF);
   static const onError = Color(0xFFFFFFFF);
+  static const lightAppColors = Color(0xFF7C7C7C);
 }

@@ -10,5 +10,7 @@ class AppImages {
   static const String family = 'assets/images/Family.png';
   static const String father =  'assets/images/father.png';
   static const String pregnantWoman = 'assets/images/pregnant-woman.png';
+  static const String mic = 'assets/images/mic.png';
+  static const String babyCry = 'assets/images/baby_cry.png';
   
 }

@@ -14,4 +14,8 @@ class AppRoutes {
   static const String doctorInformationScreen = '/DoctorInformationScreen';
   
   static const String accountCreatedSuccessfullyScreen = '/AccountCreatedSuccessfullyScreen';
+  // -------- Cry Feature --------
+static const String cryAnalysisScreen = '/CryAnalysisScreen';
+static const String cryProgressScreen = '/CryProgressScreen';
+static const String cryResultScreen = '/CryResultScreen';
 }

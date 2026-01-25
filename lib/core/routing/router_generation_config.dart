@@ -11,6 +11,9 @@ import 'package:rafiq_app/features/auth/presentation/views/select_role_screen.da
 import 'package:rafiq_app/features/auth/presentation/views/sign_in_screen.dart';
 import 'package:rafiq_app/features/auth/presentation/views/sign_up_screen.dart';
 import 'package:rafiq_app/features/auth/presentation/views/verify_otp_screen.dart';
+import 'package:rafiq_app/features/cry/presentation/views/cry_analysis_screen.dart';
+import 'package:rafiq_app/features/cry/presentation/views/cry_progress_screen.dart';
+import 'package:rafiq_app/features/cry/presentation/views/cry_results_screen.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
 import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
 
@@ -94,6 +97,23 @@ abstract class RouterGenerationConfig {
         name: AppRoutes.accountCreatedSuccessfullyScreen,
         builder: (context, state) => const AccountCreatedSuccessfullyScreen(),
       ),
+      // ================= Cry Feature =================
+GoRoute(
+path: AppRoutes.cryAnalysisScreen,
+builder: (context, state) => const CryAnalysisScreen(),
+),
+
+
+GoRoute(
+path: AppRoutes.cryProgressScreen,
+builder: (context, state) => const CryProgressScreen(),
+),
+
+
+GoRoute(
+path: AppRoutes.cryResultScreen,
+builder: (context, state) => const CryResultScreen(),
+),
       ],
     );
   }

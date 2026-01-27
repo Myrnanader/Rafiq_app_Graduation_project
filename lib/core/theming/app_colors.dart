@@ -14,6 +14,7 @@ class AppColors {
   // Common Colors
   static const primary = Color(0xFF695ACD);
   static const darkGray = Color(0xFF4D4D4D);
+  static const lightGray = Color.fromARGB(255, 154, 153, 153);
   static const error = Color(0xFFB00020);
 
   static const primaryFixed = Color(0xFFFDFFF5);

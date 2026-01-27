@@ -125,6 +125,12 @@ static TextStyle font16Medium = TextStyle(
     fontFamily: AppFonts.poppins,
     //letterSpacing: 0.5.sp,
   );
+  static TextStyle font20SemiBold = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
   // ---------- Font 22 sizes ----------
   static TextStyle font22Regular = TextStyle(
     fontSize: 22.sp,

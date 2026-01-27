@@ -18,4 +18,9 @@ class AppRoutes {
 static const String cryAnalysisScreen = '/CryAnalysisScreen';
 static const String cryProgressScreen = '/CryProgressScreen';
 static const String cryResultScreen = '/CryResultScreen';
+
+// -------- Depression Feature --------
+static const String depressionStartScreen = '/DepressionStartScreen';
+static const String depressionSurveyScreen = '/DepressionSurveyScreen';
+static const String depressionResultScreen = '/DepressionResultScreen';
 }

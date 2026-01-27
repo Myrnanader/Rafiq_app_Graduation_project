@@ -4,13 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/common/widgets/app_gradient_background.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
+import 'package:rafiq_app/core/common/widgets/app_primary_button.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
-import 'package:rafiq_app/core/utils/app_images.dart';
-import '../widgets/depression_common_app_bar.dart';
-import '../../../../core/common/widgets/app_primary_button.dart';
+import '../widgets/delivery_common_app_bar.dart';
 
-class DepressionStartScreen extends StatelessWidget {
-  const DepressionStartScreen({super.key});
+class DeliveryResultScreen extends StatelessWidget {
+  const DeliveryResultScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,36 +19,45 @@ class DepressionStartScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             children: [
-              DepressionCommonAppBar(
-                title: "Let's Start Survey",
-                onBack: () => context.pop(),
+              30.h.verticalSpace,
+              DeliveryCommonAppBar(
+                title: 'Delivery Results',
+                onBack: () => context.go(AppRoutes.deliverySurveyScreen),
               ),
 
-              47.h.verticalSpace,
+              83.h.verticalSpace,
+
+              Image.asset(
+                'assets/images/mini_baby.png',
+                width: 142.w,
+                height: 193.h,
+                fit: BoxFit.contain,
+              ),
+              24.h.verticalSpace,
 
               Text(
-                'This short survey helps identify early signs of postpartum depression, making sure you get the right support at the right time.',
+                'Your delivery is likely to be Normal',
+                style: AppTextStyles.font16SemiBold,
+              ),
+
+              12.h.verticalSpace,
+
+              Text(
+                'This is an initial prediction based on  \n'
+                'the data you provided \n',
                 textAlign: TextAlign.center,
                 style: AppTextStyles.font13Regular.copyWith(
                   color: AppColors.darkGray,
+                  height: 1.4,
                 ),
-              ),
-
-              54.h.verticalSpace,
-
-              Image.asset(
-                AppImages.survey,
-                width: 270.w,
-                height: 277.h,
-                fit: BoxFit.contain,
               ),
 
               const Spacer(),
 
               AppPrimaryButton(
-                text: 'Start',
+                text: 'Back to Dashboard',
                 onPressed: () {
-                  context.go(AppRoutes.depressionSurveyScreen);
+                  context.go(AppRoutes.deliveryStartScreen);
                 },
               ),
 

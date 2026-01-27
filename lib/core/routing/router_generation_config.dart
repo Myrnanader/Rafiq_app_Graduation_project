@@ -14,6 +14,9 @@ import 'package:rafiq_app/features/auth/presentation/views/verify_otp_screen.dar
 import 'package:rafiq_app/features/cry/presentation/views/cry_analysis_screen.dart';
 import 'package:rafiq_app/features/cry/presentation/views/cry_progress_screen.dart';
 import 'package:rafiq_app/features/cry/presentation/views/cry_results_screen.dart';
+import 'package:rafiq_app/features/delivery/presentation/view/delivery_result_screen.dart';
+import 'package:rafiq_app/features/delivery/presentation/view/delivery_start_screen.dart';
+import 'package:rafiq_app/features/delivery/presentation/view/delivery_survey_screen.dart';
 import 'package:rafiq_app/features/depression/presentation/views/depression_result_screen.dart';
 import 'package:rafiq_app/features/depression/presentation/views/depression_start_screen.dart';
 import 'package:rafiq_app/features/depression/presentation/views/depression_survey_screen.dart';
@@ -127,6 +130,20 @@ abstract class RouterGenerationConfig {
         GoRoute(
           path: AppRoutes.depressionResultScreen,
           builder: (context, state) => const DepressionResultScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.deliveryStartScreen,
+          builder: (context, state) => const DeliveryStartScreen(),
+        ),
+
+        GoRoute(
+          path: AppRoutes.deliverySurveyScreen,
+          builder: (context, state) => const DeliverySurveyScreen(),
+        ),
+
+        GoRoute(
+          path: AppRoutes.deliveryResultScreen,
+          builder: (context, state) => const DeliveryResultScreen(),
         ),
       ],
     );

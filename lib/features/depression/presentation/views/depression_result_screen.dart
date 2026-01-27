@@ -6,7 +6,7 @@ import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import '../widgets/depression_common_app_bar.dart';
 import '../widgets/depression_score_indicator.dart';
-import '../widgets/app_primary_button.dart';
+import '../../../../core/common/widgets/app_primary_button.dart';
 
 class DepressionResultScreen extends StatelessWidget {
   const DepressionResultScreen({super.key});

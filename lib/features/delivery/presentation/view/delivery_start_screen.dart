@@ -6,11 +6,12 @@ import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 import 'package:rafiq_app/core/utils/app_images.dart';
-import '../widgets/depression_common_app_bar.dart';
-import '../../../../core/common/widgets/app_primary_button.dart';
+import 'package:rafiq_app/core/common/widgets/app_primary_button.dart';
+import 'package:rafiq_app/features/delivery/presentation/widgets/delivery_intro_text.dart';
+import '../widgets/delivery_common_app_bar.dart';
 
-class DepressionStartScreen extends StatelessWidget {
-  const DepressionStartScreen({super.key});
+class DeliveryStartScreen extends StatelessWidget {
+  const DeliveryStartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,39 +21,28 @@ class DepressionStartScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             children: [
-              DepressionCommonAppBar(
-                title: "Let's Start Survey",
+              30.h.verticalSpace,
+              DeliveryCommonAppBar(
+                title: 'Initial Delivery Prediction',
                 onBack: () => context.pop(),
               ),
 
               47.h.verticalSpace,
 
-              Text(
-                'This short survey helps identify early signs of postpartum depression, making sure you get the right support at the right time.',
-                textAlign: TextAlign.center,
-                style: AppTextStyles.font13Regular.copyWith(
-                  color: AppColors.darkGray,
-                ),
-              ),
+              const DeliveryIntroText(),
 
-              54.h.verticalSpace,
+              48.h.verticalSpace,
 
-              Image.asset(
-                AppImages.survey,
-                width: 270.w,
-                height: 277.h,
-                fit: BoxFit.contain,
-              ),
+              Image.asset(AppImages.motherAndBaby, height: 307.h, width:244.w),
 
               const Spacer(),
 
               AppPrimaryButton(
                 text: 'Start',
                 onPressed: () {
-                  context.go(AppRoutes.depressionSurveyScreen);
+                  context.go(AppRoutes.deliverySurveyScreen);
                 },
               ),
-
               96.h.verticalSpace,
             ],
           ),

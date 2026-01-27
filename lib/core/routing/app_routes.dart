@@ -23,4 +23,9 @@ static const String cryResultScreen = '/CryResultScreen';
 static const String depressionStartScreen = '/DepressionStartScreen';
 static const String depressionSurveyScreen = '/DepressionSurveyScreen';
 static const String depressionResultScreen = '/DepressionResultScreen';
+
+// -------- Delivery Feature --------
+static const String deliveryStartScreen = '/deliveryStart';
+static const String deliverySurveyScreen = '/deliverySurvey';
+static const String deliveryResultScreen = '/deliveryResult';
 }

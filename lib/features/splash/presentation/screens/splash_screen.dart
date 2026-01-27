@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      context.go(AppRoutes.depressionStartScreen);
+      context.go(AppRoutes.deliveryStartScreen);
     });
   }
 

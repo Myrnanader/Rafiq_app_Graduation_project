@@ -8,8 +8,8 @@ import 'package:rafiq_app/core/theming/app_colors.dart';
 import '../widgets/depression_app_bar.dart';
 import '../widgets/depression_progress_bar.dart';
 import '../widgets/depression_answer_option.dart';
-import '../widgets/app_primary_button.dart';
-import '../widgets/app_secondary_button.dart';
+import '../../../../core/common/widgets/app_primary_button.dart';
+import '../../../../core/common/widgets/app_secondary_button.dart';
 
 class DepressionSurveyScreen extends StatefulWidget {
   const DepressionSurveyScreen({super.key});

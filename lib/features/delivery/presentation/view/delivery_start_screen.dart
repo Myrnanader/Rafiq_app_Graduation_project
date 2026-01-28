@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/common/widgets/app_gradient_background.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
-import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
-import 'package:rafiq_app/core/theming/app_colors.dart';
 import 'package:rafiq_app/core/utils/app_images.dart';
 import 'package:rafiq_app/core/common/widgets/app_primary_button.dart';
 import 'package:rafiq_app/features/delivery/presentation/widgets/delivery_intro_text.dart';

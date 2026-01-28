@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq_app/core/common/widgets/custom_text_form_field.dart';
 import 'package:rafiq_app/core/common/widgets/survey_question_label.dart';
-import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
+
 import 'package:rafiq_app/core/theming/app_colors.dart';
 
 class DeliveryTextField extends StatelessWidget {

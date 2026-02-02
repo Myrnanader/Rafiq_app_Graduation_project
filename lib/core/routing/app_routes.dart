@@ -1,0 +1,34 @@
+class AppRoutes {
+  static const String splashScreen = '/splashScreen';
+  static const String onBoardScreen = '/OnBoardingScreen';
+  static const String loginScreen = '/LoginScreen';
+  static const String registerScreen = '/RegisterScreen';
+  static const String forgetPasswordScreen = '/ForgetPasswordScreen';
+  static const String createNewPasswordScreen = '/CreateNewPasswordScreen';
+  static const String passwordChangedScreen = '/PasswordChangedScreen';
+  static const String verifyOtpScreen = '/VerifyOtpScreen';
+  static const String mainNavigationBarScreen = '/MainNavigationScreen';
+  static const String homeScreen = '/HomeScreen';
+  static const String dashboardScreen = '/DashboardScreen';
+  static const String communityScreen = '/CommunityScreen';
+  static const String experienceScreen = '/ExperienceScreen';
+  static const String addPostScreen = '/AddPostScreen';
+  static const String profileScreen = '/ProfileScreen';
+  static const String addMemoryScreen = '/AddMemoryScreen';
+  static const String memoriesScreen = '/MemoriesScreen';
+  static const String docsScreen = '/DocsScreen';
+  static const String seeMemoriesScreen = '/SeeMemoriesScreen';
+  static const String seeDocsScreen = '/SeeDocsScreen';
+  static const String addDocScreen = '/AddDocScreen';
+  static const String babyProfileScreen = '/BabyProfileScreen';
+  static const String vaccinationsScreen = '/VaccinationsScreen';
+  static const String settingScreen = '/SettingScreen';
+  static const String notificationScreen = '/NotificationScreen';
+  static const String notificationDetailsScreen = '/NotificationDetailsScreen';
+  static const String editProfileScreen = '/EditProfileScreen';
+  static const String changePasswordScreen = '/ChangePasswordScreen';
+  static const String exerciseScreen = '/ExerciseScreen';
+  static const String articleScreen = '/ArticleScreen';
+  static const String videoScreen = '/VideoScreen';
+  static const String foodScreen = '/FoodScreen';
+}

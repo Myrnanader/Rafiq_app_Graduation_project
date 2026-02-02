@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../core/theming/app_colors.dart';
+import '../../../addMemoryAndDocs/widgets/widgets/memory_item.dart';
 
 class AddBabyProfileButton extends StatelessWidget {
   const AddBabyProfileButton({super.key});
@@ -18,7 +19,9 @@ class AddBabyProfileButton extends StatelessWidget {
       radius: Radius.circular(10),
       child: ElevatedButton.icon(
         onPressed: () {
-          context.push(AppRoutes.babyProfileScreen);
+          context.pushNamed(
+            AppRoutes.docsScreen,
+          );
         },
         icon: Icon(Icons.add, color: Color(0xFF6F42C1)),
         label: Text(

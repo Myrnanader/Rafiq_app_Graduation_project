@@ -82,6 +82,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
               description:
                   "started by creating a consistent sleep routine for both of my children. I implemented a calming bedtime schedule that included dim lights, a warm bath, and predictable winding-down activities. I also introduced sleep associations—such as white noise and a comfort object—to help my baby fall back asleep without needing me every time. For my toddler, I focused on gentle sleep training and reassuring him during the regression phase without fully restarting the night-time routine.I asked for support from my partner and allowed myself to rest during the day whenever possible. Over time, the wake-ups became less frequent, my toddler adjusted, and our home slowly returned to a healthier, peaceful rhythm.",
             ),
+
           ],
         ),
       ),

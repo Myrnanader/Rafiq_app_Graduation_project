@@ -36,7 +36,7 @@ class _CommunityScreenState extends State<CommunityScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightSurface,
+      // backgroundColor: AppColors.lightSurface,
       appBar: AppBar(
         backgroundColor: AppColors.lightSurface,
         bottom: TabBar(
@@ -68,16 +68,16 @@ class _CommunityScreenState extends State<CommunityScreen>
                   userName: "Maram Mohammed ",
                   date: "Today , 4:20 Am",
                   description: "Pregnancy yoga is tailored to support the changing needs of your body during each trimester. Gentle stretches....more",
-                  userImage: "assets/images/mather1.png",
-                  postImage: "assets/images/practise.jpg",
+                  userImage: "assets/images/flower.jpg",
+                  postImage: "assets/images/yoga.jpg",
                   initialLikes: 30,
                   comments: 12,
                 ),
                 CustomPostCard(
                   userName: "Sara Ali",
-                  date: "Yesterday",
-                  description: "Lovely place to enjoy nature!\nLovely place to enjoy nature!\nLovely place to enjoy nature!",
-                  userImage: "assets/images/mather1.png",
+                  date: "yesterday , 5:30 Pm",
+                  description: " Eating a variety of fresh vegetables helps provide essential vitamins and strengthens your immune system.",
+                  userImage: "assets/images/user2.jpg",
                   postImage: "assets/images/food.png",
                   initialLikes: 90,
                   comments: 20,
@@ -98,32 +98,33 @@ class _CommunityScreenState extends State<CommunityScreen>
                 CustomPreviousExperienceCard(
                   userName: "Experience 1",
                   date: "Sarah M. 2days ago",
-                  description: "My journey through the first trimester and how I managed morning sickness with natural remedies.",
-                  userImage: "assets/user1.jpg",
+                  description:
+                  "After my second child was born, I struggled with severe sleep deprivation. My youngest would wake up every 2 hours, and my toddler was going through a regression phase. I felt exhausted, overwhelmed, and couldn't function properly during the day. My patience was running thin, and I knew something had to change.",
+                  userImage: "assets/images/user2.jpg",
                   initialLikes: 123,
                   comments: 18,
                 ),
                 CustomPreviousExperienceCard(
                   userName: "Experience 2",
                   date: "Mariam M. 5days ago",
-                  description: "LMy journey through the first trimester and how I managed morning sickness with natural remedies.",
-                  userImage: "assets/user2.jpg",
+                  description: "I experienced feelings of sadness, anxiety, and guilt after giving birth. Simple tasks felt overwhelming, and I isolated myself from friends and family.",
+                  userImage: "assets/images/user3.png",
                   initialLikes: 255,
                   comments: 42,
                 ),
                 CustomPreviousExperienceCard(
                   userName: "Experience 3",
                   date: "Soha M. 1week ago",
-                  description: "My journey through the first trimester and how I managed morning sickness with natural remedies.",
-                  userImage: "assets/user3.jpg",
+                  description: "Managing household tasks, taking care of the newborn, and maintaining work responsibilities left me feeling overwhelmed and exhausted.",
+                  userImage: "assets/images/flower.jpg",
                   initialLikes: 188,
                   comments: 31,
                 ),
                 CustomPreviousExperienceCard(
                   userName: "Experience 4",
                   date: "Sarah M. 2days ago",
-                  description: "My journey through the first trimester and how I managed morning sickness with natural remedies.",
-                  userImage: "assets/user1.jpg",
+                  description: "During my pregnancy, I constantly worried about the health of my baby and potential complications. This stress affected my sleep and mood.",
+                  userImage: "assets/images/user.png",
                   initialLikes: 123,
                   comments: 18,
                 ),

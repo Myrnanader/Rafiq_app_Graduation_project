@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 import 'package:rafiq_app/features/mother/widgets/widgets/custom_gridview_widget.dart';
@@ -49,6 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   {
                     "icon": "assets/icons/vaccinations.svg",
                     "label": "Vaccinations",
+                    "route": AppRoutes.vaccinationsScreen,
                   },
                 ],
               ),

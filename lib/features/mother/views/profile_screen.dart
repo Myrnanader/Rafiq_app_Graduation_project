@@ -84,6 +84,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             30.ph,
             AddBabyProfileButton(),
+            AddBabyProfileButton(),
             20.ph,
           ],
         ),

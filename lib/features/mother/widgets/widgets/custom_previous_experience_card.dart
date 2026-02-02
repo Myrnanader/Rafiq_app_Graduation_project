@@ -62,6 +62,7 @@ class _CustomPreviousExperienceCardState
                 children: [
                   CircleAvatar(
                     radius: 20,
+                    backgroundColor: AppColors.lightBackground,
                     backgroundImage: AssetImage(widget.userImage),
                   ),
                   10.pw,
@@ -107,6 +108,7 @@ class _CustomPreviousExperienceCardState
                 style: AppTextStyles.font14Regular.copyWith(
                   color: AppColors.neutralGray,
                 ),
+                maxLines: 3,
               ),
 
               12.ph,

@@ -16,6 +16,7 @@ class AppImages {
   static const String miniBaby = 'assets/images/mini_baby.png';
   static const String growthBaby = 'assets/images/growth_baby.png';
   static const String growthCursor = 'assets/images/growth_cursor.png';
+  static const String logo = 'assets/images/logo.png';
     
   
 }

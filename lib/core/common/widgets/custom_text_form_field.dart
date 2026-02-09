@@ -11,6 +11,7 @@ class AppTextFormField extends StatelessWidget {
   final TextStyle? inputTextStyle;
   final TextStyle? hintStyle;
   final String? hintText;
+  final String? suffixText;
   final bool? isObscureText;
   final Widget? suffixIcon;
   final Color? backgroundColor;
@@ -39,6 +40,7 @@ final bool readOnly;
     this.hintText,
     this.isObscureText,
     this.suffixIcon,
+    this.suffixText,
     this.backgroundColor,
     this.controller,
     this.validator,

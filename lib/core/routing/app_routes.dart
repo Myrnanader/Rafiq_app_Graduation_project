@@ -28,4 +28,9 @@ static const String depressionResultScreen = '/DepressionResultScreen';
 static const String deliveryStartScreen = '/deliveryStart';
 static const String deliverySurveyScreen = '/deliverySurvey';
 static const String deliveryResultScreen = '/deliveryResult';
+
+// -------- Growth Feature --------
+static const String growthTrackerScreen = '/GrowthTrackerScreen';
+static const String addGrowthScreen = '/AddGrowthScreen';
+static const String growthSuccessScreen = '/GrowthSuccessScreen';
 }

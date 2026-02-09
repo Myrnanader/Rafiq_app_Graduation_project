@@ -5,6 +5,14 @@ import 'font_weight_helper.dart';
 
 class AppTextStyles {
   const AppTextStyles._();
+// ---------- Font 6 sizes ----------
+  static TextStyle font6Regular = TextStyle(
+    fontSize: 6.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
 
   // ---------- Font 12 sizes ----------
   static TextStyle font12Regular = TextStyle(
@@ -104,7 +112,12 @@ static TextStyle font16Medium = TextStyle(
     fontFamily: AppFonts.poppins,
     letterSpacing: 0.5.sp,
   );
-
+ static TextStyle font18Medium = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
   static TextStyle font18SemiBold = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeightHelper.semiBold,

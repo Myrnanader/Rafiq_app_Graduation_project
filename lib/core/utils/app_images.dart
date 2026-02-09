@@ -14,6 +14,8 @@ class AppImages {
   static const String babyCry = 'assets/images/baby_cry.png';
   static const String survey = 'assets/images/survey.png';
   static const String miniBaby = 'assets/images/mini_baby.png';
+  static const String growthBaby = 'assets/images/growth_baby.png';
+  static const String growthCursor = 'assets/images/growth_cursor.png';
     
   
 }

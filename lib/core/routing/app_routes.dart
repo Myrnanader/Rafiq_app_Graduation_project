@@ -33,4 +33,6 @@ static const String deliveryResultScreen = '/deliveryResult';
 static const String growthTrackerScreen = '/GrowthTrackerScreen';
 static const String addGrowthScreen = '/AddGrowthScreen';
 static const String growthSuccessScreen = '/GrowthSuccessScreen';
+
+static const String nearbyHospitalScreen = '/NearbyHospitalScreen';
 }

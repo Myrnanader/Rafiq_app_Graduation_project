@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
-import 'package:rafiq_app/core/utils/app_icons.dart';
 import 'package:rafiq_app/core/utils/app_images.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      context.go(AppRoutes.growthTrackerScreen);
+      context.go(AppRoutes.nearbyHospitalScreen);
     });
   }
 

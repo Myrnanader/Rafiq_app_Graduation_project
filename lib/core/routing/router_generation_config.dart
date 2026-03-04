@@ -20,6 +20,7 @@ import 'package:rafiq_app/features/delivery/presentation/view/delivery_survey_sc
 import 'package:rafiq_app/features/depression/presentation/views/depression_result_screen.dart';
 import 'package:rafiq_app/features/depression/presentation/views/depression_start_screen.dart';
 import 'package:rafiq_app/features/depression/presentation/views/depression_survey_screen.dart';
+import 'package:rafiq_app/features/doctors/nearby_hospital_screen.dart';
 import 'package:rafiq_app/features/growth/presentation/views/add_growth_record_screen.dart';
 import 'package:rafiq_app/features/growth/presentation/views/growth_success_screen.dart';
 import 'package:rafiq_app/features/growth/presentation/views/growth_tracker_screen.dart';
@@ -148,25 +149,31 @@ abstract class RouterGenerationConfig {
           path: AppRoutes.deliveryResultScreen,
           builder: (context, state) => const DeliveryResultScreen(),
         ),
+
         // ================= Growth Feature =================
+        GoRoute(
+          path: AppRoutes.growthTrackerScreen,
+          name: AppRoutes.growthTrackerScreen,
+          builder: (context, state) => const GrowthTrackerScreen(),
+        ),
 
-GoRoute(
-  path: AppRoutes.growthTrackerScreen,
-  name: AppRoutes.growthTrackerScreen,
-  builder: (context, state) => const GrowthTrackerScreen(),
-),
+        GoRoute(
+          path: AppRoutes.addGrowthScreen,
+          name: AppRoutes.addGrowthScreen,
+          builder: (context, state) => const AddGrowthRecordScreen(),
+        ),
 
-GoRoute(
-  path: AppRoutes.addGrowthScreen,
-  name: AppRoutes.addGrowthScreen,
-  builder: (context, state) => const AddGrowthRecordScreen(),
-),
+        GoRoute(
+          path: AppRoutes.growthSuccessScreen,
+          name: AppRoutes.growthSuccessScreen,
+          builder: (context, state) => const GrowthSuccessScreen(),
+        ),
 
-GoRoute(
-  path: AppRoutes.growthSuccessScreen,
-  name: AppRoutes.growthSuccessScreen,
-  builder: (context, state) => const GrowthSuccessScreen(),
-),
+        GoRoute(
+          path: AppRoutes.nearbyHospitalScreen,
+          name: AppRoutes.nearbyHospitalScreen,
+          builder: (context, state) => NearbyHospitalScreen(),
+        ),
       ],
     );
   }

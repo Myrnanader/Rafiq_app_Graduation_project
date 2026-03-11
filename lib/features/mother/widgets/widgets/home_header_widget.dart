@@ -19,7 +19,7 @@ class _HomeHeaderState extends State<HomeHeader> {
       children: [
         Row(
           children: [
-            const CircleAvatar(radius: 20, backgroundColor: AppColors.gray85),
+            const CircleAvatar(radius: 20,   backgroundImage: AssetImage("assets/images/memory.png"),),
             const SizedBox(width: 10),
             Text("Hello, Sara", style: AppTextStyles.font12Medium),
           ],

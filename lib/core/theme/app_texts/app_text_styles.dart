@@ -1,0 +1,310 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'app_fonts.dart';
+import 'font_weight_helper.dart';
+
+class AppTextStyles {
+  const AppTextStyles._();
+
+  // ---------- Font 8 sizes ----------
+  static TextStyle font8Regular = TextStyle(
+    fontSize: 8.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    // letterSpacing: 0.5.sp,
+  );
+
+  // ---------- Font 9 sizes ----------
+  static TextStyle font9Regular = TextStyle(
+    fontSize: 9.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+  );
+
+  static TextStyle font9Medium = TextStyle(
+    fontSize: 9.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+  );
+
+  // ---------- Font 10 sizes ----------
+  static TextStyle font10Regular = TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+  );
+  static TextStyle font10Medium = TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+  );
+
+  // ---------- Font 11 sizes ----------
+  static TextStyle font11Regular = TextStyle(
+    fontSize: 11.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+  );
+
+  static TextStyle font11Medium = TextStyle(
+    fontSize: 11.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+  );
+
+  static TextStyle font11SemiBold = TextStyle(
+    fontSize: 11.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    // letterSpacing: 0.5.sp,
+  );
+
+  // ---------- Font 12 sizes ----------
+  static TextStyle font12Regular = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font12Medium = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font12SemiBold = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font12Bold = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+  // ---------- Font 13 sizes ----------
+  static TextStyle font13Regular = TextStyle(
+    fontSize: 13.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font13Medium = TextStyle(
+    fontSize: 13.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+  // ---------- Font 14 sizes ----------
+  static TextStyle font14Regular = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font14SemiBold = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font14Medium = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font14Bold = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  // ---------- Font 16 sizes ----------
+  static TextStyle font16light = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.light,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font16SemiBold = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+  static TextStyle font16Regular = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+  static TextStyle font16Medium = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+  static TextStyle font16Bold = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font17Medium = TextStyle(
+    fontSize: 17.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+  // ---------- Font 18 sizes ----------
+  static TextStyle font18Regular = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font18SemiBold = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font18Bold = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  // ---------- Font 20 sizes ----------
+  static TextStyle font20Regular = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font20Medium = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font20SemiBold = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  // ---------- Font 22 sizes ----------
+  static TextStyle font22Regular = TextStyle(
+    fontSize: 22.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font22Medium = TextStyle(
+    fontSize: 22.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font22SemiBold = TextStyle(
+    fontSize: 22.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font22Bold = TextStyle(
+    fontSize: 22.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  // ---------- Font 24 sizes ----------
+  static TextStyle font24Regular = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font24SemiBold = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    //letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font24Bold = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  // ---------- Font 32 sizes ----------
+  static TextStyle font32Regular = TextStyle(
+    fontSize: 32.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font32SemiBold = TextStyle(
+    fontSize: 32.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font32Bold = TextStyle(
+    fontSize: 32.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  // ---------- Font 48 sizes ----------
+  static TextStyle font48Regular = TextStyle(
+    fontSize: 48.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font48SemiBold = TextStyle(
+    fontSize: 48.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+
+  static TextStyle font48Bold = TextStyle(
+    fontSize: 48.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: AppFonts.poppins,
+    letterSpacing: 0.5.sp,
+  );
+}

@@ -42,7 +42,7 @@ class _BabyProgressState extends State<BabyProgress> {
           ),
         ),
         10.ph,
-        Text("90 days was left", style: AppTextStyles.font14Regular),
+        Text("90 days was left", style: AppTextStyles.font14Regular.copyWith(color: AppColors.neutralGray)),
       ],
     );
   }

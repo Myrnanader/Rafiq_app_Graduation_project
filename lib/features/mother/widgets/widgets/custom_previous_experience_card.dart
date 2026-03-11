@@ -6,6 +6,7 @@ import 'package:rafiq_app/core/theming/app_colors.dart';
 
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/routing/app_routes.dart';
+import '../../views/comment_screen.dart';
 
 class CustomPreviousExperienceCard extends StatefulWidget {
   final String userName;
@@ -62,6 +63,7 @@ class _CustomPreviousExperienceCardState
                 children: [
                   CircleAvatar(
                     radius: 20,
+                    backgroundColor: AppColors.lightBackground,
                     backgroundImage: AssetImage(widget.userImage),
                   ),
                   10.pw,
@@ -89,12 +91,14 @@ class _CustomPreviousExperienceCardState
                         isSaved = !isSaved;
                       });
                     },
-                    child: Icon(
-                      isSaved ? Icons.bookmark : Icons.bookmark_border,
-                      color: isSaved
-                          ? AppColors.primary
-                          : AppColors.neutralGray,
-                      size: 24,
+                    child: SvgPicture.asset(
+                      isSaved ? "assets/icons/bookmark.svg" : "assets/icons/bookmark.svg",
+                      width: 20,
+                      height: 24,
+                      colorFilter: ColorFilter.mode(
+                        isSaved ? AppColors.primary : AppColors.neutralGray,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ],
@@ -107,6 +111,7 @@ class _CustomPreviousExperienceCardState
                 style: AppTextStyles.font14Regular.copyWith(
                   color: AppColors.neutralGray,
                 ),
+                maxLines: 3,
               ),
 
               12.ph,
@@ -121,9 +126,9 @@ class _CustomPreviousExperienceCardState
                       });
                     },
                     child: SvgPicture.asset(
-                      "assets/icons/favorite.svg",
-                      width: 15,
-                      height: 20,
+                      !isLiked ? "assets/icons/heart.svg" : "assets/icons/solar_heart-bold.svg",
+                      width: 20,
+                      height: 25,
                       colorFilter: ColorFilter.mode(
                         isLiked ? AppColors.primary : AppColors.neutralGray,
                         BlendMode.srcIn,
@@ -141,13 +146,17 @@ class _CustomPreviousExperienceCardState
 
                   20.pw,
 
-                  SvgPicture.asset(
-                    "assets/icons/comment.svg",
-                    width: 15,
-                    height: 20,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.neutralGray,
-                      BlendMode.srcIn,
+                  GestureDetector(
+                    onTap: () => openCommentsSheet(context),
+
+                    child: SvgPicture.asset(
+                      "assets/icons/comments.svg",
+                      width: 15,
+                      height: 20,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.neutralGray,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                   6.pw,

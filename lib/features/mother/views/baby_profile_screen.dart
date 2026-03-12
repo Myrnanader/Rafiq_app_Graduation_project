@@ -12,10 +12,10 @@ class BabyProfileScreen extends StatefulWidget {
   const BabyProfileScreen({super.key});
 
   @override
-  _BabyProfileScreenState createState() => _BabyProfileScreenState();
+  BabyProfileScreenState createState() => BabyProfileScreenState();
 }
 
-class _BabyProfileScreenState extends State<BabyProfileScreen> {
+class BabyProfileScreenState extends State<BabyProfileScreen> {
   String? _selectedGender;
 
   @override

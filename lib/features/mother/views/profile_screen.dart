@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rafiq_app/features/mother/widgets/widgets/add_baby_profile_button.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../core/theming/app_colors.dart';
+import '../../../core/routing/app_routes.dart';
+import '../widgets/widgets/custom_profile_button.dart';
 import '../widgets/widgets/profile_image.dart';
 import '../widgets/widgets/profile_info_card.dart';
 
@@ -14,9 +15,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightSurface,
+      backgroundColor: AppColors.lightBackground,
       appBar: AppBar(
-        backgroundColor: AppColors.lightSurface,
+        backgroundColor: AppColors.lightBackground,
         leading: Column(
           children: [
             5.ph,
@@ -36,7 +37,6 @@ class ProfileScreen extends StatelessWidget {
         ),
         title: Column(
           children: [
-            25.ph,
             Text(
               "My Profile",
               style: AppTextStyles.font20SemiBold.copyWith(
@@ -48,11 +48,11 @@ class ProfileScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(10),
         child: Column(
           children: [
             30.ph,
-            ProfileImage(image: 'assets/images/mather1.png'),
+            ProfileImage(image: 'assets/images/memory.png'),
             10.ph,
             Text(
               'Sara Mohammed',
@@ -60,6 +60,7 @@ class ProfileScreen extends StatelessWidget {
                 color: AppColors.onPrimaryFixed,
               ),
             ),
+            8.ph,
             Text(
               'Expecting Mother',
               style: AppTextStyles.font13Medium.copyWith(
@@ -67,24 +68,65 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             20.ph,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomProfileButton(
+                  svgIconPath: 'assets/icons/add_memory.svg',
+                  text: 'Add Memory',
+                  onPressed: () {
+                    context.push(AppRoutes.addMemoryScreen);
+                  },
+                ),
+                const SizedBox(width: 12),
+                CustomProfileButton(
+                  svgIconPath: 'assets/icons/doc.svg',
+                  text: 'Documents',
+                  onPressed: () {
+                    context.push(AppRoutes.docsScreen);
+                  },
+                ),
+              ],
+            ),
+            20.ph,
             ProfileInfoCard(
               image: "assets/icons/age.svg",
               title: 'Age',
               value: '25 years Old',
             ),
+            const Divider(indent: 20, endIndent: 25),
             ProfileInfoCard(
               image: "assets/icons/pregnant_vector.svg",
               title: 'Current Pregnancy Month',
               value: '3th Month',
             ),
-            ProfileInfoCard(
-              image: "assets/icons/id.svg",
-              title: "Father's Id",
-              value: '101898567',
+            // const Divider(indent: 20, endIndent: 25),
+            // ProfileInfoCard(
+            //   image: "assets/icons/id.svg",
+            //   title: "Father's Id",
+            //   value: '101898567',
+            // ),
+            50.ph,
+            Row(
+              spacing: 10,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomProfileButton(
+                  svgIconPath: 'assets/icons/plus.svg',
+                  text: 'Add Baby Profile',
+                  onPressed: () {
+                    context.push(AppRoutes.babyProfileScreen);
+                  },
+                ),
+                CustomProfileButton(
+                  svgIconPath: 'assets/icons/plus.svg',
+                  text: 'Add Father\'s Id',
+                  onPressed: () {
+                    context.push(AppRoutes.addFatherIdScreen);
+                  },
+                ),
+              ],
             ),
-            30.ph,
-            AddBabyProfileButton(),
-            20.ph,
           ],
         ),
       ),

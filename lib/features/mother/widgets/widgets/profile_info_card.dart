@@ -17,13 +17,8 @@ class ProfileInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: AppColors.gray84, width: 1),
-        ),
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
       child: ListTile(
         leading: SizedBox(
           height: 50,

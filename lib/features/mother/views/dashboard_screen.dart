@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 import 'package:rafiq_app/features/mother/widgets/widgets/custom_gridview_widget.dart';
@@ -8,10 +9,10 @@ class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<DashboardScreen> createState() => DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,20 +28,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 style: AppTextStyles.font20SemiBold,
                 textAlign: TextAlign.center,
               ),
-              80.ph,
+              60.ph,
               CustomGridviewWidget(
                 items: [
                   {
+                    "icon": "assets/icons/pregnant_vector.svg",
+                    "label": "Delivery",
+                    "route": AppRoutes.deliveryStartScreen,
+                  },
+                  {
                     "icon": "assets/icons/Baby_crying.svg",
                     "label": "Cry Analysis",
+                    "route": AppRoutes.cryAnalysisScreen,
                   },
                   {
                     "icon": "assets/icons/stress.svg",
                     "label": "Postpartum\nDepression",
-                  },
-                  {
-                    "icon": "assets/icons/pregnant_vector.svg",
-                    "label": "Delivery",
+                    "route": AppRoutes.depressionStartScreen,
                   },
                   {
                     "icon": "assets/icons/growth.svg",
@@ -49,6 +53,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   {
                     "icon": "assets/icons/vaccinations.svg",
                     "label": "Vaccinations",
+                    "route": AppRoutes.vaccinationsScreen,
+                  },
+                  {
+                    "icon": "assets/icons/solar_stethoscope-bold.svg",
+                    "label": "Find a Doctor Now",
+                    "route": AppRoutes.nearbyHospitalScreen,
+                  },
+                  {
+                    "icon": "assets/icons/Chatbot.svg",
+                    "label": "Chatbot",
+                    "route": AppRoutes.vaccinationsScreen,
                   },
                 ],
               ),

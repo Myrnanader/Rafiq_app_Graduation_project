@@ -6,6 +6,10 @@ import 'package:rafiq_app/core/common/widgets/app_gradient_background.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/features/cry/presentation/widgets/cry_section_header.dart';
+<<<<<<< HEAD
+import '../widgets/cry_app_bar.dart';
+=======
+>>>>>>> origin/development
 import '../widgets/cry_illustration.dart';
 import '../widgets/cry_progress_bar.dart';
 

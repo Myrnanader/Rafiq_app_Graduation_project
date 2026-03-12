@@ -2,6 +2,11 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+<<<<<<< HEAD
+        maven { setUrl("https://storage.googleapis.com/download.flutter.io") }
+        maven { setUrl("https://jitpack.io") }
+=======
+>>>>>>> origin/development
     }
 }
 
@@ -21,4 +26,8 @@ subprojects {
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/development

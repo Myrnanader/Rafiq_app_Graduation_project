@@ -8,6 +8,11 @@ import 'package:rafiq_app/core/helpers/extensions.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/features/auth/presentation/widgets/widgets/password_feild_widget.dart';
 
+<<<<<<< HEAD
+import '../../../../core/theming/app_colors.dart';
+
+=======
+>>>>>>> origin/development
 class CreateNewPasswordScreen extends StatefulWidget {
   const CreateNewPasswordScreen({super.key});
 
@@ -40,6 +45,10 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
               329.h.ph,
               CustomButton(
                 text: 'Save',
+<<<<<<< HEAD
+                color: AppColors.primary,
+=======
+>>>>>>> origin/development
                 onTap: () {
                   if (newPasswordController.text ==
                           confirmPasswordController.text &&

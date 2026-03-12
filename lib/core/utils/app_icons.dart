@@ -13,5 +13,8 @@ class AppIcons {
   static const String facebookSvgIcon ='assets/icons/google_svg_icon.svg';
   static const String googleSvgIcon = 'assets/icons/facebook_svg_icon.svg';
   static const String appleSvgIcon = 'assets/icons/apple_svg_icon.svg';
+<<<<<<< HEAD
+=======
   
+>>>>>>> origin/development
 }

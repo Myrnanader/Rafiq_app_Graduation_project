@@ -71,7 +71,7 @@ class _CustomExperienceCardState extends State<CustomExperienceCard> {
                 Text(
                   widget.description,
                   style: AppTextStyles.font14Regular.copyWith(
-                    color: AppColors.cloudBurst,
+                    color: AppColors.neutralGray,
                   ),
                 ),
               ],

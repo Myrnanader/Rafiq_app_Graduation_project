@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rafiq_app/features/mother/views/home_screen.dart';
 
+import '../../../motherSettings/views/setting_screen.dart';
 import '../../views/community_screen.dart';
 import '../../views/dashboard_screen.dart';
 import '../../views/profile_screen.dart';
-import '../../views/setting_screen.dart';
 
 class NavBarPageSelector {
   static Widget getPage(int currentIndex) {

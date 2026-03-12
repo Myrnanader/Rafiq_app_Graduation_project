@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
-
+import 'package:rafiq_app/features/mother/views/comment_screen.dart';
 import '../../../../core/helpers/extensions.dart';
-
 
 class CustomPostCard extends StatefulWidget {
   final String userName;
@@ -85,8 +84,9 @@ class _CustomPostCardState extends State<CustomPostCard> {
                   colorFilter: ColorFilter.mode(
                     AppColors.neutralGray,
                     BlendMode.srcIn,
-                  ),                ),
-                10.pw
+                  ),
+                ),
+                10.pw,
               ],
             ),
 
@@ -121,13 +121,14 @@ class _CustomPostCardState extends State<CustomPostCard> {
                     });
                   },
                   child: SvgPicture.asset(
-                    "assets/icons/like.svg",
-                    width: 15,
-                    height: 20,
+                    !isLiked ? "assets/icons/heart.svg" : "assets/icons/solar_heart-bold.svg",
+                    width: 20,
+                    height: 25,
                     colorFilter: ColorFilter.mode(
-                      isLiked? AppColors.primary : AppColors.neutralGray,
+                      isLiked ? AppColors.primary : AppColors.neutralGray,
                       BlendMode.srcIn,
-                    ),                  ),
+                    ),
+                  ),
                 ),
                 6.pw,
                 Text(
@@ -138,14 +139,20 @@ class _CustomPostCardState extends State<CustomPostCard> {
                 ),
 
                 20.pw,
-                SvgPicture.asset(
-                  "assets/icons/comment.svg",
-                  width: 15,
-                  height: 20,
-                  colorFilter: ColorFilter.mode(
-                    AppColors.neutralGray,
-                    BlendMode.srcIn,
-                  ),                ),
+                GestureDetector(
+                  onTap: () => openCommentsSheet(context),
+
+                  child: SvgPicture.asset(
+                    "assets/icons/comments.svg",
+                    width: 15,
+                    height: 20,
+                    colorFilter: ColorFilter.mode(
+                      AppColors.neutralGray,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+
                 6.pw,
                 Text(
                   "${widget.comments}",
@@ -162,10 +169,14 @@ class _CustomPostCardState extends State<CustomPostCard> {
                       isSaved = !isSaved;
                     });
                   },
-                  child: Icon(
-                    isSaved ? Icons.bookmark : Icons.bookmark_border,
-                    color: isSaved ? AppColors.primary : AppColors.neutralGray,
-                    size: 24,
+                  child: SvgPicture.asset(
+                    isSaved ? "assets/icons/bookmark.svg" : "assets/icons/bookmark.svg",
+                    width: 20,
+                    height: 24,
+                    colorFilter: ColorFilter.mode(
+                      isSaved ? AppColors.primary : AppColors.neutralGray,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
 
@@ -178,7 +189,8 @@ class _CustomPostCardState extends State<CustomPostCard> {
                   colorFilter: ColorFilter.mode(
                     AppColors.neutralGray,
                     BlendMode.srcIn,
-                  ),                ),
+                  ),
+                ),
               ],
             ),
           ],
@@ -187,3 +199,4 @@ class _CustomPostCardState extends State<CustomPostCard> {
     );
   }
 }
+

@@ -41,7 +41,7 @@ class _CustomExperienceInfoCardState extends State<CustomExperienceInfoCard> {
               children: [
                 CircleAvatar(
                   radius: 32,
-                  backgroundImage: AssetImage(widget.userImage), // مهم
+                  backgroundImage: AssetImage(widget.userImage),
                 ),
                 15.pw,
                 Column(

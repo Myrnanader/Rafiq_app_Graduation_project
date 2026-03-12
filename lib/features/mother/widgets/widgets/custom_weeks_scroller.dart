@@ -18,7 +18,7 @@ class _CustomWeeksScrollerState extends State<CustomWeeksScroller> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90,
+      height: 84,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: weeks.length,
@@ -32,7 +32,7 @@ class _CustomWeeksScrollerState extends State<CustomWeeksScroller> {
               });
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 18, bottom: 0),
               margin: const EdgeInsets.symmetric(vertical: 5),
               decoration: BoxDecoration(
                 color: isSelected

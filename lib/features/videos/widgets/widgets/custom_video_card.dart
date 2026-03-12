@@ -3,7 +3,6 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 import '../../../../core/helpers/extensions.dart';
-import '../../views/video_details_screen.dart';
 
 class CustomVideoCard extends StatefulWidget {
   final String title;

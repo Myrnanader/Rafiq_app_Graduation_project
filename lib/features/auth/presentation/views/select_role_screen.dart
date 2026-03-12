@@ -25,11 +25,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-<<<<<<< HEAD
-        padding: EdgeInsets.symmetric(horizontal: 22.w),
-=======
         padding: EdgeInsets.symmetric(horizontal: 24.w),
->>>>>>> origin/development
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

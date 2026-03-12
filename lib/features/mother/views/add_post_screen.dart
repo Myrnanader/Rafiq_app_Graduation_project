@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:photo_manager/photo_manager.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../core/theming/app_colors.dart';

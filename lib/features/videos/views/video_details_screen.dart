@@ -8,6 +8,8 @@ import '../../../core/theming/app_colors.dart';
 
 
 class VideoDetailsScreen extends StatelessWidget {
+  const VideoDetailsScreen({super.key});
+
   // final ArticleItem article;
 
   // const ArticleDetailsScreen({super.key, required this.article});

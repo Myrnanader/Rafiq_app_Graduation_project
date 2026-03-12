@@ -5,7 +5,6 @@ import 'font_weight_helper.dart';
 
 class AppTextStyles {
   const AppTextStyles._();
-<<<<<<< HEAD
 
   // ---------- Font 8 sizes ----------
   static TextStyle font8Regular = TextStyle(
@@ -60,30 +59,24 @@ class AppTextStyles {
     // letterSpacing: 0.5.sp,
   );
 
-  // ---------- Font 12 sizes ----------
-  static TextStyle font12Regular = TextStyle(
-    fontSize: 12.sp,
-=======
+  
+  
 // ---------- Font 6 sizes ----------
   static TextStyle font6Regular = TextStyle(
     fontSize: 6.sp,
->>>>>>> origin/development
     fontWeight: FontWeightHelper.regular,
     fontFamily: AppFonts.poppins,
     letterSpacing: 0.5.sp,
   );
-
-<<<<<<< HEAD
+// ---------- Font 12 sizes ----------
   static TextStyle font12Medium = TextStyle(
     fontSize: 12.sp,
-    fontWeight: FontWeightHelper.medium,
-=======
+    fontWeight: FontWeightHelper.medium,);
 
   // ---------- Font 12 sizes ----------
   static TextStyle font12Regular = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.regular,
->>>>>>> origin/development
     fontFamily: AppFonts.poppins,
     letterSpacing: 0.5.sp,
   );
@@ -130,11 +123,8 @@ class AppTextStyles {
     letterSpacing: 0.5.sp,
   );
 
-<<<<<<< HEAD
-  static TextStyle font14Medium = TextStyle(
-=======
+ 
 static TextStyle font14Medium = TextStyle(
->>>>>>> origin/development
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: AppFonts.poppins,
@@ -162,17 +152,14 @@ static TextStyle font14Medium = TextStyle(
     fontFamily: AppFonts.poppins,
     letterSpacing: 0.5.sp,
   );
-<<<<<<< HEAD
   static TextStyle font16Regular = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: AppFonts.poppins,
     //letterSpacing: 0.5.sp,
   );
-  static TextStyle font16Medium = TextStyle(
-=======
+
 static TextStyle font16Medium = TextStyle(
->>>>>>> origin/development
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: AppFonts.poppins,
@@ -185,15 +172,12 @@ static TextStyle font16Medium = TextStyle(
     letterSpacing: 0.5.sp,
   );
 
-<<<<<<< HEAD
   static TextStyle font17Medium = TextStyle(
     fontSize: 17.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: AppFonts.poppins,
     //letterSpacing: 0.5.sp,
   );
-=======
->>>>>>> origin/development
   // ---------- Font 18 sizes ----------
   static TextStyle font18Regular = TextStyle(
     fontSize: 18.sp,
@@ -201,16 +185,13 @@ static TextStyle font16Medium = TextStyle(
     fontFamily: AppFonts.poppins,
     letterSpacing: 0.5.sp,
   );
-<<<<<<< HEAD
 
-=======
- static TextStyle font18Medium = TextStyle(
+static TextStyle font18Medium = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: AppFonts.poppins,
     //letterSpacing: 0.5.sp,
   );
->>>>>>> origin/development
   static TextStyle font18SemiBold = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeightHelper.semiBold,
@@ -222,7 +203,6 @@ static TextStyle font16Medium = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: AppFonts.poppins,
-<<<<<<< HEAD
     letterSpacing: 0.5.sp,
   );
 
@@ -235,31 +215,23 @@ static TextStyle font16Medium = TextStyle(
   );
 
   static TextStyle font20Medium = TextStyle(
-=======
     //letterSpacing: 0.5.sp,
   );
  // ---------- Font 20 sizes ----------
   static TextStyle font20medium = TextStyle(
->>>>>>> origin/development
     fontSize: 20.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: AppFonts.poppins,
     //letterSpacing: 0.5.sp,
   );
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/development
   static TextStyle font20SemiBold = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeightHelper.semiBold,
     fontFamily: AppFonts.poppins,
     //letterSpacing: 0.5.sp,
   );
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/development
   // ---------- Font 22 sizes ----------
   static TextStyle font22Regular = TextStyle(
     fontSize: 22.sp,
@@ -268,7 +240,6 @@ static TextStyle font16Medium = TextStyle(
     //letterSpacing: 0.5.sp,
   );
 
-<<<<<<< HEAD
   static TextStyle font22Medium = TextStyle(
     fontSize: 22.sp,
     fontWeight: FontWeightHelper.medium,
@@ -276,8 +247,6 @@ static TextStyle font16Medium = TextStyle(
     //letterSpacing: 0.5.sp,
   );
 
-=======
->>>>>>> origin/development
   static TextStyle font22SemiBold = TextStyle(
     fontSize: 22.sp,
     fontWeight: FontWeightHelper.semiBold,

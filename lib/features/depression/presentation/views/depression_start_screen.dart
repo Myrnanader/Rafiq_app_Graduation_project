@@ -22,13 +22,7 @@ class DepressionStartScreen extends StatelessWidget {
             children: [
               DepressionCommonAppBar(
                 title: "Let's Start Survey",
-<<<<<<< HEAD
-                onBack: () => context.push(
-                  AppRoutes.mainNavigationBarScreen,
-                ),
-=======
                 onBack: () => context.pop(),
->>>>>>> origin/development
               ),
 
               47.h.verticalSpace,

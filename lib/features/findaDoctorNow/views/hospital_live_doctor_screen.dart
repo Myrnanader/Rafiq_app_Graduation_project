@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
-import 'package:rafiq_app/features/mother/widgets/widgets/custom_input_field.dart';
 
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theming/app_colors.dart';
 import '../../../core/common/widgets/app_gradient_background.dart';
-import '../../../core/routing/app_routes.dart';
 import '../../delivery/presentation/widgets/delivery_common_app_bar.dart';
 
 class HospitalLiveDoctorScreen extends StatefulWidget {

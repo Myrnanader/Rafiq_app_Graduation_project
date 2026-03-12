@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-<<<<<<< HEAD
-import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 
-import '../../../../core/routing/app_routes.dart';
 
-=======
-import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
-import 'package:rafiq_app/core/theming/app_colors.dart';
 
->>>>>>> origin/development
 class CryAppBar extends StatelessWidget {
   final String title;
   const CryAppBar({super.key, required this.title});
@@ -22,25 +15,6 @@ class CryAppBar extends StatelessWidget {
       padding: EdgeInsets.only(top: 56.h, bottom: 24.h),
       child: Row(
         children: [
-<<<<<<< HEAD
-          IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: AppColors.onPrimaryFixed,
-              size: 20.sp,
-            ),
-            onPressed: () {
-              context.push(
-                AppRoutes.mainNavigationBarScreen,
-              );
-            },
-          ),
-
-          const Spacer(),
-          Text(
-            title,
-            style: AppTextStyles.font20Medium.copyWith(
-=======
           Icon(
             Icons.arrow_back_ios,
             color: AppColors.onPrimaryFixed,
@@ -50,7 +24,6 @@ class CryAppBar extends StatelessWidget {
           Text(
             title,
             style: AppTextStyles.font20medium.copyWith(
->>>>>>> origin/development
               color: AppColors.onPrimaryFixed,
             ),
           ),

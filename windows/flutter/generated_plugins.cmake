@@ -3,11 +3,16 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
   file_selector_windows
   flutter_inappwebview_windows
   flutter_localization
   flutter_secure_storage_windows
   permission_handler_windows
+=======
+  flutter_localization
+  flutter_secure_storage_windows
+>>>>>>> origin/development
   url_launcher_windows
 )
 

@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
+<<<<<<< HEAD
 import 'package:rafiq_app/features/mother/views/dashboard_screen.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
 import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
@@ -52,6 +53,34 @@ import '../../features/notification/views/notification_details_screen.dart';
 import '../../features/notification/views/notification_screen.dart';
 import '../../features/vaccinations/views/vaccinations_screen.dart';
 import '../../features/videos/views/video_screen.dart';
+=======
+import 'package:rafiq_app/features/auth/presentation/views/create_new_password_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/account_created_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/password_changed_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/forget_password_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/doctor_information.dart';
+import 'package:rafiq_app/features/auth/presentation/views/mother_information.dart';
+import 'package:rafiq_app/features/auth/presentation/views/choose_parent_type_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/select_role_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/sign_in_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/sign_up_screen.dart';
+import 'package:rafiq_app/features/auth/presentation/views/verify_otp_screen.dart';
+import 'package:rafiq_app/features/cry/presentation/views/cry_analysis_screen.dart';
+import 'package:rafiq_app/features/cry/presentation/views/cry_progress_screen.dart';
+import 'package:rafiq_app/features/cry/presentation/views/cry_results_screen.dart';
+import 'package:rafiq_app/features/delivery/presentation/view/delivery_result_screen.dart';
+import 'package:rafiq_app/features/delivery/presentation/view/delivery_start_screen.dart';
+import 'package:rafiq_app/features/delivery/presentation/view/delivery_survey_screen.dart';
+import 'package:rafiq_app/features/depression/presentation/views/depression_result_screen.dart';
+import 'package:rafiq_app/features/depression/presentation/views/depression_start_screen.dart';
+import 'package:rafiq_app/features/depression/presentation/views/depression_survey_screen.dart';
+import 'package:rafiq_app/features/doctors/nearby_hospital_screen.dart';
+import 'package:rafiq_app/features/growth/presentation/views/add_growth_record_screen.dart';
+import 'package:rafiq_app/features/growth/presentation/views/growth_success_screen.dart';
+import 'package:rafiq_app/features/growth/presentation/views/growth_tracker_screen.dart';
+import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
+import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
+>>>>>>> origin/development
 
 abstract class RouterGenerationConfig {
   static late final GoRouter router;
@@ -132,6 +161,7 @@ abstract class RouterGenerationConfig {
           name: AppRoutes.accountCreatedSuccessfullyScreen,
           builder: (context, state) => const AccountCreatedSuccessfullyScreen(),
         ),
+<<<<<<< HEAD
 
         GoRoute(
           path: AppRoutes.mainNavigationBarScreen,
@@ -307,6 +337,8 @@ abstract class RouterGenerationConfig {
         ),
 
 
+=======
+>>>>>>> origin/development
         // ================= Cry Feature =================
         GoRoute(
           path: AppRoutes.cryAnalysisScreen,
@@ -336,7 +368,10 @@ abstract class RouterGenerationConfig {
           path: AppRoutes.depressionResultScreen,
           builder: (context, state) => const DepressionResultScreen(),
         ),
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/development
         GoRoute(
           path: AppRoutes.deliveryStartScreen,
           builder: (context, state) => const DeliveryStartScreen(),
@@ -352,6 +387,7 @@ abstract class RouterGenerationConfig {
           builder: (context, state) => const DeliveryResultScreen(),
         ),
 
+<<<<<<< HEAD
         /*
       GoRoute(
         path: AppRoutes.loginScreen,
@@ -395,6 +431,32 @@ abstract class RouterGenerationConfig {
       ),
 
       */
+=======
+        // ================= Growth Feature =================
+        GoRoute(
+          path: AppRoutes.growthTrackerScreen,
+          name: AppRoutes.growthTrackerScreen,
+          builder: (context, state) => const GrowthTrackerScreen(),
+        ),
+
+        GoRoute(
+          path: AppRoutes.addGrowthScreen,
+          name: AppRoutes.addGrowthScreen,
+          builder: (context, state) => const AddGrowthRecordScreen(),
+        ),
+
+        GoRoute(
+          path: AppRoutes.growthSuccessScreen,
+          name: AppRoutes.growthSuccessScreen,
+          builder: (context, state) => const GrowthSuccessScreen(),
+        ),
+
+        GoRoute(
+          path: AppRoutes.nearbyHospitalScreen,
+          name: AppRoutes.nearbyHospitalScreen,
+          builder: (context, state) => NearbyHospitalScreen(),
+        ),
+>>>>>>> origin/development
       ],
     );
   }

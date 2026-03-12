@@ -22,9 +22,13 @@ class DeliveryStartScreen extends StatelessWidget {
               30.h.verticalSpace,
               DeliveryCommonAppBar(
                 title: 'Initial Delivery Prediction',
+<<<<<<< HEAD
                 onBack: () => context.push(
                   AppRoutes.mainNavigationBarScreen,
                 ),
+=======
+                onBack: () => context.pop(),
+>>>>>>> origin/development
               ),
 
               47.h.verticalSpace,

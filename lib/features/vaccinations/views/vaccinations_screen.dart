@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rafiq_app/core/routing/app_routes.dart';
 
 import '../../../core/helpers/extensions.dart';
 import '../../../core/theme/app_texts/app_text_styles.dart';
@@ -53,7 +54,7 @@ class _VaccinationsScreenState extends State<VaccinationsScreen> {
           children: [
             5.ph,
             IconButton(
-              onPressed: () => GoRouter.of(context).pop(),
+              onPressed: () => GoRouter.of(context).go(AppRoutes.mainNavigationBarScreen),
               icon: SvgPicture.asset(
                 "assets/icons/back_arrow.svg",
                 width: 20,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../widgets/delivery_text_field.dart';
 import '../widgets/delivery_dropdown.dart';
 
 class DeliveryStepTwo extends StatelessWidget {
@@ -13,20 +12,27 @@ class DeliveryStepTwo extends StatelessWidget {
         63.h.verticalSpace,
         DeliveryDropdown(
           label:
-              '4. How many times have you delivered by C-section before?',
-          max: 6,
-          hint: 'Select a number from 0 to 6',
-        ),
-        DeliveryDropdown(
-          label:
-              '5. Have you been diagnosed with gestational diabetes?',
+              '5. Were you diagnosed with preeclampsia during pregnancy?',
           options: ['Yes', 'No'],
           hint: 'Select yes or no',
         ),
-        DeliveryTextField(
+        DeliveryDropdown(
           label:
-              '6. What is your systolic blood pressure (top number)?',
-          hint: 'enter your systolic blood pressure',
+              '6. Have you had any previous uterine surgery?',
+          options: ['Yes', 'No'],
+          hint: 'Select yes or no',
+        ),
+        DeliveryDropdown(
+          label:
+              '7. How many previous C-sections have you had?',
+          max:3,
+          hint: 'Select from 0 to 3',
+        ),
+        DeliveryDropdown(
+          label:
+              '8. Did the doctor recommend a cesarean section due to multiple pregnancy?',
+          options: ['Yes', 'No'],
+          hint: 'Select yes or no',
         ),
       ],
     );

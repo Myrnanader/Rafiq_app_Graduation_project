@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/delivery_text_field.dart';
-import '../widgets/delivery_dropdown.dart';
 
 class DeliveryStepThree extends StatelessWidget {
   const DeliveryStepThree({super.key});
@@ -13,18 +12,23 @@ class DeliveryStepThree extends StatelessWidget {
         63.h.verticalSpace,
         DeliveryTextField(
           label:
-              '7. What is your diastolic blood pressure (bottom number)?',
-          hint: 'enter your diastolic blood pressure',
+              '9. What is your height (in cm)?',
+          hint: 'Enter a number (e.g., 160, 165, 170)',
         ),
         DeliveryTextField(
           label:
-              '8. What week of pregnancy are you currently in?',
-          hint: 'enter your current pregnancy week',
+              '10. How many times have you given birth?',
+          hint: 'Enter a number (e.g., 0, 1, 2, 3)',
         ),
-        DeliveryDropdown(
-          label: '9. Do you have obesity?',
-          options: ['Yes', 'No'],
-          hint: 'Select yes or no',
+        DeliveryTextField(
+          label: '11.What is your diastolic blood pressure (bottom number)?',
+          
+          hint: 'enter your diastolic blood pressure',
+        ),
+        DeliveryTextField(
+          label: '12. Do you have obesity?',
+          
+          hint: 'enter your systolic blood pressure',
         ),
       ],
     );

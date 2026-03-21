@@ -102,7 +102,7 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Hi Youssef,\nBased on the answers you provided, it seems that you may be experiencing feelings of sadness and pressure after childbirth, which is completely normal and happens to many mothers.\n\nThe most important thing right now is that you are not alone, and with rest and support, things can get better.\n\n• Allow yourself to talk and express your feelings.\n• Ask for help and give yourself time to recover.\n• Use the app to receive daily advice and continuous support.\n• With time, you will be able to reduce this pressure and start feeling better.",
+                      "Hi Sara,\nBased on the answers you provided, it seems that you may be experiencing feelings of sadness and pressure after childbirth, which is completely normal and happens to many mothers.\n\nThe most important thing right now is that you are not alone, and with rest and support, things can get better.\n\n• Allow yourself to talk and express your feelings.\n• Ask for help and give yourself time to recover.\n• Use the app to receive daily advice and continuous support.\n• With time, you will be able to reduce this pressure and start feeling better.",
                       style: AppTextStyles.font14Regular.copyWith(
                         color: AppColors.neutralGray,
                       ),

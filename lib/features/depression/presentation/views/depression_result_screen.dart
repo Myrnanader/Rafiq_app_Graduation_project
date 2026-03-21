@@ -43,7 +43,7 @@ class DepressionResultScreen extends StatelessWidget {
               AppPrimaryButton(
                 text: 'Back to Dashboard',
                 onPressed: () {
-                  context.go(AppRoutes.depressionStartScreen);
+                  context.go(AppRoutes.mainNavigationBarScreen);
                 },
               ),
 

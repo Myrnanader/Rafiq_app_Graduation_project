@@ -92,6 +92,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                 padding: EdgeInsets.only(bottom: 56.h),
                 child: CustomButton(
                   text: 'Verify',
+                  color: AppColors.primary,
                   onTap: () {
                     if (otpCode.length == 6) {
                       context.go(AppRoutes.createNewPasswordScreen);

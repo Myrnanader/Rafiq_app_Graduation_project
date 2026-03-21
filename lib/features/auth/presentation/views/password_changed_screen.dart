@@ -32,7 +32,7 @@ class PasswordSuccessScreen extends StatelessWidget {
               //Title
               Text(
                 'Password Updated Successfully',
-                style: AppTextStyles.font20medium,
+                style: AppTextStyles.font20Medium,
                 textAlign: TextAlign.center,
               ),
               8.h.ph,

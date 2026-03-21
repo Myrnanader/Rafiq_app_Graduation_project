@@ -20,9 +20,12 @@ class DepressionStartScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             children: [
+              27.h.verticalSpace,
               DepressionCommonAppBar(
                 title: "Let's Start Survey",
-                onBack: () => context.pop(),
+                onBack: () => context.push(
+                  AppRoutes.mainNavigationBarScreen,
+                ),
               ),
 
               47.h.verticalSpace,

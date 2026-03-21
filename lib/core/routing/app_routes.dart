@@ -3,7 +3,7 @@ class AppRoutes {
   static const String onBoardScreen = '/OnboardingScreen';
   static const String signInScreen = '/SignInScreen';
   static const String signUpScreen = '/SignUpScreen';
-  static const String registerScreen = '/RegisterScreen';
+  //static const String registerScreen = '/RegisterScreen';
   static const String forgetPasswordScreen = '/ForgetPasswordScreen';
   static const String createNewPasswordScreen = '/CreateNewPasswordScreen';
   static const String passwordChangedScreen = '/PasswordChangedScreen';
@@ -12,6 +12,7 @@ class AppRoutes {
   static const String chooseParentTypeScreen = '/ChooseParentTypeScreen';
   static const String motherInformationScreen = '/MotherInformationScreen';
   static const String doctorInformationScreen = '/DoctorInformationScreen';
+
   static const String accountCreatedSuccessfullyScreen = '/AccountCreatedSuccessfullyScreen';
   static const String mainNavigationBarScreen = '/MainNavigationScreen';
   static const String homeScreen = '/HomeScreen';
@@ -32,6 +33,7 @@ class AppRoutes {
   static const String babyProfileScreen = '/BabyProfileScreen';
   static const String addFatherIdScreen = '/AddFatherIdScreen';
   static const String vaccinationsScreen = '/VaccinationsScreen';
+  static const String vaccineScheduleScreen = '/VaccineScheduleScreen';
   static const String settingScreen = '/SettingScreen';
   static const String notificationScreen = '/NotificationScreen';
   static const String notificationDetailsScreen = '/NotificationDetailsScreen';
@@ -58,13 +60,14 @@ class AppRoutes {
   static const String deliveryStartScreen = '/deliveryStart';
   static const String deliverySurveyScreen = '/deliverySurvey';
   static const String deliveryResultScreen = '/deliveryResult';
-  
 
+  //chatBot
+  static const String chatAiScreen = '/ChatAiScreen';
+  static const String chatbotScreen = '/ChatbotScreen';
 
-
-// -------- Growth Feature --------
-static const String growthTrackerScreen = '/GrowthTrackerScreen';
-static const String addGrowthScreen = '/AddGrowthScreen';
-static const String growthSuccessScreen = '/GrowthSuccessScreen';
+  // -------- Growth Feature --------
+  static const String growthTrackerScreen = '/GrowthTrackerScreen';
+  static const String addGrowthScreen = '/AddGrowthScreen';
+  static const String growthSuccessScreen = '/GrowthSuccessScreen';
 
 }

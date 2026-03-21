@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
+
+import '../../../../core/routing/app_routes.dart';
 
 class GrowthAppBar extends StatelessWidget {
   final String title;
@@ -24,7 +27,10 @@ class GrowthAppBar extends StatelessWidget {
           /// Back button
           if (showBackButton)
             IconButton(
-              onPressed: onBack ?? () => Navigator.pop(context),
+              onPressed: () {
+                context.go(AppRoutes.mainNavigationBarScreen);
+              },
+              // onPressed: onBack ?? () => Navigator.pop(context),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: AppColors.onPrimaryFixed,

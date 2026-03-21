@@ -24,7 +24,7 @@ class SignInScreen extends StatelessWidget {
 
     void submit() {
       if (formKey.currentState?.validate() ?? false) {
-        context.go(AppRoutes.verifyOtpScreen);
+        context.go(AppRoutes.mainNavigationBarScreen);
       }
     }
 
@@ -32,7 +32,7 @@ class SignInScreen extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
+            padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 40.h),
             child: Form(
               key: formKey,
               child: Column(

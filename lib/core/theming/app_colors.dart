@@ -4,7 +4,7 @@ class AppColors {
   // Light Theme
   static const lightScaffoldBackgroundColor = Color(0xFFF4F9F9);
   static const lightBackground = Color(0xFFFFFFFF);
-  static const lightSurface = Color(0xFFFFFFFF);
+  static const lightSurface = Color(0xFFFAFAFA);
 
   // Dark Theme
   static const darkScaffoldBackgroundColor = Color(0xFF1E1E1E);

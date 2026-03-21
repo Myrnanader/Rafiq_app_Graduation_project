@@ -28,7 +28,7 @@ class OnboardingPage extends StatelessWidget {
           16.ph,
           Text(
             title,
-            style: AppTextStyles.font18SemiBold.copyWith(color: AppColors.onSurfaceLight),
+            style: AppTextStyles.font22SemiBold.copyWith(color: AppColors.onSurfaceLight),
             textAlign: TextAlign.start,
           ),
           4.ph,

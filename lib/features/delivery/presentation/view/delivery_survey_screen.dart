@@ -21,9 +21,9 @@ class DeliverySurveyScreen extends StatefulWidget {
 
 class _DeliverySurveyScreenState extends State<DeliverySurveyScreen> {
   int step = 0;
-  final int totalQuestions = 9;
+  final int totalQuestions = 12;
 
-  final List<int> _progressMap = [3, 6, 9];
+  final List<int> _progressMap = [4, 8, 12];
 
   int get currentProgress => _progressMap[step];
 

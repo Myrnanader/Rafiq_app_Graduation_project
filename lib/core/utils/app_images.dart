@@ -1,7 +1,7 @@
 class AppImages {
   AppImages._();
   static const String babyAndToy = 'assets/images/baby_and_toy.png';
- 
+  static const String logo = 'assets/images/logo.png';
   static const String mother1 =  'assets/images/mather1.png';
   static const String motherAndBaby =  'assets/images/mother_and_baby.png';
   static const String passwordMan =  'assets/images/Password_man.png';
@@ -15,8 +15,7 @@ class AppImages {
   static const String survey = 'assets/images/survey.png';
   static const String miniBaby = 'assets/images/mini_baby.png';
   static const String growthBaby = 'assets/images/growth_baby.png';
-  static const String growthCursor = 'assets/images/growth_cursor.png';
-  static const String logo = 'assets/images/logo.png';
-    
-  
+  static const String growthCursor = 'assets/images/growth_cursor.png';  static const String chatbot = 'assets/images/chatbot.png';
+  static const String send = 'assets/images/send.png';
+  static const String chatRobot = 'assets/images/chat_robot.png';
 }

@@ -1,4 +1,3 @@
-// splash_screen.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
@@ -13,16 +12,39 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+  late Animation<double> opacityAnimation;
+
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 2), () {
-    context.go(AppRoutes.onBoardScreen);
-      // لو عايزة تروحي شاشة تانية غيريها هنا
-      //context.go(AppRoutes.nearbyHospitalScreen);
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+
+    scaleAnimation = Tween<double>(
+      begin: 0.6,
+      end: 1,
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOutBack));
+
+    opacityAnimation = Tween<double>(begin: 0, end: 1).animate(controller);
+
+    controller.forward();
+
+    Future.delayed(const Duration(seconds: 3), () {
+      context.push(AppRoutes.onBoardScreen);
     });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -30,23 +52,34 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: AppColors.onSecondary,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              AppImages.logo,
-              width: 200,
-              height: 200,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Rafiq',
-              style: AppTextStyles.font48Regular.copyWith(
-                color: AppColors.onPrimary,
-              ),
-            ),
-          ],
+        child: AnimatedBuilder(
+          animation: controller,
+          builder: (context, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Transform.scale(
+                  scale: scaleAnimation.value,
+                  child: Opacity(
+                    opacity: opacityAnimation.value,
+                    child: Image.asset(AppImages.logo, width: 200, height: 200),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                Opacity(
+                  opacity: opacityAnimation.value,
+                  child: Text(
+                    'Rafiq',
+                    style: AppTextStyles.font48Regular.copyWith(
+                      color: AppColors.onPrimary,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

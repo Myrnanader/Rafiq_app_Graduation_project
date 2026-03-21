@@ -21,6 +21,7 @@ class CustomAppBar extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {
+
             context.go(backRoute);
           },
           icon: Icon(

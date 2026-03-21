@@ -39,7 +39,7 @@ class GrowthSuccessScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Changes Saved Successfully',
-                      style: AppTextStyles.font20medium.copyWith(
+                      style: AppTextStyles.font20Medium.copyWith(
                         color: AppColors.onBackgroundLight,
                       ),
                       textAlign: TextAlign.center,

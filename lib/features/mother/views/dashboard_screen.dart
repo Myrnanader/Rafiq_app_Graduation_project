@@ -49,6 +49,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                   {
                     "icon": "assets/icons/growth.svg",
                     "label": "Growth Tracker",
+                    "route": AppRoutes.growthTrackerScreen,
                   },
                   {
                     "icon": "assets/icons/vaccinations.svg",
@@ -63,7 +64,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                   {
                     "icon": "assets/icons/Chatbot.svg",
                     "label": "Chatbot",
-                    "route": AppRoutes.vaccinationsScreen,
+                    "route": AppRoutes.chatAiScreen,
                   },
                 ],
               ),

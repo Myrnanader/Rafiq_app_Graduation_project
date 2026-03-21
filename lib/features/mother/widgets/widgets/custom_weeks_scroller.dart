@@ -22,7 +22,7 @@ class _CustomWeeksScrollerState extends State<CustomWeeksScroller> {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: weeks.length,
-        separatorBuilder: (_, __) => 18.pw,
+        separatorBuilder: (_, _) => 18.pw,
         itemBuilder: (context, index) {
           bool isSelected = weeks[index] == selectedWeek;
           return GestureDetector(

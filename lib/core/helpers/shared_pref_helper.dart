@@ -116,5 +116,3 @@ class SharedPrefHelper {
     await _secureStorage.deleteAll();
   }
 }
-
-

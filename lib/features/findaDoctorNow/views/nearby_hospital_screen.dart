@@ -65,7 +65,7 @@ class NearbyHospitalScreen extends StatelessWidget {
               Expanded(
                 child: ListView.separated(
                   itemCount: hospitals.length,
-                  separatorBuilder: (_, __) => 16.h.verticalSpace,
+                  separatorBuilder: (_, _) => 16.h.verticalSpace,
                   itemBuilder: (context, index) {
                     return HospitalCard(
                       hospital: hospitals[index],

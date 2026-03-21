@@ -6,6 +6,7 @@ import 'package:rafiq_app/features/mother/widgets/widgets/custom_input_field.dar
 
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theming/app_colors.dart';
+import '../../../core/helpers/date_picker_field.dart';
 import '../widgets/widgets/custom_gender_button.dart';
 
 class BabyProfileScreen extends StatefulWidget {
@@ -80,22 +81,32 @@ class BabyProfileScreenState extends State<BabyProfileScreen> {
                     title: 'Baby Nickname',
                     hint: "your baby's name",
                   ),
-                  CustomInputField(
-                    title: 'Date of birth',
-                    hint: '1/10/1988',
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: SvgPicture.asset(
-                        'assets/icons/calender.svg',
-                        width: 10,
-                        height: 10,
-                        colorFilter: const ColorFilter.mode(
-                          AppColors.neutralGray,
-                          BlendMode.srcIn,
-                        ),
-                      ),
+                  // CustomInputField(
+                  //   title: 'Date of birth',
+                  //   hint: '1/10/1988',
+                  //   suffixIcon: Padding(
+                  //     padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  //     child: SvgPicture.asset(
+                  //       'assets/icons/calender.svg',
+                  //       width: 10,
+                  //       height: 10,
+                  //       colorFilter: const ColorFilter.mode(
+                  //         AppColors.neutralGray,
+                  //         BlendMode.srcIn,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  Text(
+                    'Date of birth',
+                    style: AppTextStyles.font16Medium.copyWith(
+                      color: AppColors.onBackgroundLight,
                     ),
                   ),
+                  8.ph,
+                  const DatePickerField(),
+                  20.ph,
+
                   CustomInputField(
                     title: 'Height',
                     hint: '0.0',

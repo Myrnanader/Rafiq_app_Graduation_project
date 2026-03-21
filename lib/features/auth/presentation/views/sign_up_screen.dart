@@ -37,7 +37,7 @@ class SignUpScreen extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, ),
+            padding: EdgeInsets.symmetric(horizontal: 22.w, ),
             child: Form(
               key: formKey,
               child: Column(

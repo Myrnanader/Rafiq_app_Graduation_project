@@ -30,7 +30,7 @@ class AccountCreatedSuccessfullyScreen extends StatelessWidget {
               // Title
               Text(
                 'Account Created Successfully',
-                style: AppTextStyles.font20medium,
+                style: AppTextStyles.font20Medium,
                 textAlign: TextAlign.center,
               ),
               8.h.ph,

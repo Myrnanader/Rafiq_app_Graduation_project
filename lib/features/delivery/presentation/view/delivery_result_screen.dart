@@ -22,7 +22,7 @@ class DeliveryResultScreen extends StatelessWidget {
               30.h.verticalSpace,
               DeliveryCommonAppBar(
                 title: 'Delivery Results',
-                onBack: () => context.go(AppRoutes.deliverySurveyScreen),
+                onBack: () => context.go(AppRoutes.dashboardScreen),
               ),
 
               83.h.verticalSpace,
@@ -57,7 +57,7 @@ class DeliveryResultScreen extends StatelessWidget {
               AppPrimaryButton(
                 text: 'Back to Dashboard',
                 onPressed: () {
-                  context.go(AppRoutes.deliveryStartScreen);
+                  context.go(AppRoutes.mainNavigationBarScreen);
                 },
               ),
 

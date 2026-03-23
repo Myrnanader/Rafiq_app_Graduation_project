@@ -1,4 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:rafiq_app/features/auth/data/models/register_request.dart';
+import 'package:rafiq_app/features/auth/data/models/register_response.dart';
+import 'package:rafiq_app/features/auth/data/models/verify_otp_request.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
@@ -7,7 +10,7 @@ part 'api_service.g.dart';
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
-  // ================= AUTH =================
+  /// ================= AUTH =================
 
   @POST("Auth/login")
   Future<dynamic> login(
@@ -15,8 +18,8 @@ abstract class ApiService {
   );
 
   @POST("Auth/register")
-  Future<dynamic> register(
-    @Body() Map<String, dynamic> body,
+  Future<RegisterResponse> register(
+    @Body() RegisterRequest body,
   );
 
   @POST("Auth/refresh-token")
@@ -36,7 +39,7 @@ abstract class ApiService {
 
   @POST("Auth/verify-otp")
   Future<dynamic> verifyOtp(
-    @Body() Map<String, dynamic> body,
+    @Body() VerifyOtpRequest body,
   );
 
   @POST("Auth/verify-registration")
@@ -48,6 +51,10 @@ abstract class ApiService {
   Future<dynamic> resetPassword(
     @Body() Map<String, dynamic> body,
   );
+
+  /// ✅ NEW: موجود في الـ Swagger - لازم يتضاف
+  @POST("Auth/logout")
+  Future<dynamic> logout();
 
   @POST("Auth/make-admin")
   Future<dynamic> makeAdmin(

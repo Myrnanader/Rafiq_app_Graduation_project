@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rafiq_app/core/helpers/extensions.dart';
+
 
 class CustomOrLoginWidget extends StatelessWidget {
   const CustomOrLoginWidget({super.key});
@@ -10,11 +10,14 @@ class CustomOrLoginWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: 153.w, child: Divider()),
-        12.h.ph,
-        Text(" Or "),
-        12.h.ph,
-        SizedBox(width: 153.w, child: Divider()),
+        const Expanded(child: Divider()),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: const Text("Or"),
+        ),
+
+        const Expanded(child: Divider()),
       ],
     );
   }

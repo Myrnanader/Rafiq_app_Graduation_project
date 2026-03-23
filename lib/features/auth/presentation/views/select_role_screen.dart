@@ -9,6 +9,7 @@ import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 import 'package:rafiq_app/core/utils/app_images.dart';
+import 'package:rafiq_app/features/auth/data/models/auth_register_data.dart';
 import 'package:rafiq_app/features/auth/presentation/widgets/widgets/custom_role_card_widget.dart';
 
 class SelectRoleScreen extends StatefulWidget {
@@ -23,67 +24,94 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final data = GoRouterState.of(context).extra as AuthRegisterData;
+
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 22.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            34.h.ph,
-            const CustomAppBar(
-              text: 'Select Your Role',
-              backRoute: AppRoutes.signInScreen,
-            ),
-            152.h.ph,
-        
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 22.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                IconTextCard(
-                  label: 'Parents',
-                  imagePath: AppImages.family,
-                  isSelected: selectedRole == 'parents',
+                34.h.ph,
+
+                const CustomAppBar(
+                  text: 'Choose Parent Type',
+                  backRoute: AppRoutes.signUpScreen,
+                ),
+
+                120.h.ph,
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    /// 👩 Mother
+                    IconTextCard(
+                      label: 'Mother',
+                      imagePath: AppImages.pregnantWoman,
+                      isSelected: selectedRole == 'mother',
+                      onTap: () {
+                        setState(() {
+                          selectedRole = 'mother';
+                        });
+                      },
+                    ),
+
+                    /// 👨 Father
+                    IconTextCard(
+                      label: 'Father',
+                      imagePath: AppImages.father,
+                      isSelected: selectedRole == 'father',
+                      onTap: () {
+                        setState(() {
+                          selectedRole = 'father';
+                        });
+                      },
+                    ),
+                  ],
+                ),
+
+                34.h.ph,
+
+                Text(
+                  'To give you a customized experience, we need to know your role',
+                  style: AppTextStyles.font14Regular.copyWith(
+                    color: AppColors.darkGray,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+
+                120.h.ph,
+
+                CustomButton(
+                  text: 'Continue',
                   onTap: () {
-                    setState(() {
-                      selectedRole = 'parents';
-                    });
+                    if (selectedRole.isEmpty) {
+                      CustomSnackBar.show(context, 'Please select a role');
+                      return;
+                    }
+
+                    data.role = selectedRole;
+
+                    if (selectedRole == 'mother') {
+                      data.profileType = "MotherProfile";
+                    } else {
+                      data.profileType = "FatherProfile";
+                    }
+
+                    /// 🔥 الاتنين يروحوا نفس الفلو
+                    context.go(
+                      AppRoutes.motherInformationScreen,
+                      extra: data,
+                    );
                   },
                 ),
-                IconTextCard(
-                  label: 'Doctor',
-                  imagePath: AppImages.stethoscope,
-                  isSelected: selectedRole == 'doctor',
-                  onTap: () {
-                    setState(() {
-                      selectedRole = 'doctor';
-                    });
-                  },
-                ),
+
+                56.h.ph,
               ],
             ),
-            34.h.ph,
-            Text(
-              'We ask this to offer you a morepersonalized journey',
-              style: AppTextStyles.font14Regular.copyWith(color: AppColors.darkGray),
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            CustomButton(
-              text: 'Continue',
-              onTap: () {
-                if (selectedRole.isNotEmpty) {
-                  if (selectedRole == 'parents') {
-                    context.go(AppRoutes.chooseParentTypeScreen);
-                  } else if (selectedRole == 'doctor') {
-                    context.go(AppRoutes.doctorInformationScreen);
-                  }
-                } else {
-                  CustomSnackBar.show(context, 'Please select a role');
-                }
-              },
-            ),
-            56.h.ph,
-          ],
+          ),
         ),
       ),
     );

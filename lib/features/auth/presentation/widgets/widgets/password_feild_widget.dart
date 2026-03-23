@@ -7,7 +7,8 @@ import 'package:rafiq_app/core/theming/app_colors.dart';
 
 class PasswordField extends StatefulWidget {
   final TextEditingController controller;
-  const PasswordField({super.key, required this.controller});
+  final String? Function(String?)? validator;
+  const PasswordField({super.key, required this.controller, this.validator});
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -38,8 +39,11 @@ class _PasswordFieldState extends State<PasswordField> {
           hintText: 'Password',
           controller: widget.controller,
           isObscureText: isObscure,
-          validator: (value) =>
-              value != null && value.length >= 6 ? null : 'Password too short',
+          validator:
+              widget.validator ??
+              (value) => value != null && value.length >= 6
+                  ? null
+                  : 'Password too short',
           suffixIcon: IconButton(
             onPressed: () {
               setState(() {
@@ -48,10 +52,10 @@ class _PasswordFieldState extends State<PasswordField> {
             },
             icon: Icon(
               isObscure
-                  ? Icons.visibility_off_outlined 
+                  ? Icons.visibility_off_outlined
                   : Icons.remove_red_eye_outlined,
               color: AppColors.lightAppColors,
-              size: 24.sp
+              size: 24.sp,
             ),
           ),
         ),

@@ -7,28 +7,25 @@ import 'app_logger.dart';
 import 'interceptors/logging_interceptor.dart';
 
 class DioFactory {
-  static Dio createDio() {
-    final secureStorage = SecureStorageService();
-
-    Dio dio = Dio();
+  /// ✅ FIX: بنستقبل secureStorage من بره بدل ما نعمل instance جديدة
+  /// عشان نضمن إن كل الـ interceptors بيستخدموا نفس الـ storage
+  static Dio createDio(SecureStorageService secureStorage) {
+    final dio = Dio();
 
     dio.options = BaseOptions(
       baseUrl: "http://rafiq.runasp.net/api/",
-      connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 30),
+      connectTimeout: const Duration(seconds: 60),
+      receiveTimeout: const Duration(seconds: 60),
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
       },
     );
 
-    /// Interceptors
     dio.interceptors.addAll([
       AuthInterceptor(secureStorage),
       RefreshTokenInterceptor(secureStorage),
-
       LoggingInterceptor(AppLogger.logger),
-
       PrettyDioLogger(requestBody: true, responseBody: true),
     ]);
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/common/widgets/custom_app_bar.dart';
 import 'package:rafiq_app/core/common/widgets/custom_button.dart';
 import 'package:rafiq_app/core/helpers/extensions.dart';
@@ -15,26 +16,39 @@ class AccountCreatedSuccessfullyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
-        child: SingleChildScrollView(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              34.h.ph,
-              CustomAppBar(text: ' ', backRoute: AppRoutes.selectRoleScreen),
-              82.h.ph,
-              // Success Icon
-              SvgPicture.asset(AppIcons.verify),
+              20.h.ph,
+
+              /// 🔥 back بدون route (pop)
+              const CustomAppBar(
+                text: '',
+              ),
+
+              const Spacer(),
+
+              /// ✅ Success Icon
+              SvgPicture.asset(
+                AppIcons.verify,
+                width: 120.w,
+                height: 120.h,
+              ),
+
               16.h.ph,
-              // Title
+
+              /// ✅ Title
               Text(
                 'Account Created Successfully',
                 style: AppTextStyles.font20Medium,
                 textAlign: TextAlign.center,
               ),
+
               8.h.ph,
-              // Subtext
+
+              /// ✅ Subtext
               Text(
                 'Your account has been set up and is ready to use',
                 style: AppTextStyles.font14Regular.copyWith(
@@ -43,14 +57,18 @@ class AccountCreatedSuccessfullyScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
 
-              208.h.ph,
-              // Continue Button
+              const Spacer(),
+
+              /// 🔥 Continue Button
               CustomButton(
                 text: 'Continue',
                 onTap: () {
-                  //context.go(AppRoutes.mother);
+                  ///  يروح Home ويقفل كل اللي قبله
+                  context.go(AppRoutes.homeScreen);
                 },
               ),
+
+              40.h.ph,
             ],
           ),
         ),

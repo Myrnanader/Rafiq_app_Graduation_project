@@ -7,7 +7,15 @@ import 'package:rafiq_app/core/theming/app_colors.dart';
 
 class EmailField extends StatelessWidget {
   final TextEditingController controller;
-  const EmailField({super.key, required this.controller});
+
+  /// ✅ أضفنا validator هنا
+  final String? Function(String?)? validator;
+
+  const EmailField({
+    super.key,
+    required this.controller,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +38,18 @@ class EmailField extends StatelessWidget {
           hintText: 'name@gmail.com',
           controller: controller,
           keyboardType: TextInputType.emailAddress,
-          validator: (value) =>
-              value != null && value.contains('@') ? null : 'Enter valid email',
+
+          ///  لو مفيش validator يبقى default
+          validator: validator ??
+              (value) {
+                if (value == null || value.isEmpty) {
+                  return "Enter email";
+                }
+                if (!value.contains("@")) {
+                  return "Enter valid email";
+                }
+                return null;
+              },
         ),
       ],
     );

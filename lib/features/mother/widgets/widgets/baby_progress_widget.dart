@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rafiq_app/core/storage/shared_prefs_service.dart';
 
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../core/theming/app_colors.dart';
 
-class BabyProgress extends StatefulWidget {
+class BabyProgress extends StatelessWidget {
   const BabyProgress({super.key});
 
   @override
-  State<BabyProgress> createState() => _BabyProgressState();
-}
-
-class _BabyProgressState extends State<BabyProgress> {
-  @override
   Widget build(BuildContext context) {
+    final int? currentWeek = SharedPrefsService.getPregnancyWeek();
+
+    /// لو مفيش بيانات → منعرضش widget
+    if (currentWeek == null || currentWeek == 0) {
+      return const SizedBox();
+    }
+
+    const int totalWeeks = 40;
+
+    final double progress = currentWeek / totalWeeks;
+
+    final int weeksLeft = totalWeeks - currentWeek;
+    final int daysLeft = weeksLeft * 7;
+
     return Column(
       children: [
         SizedBox(
@@ -25,10 +35,11 @@ class _BabyProgressState extends State<BabyProgress> {
                 height: 130,
                 width: 130,
                 child: CircularProgressIndicator(
-                  value: 0.75,
+                  value: progress,
                   strokeWidth: 7,
                   backgroundColor: AppColors.lightBackground,
-                  valueColor: const AlwaysStoppedAnimation(AppColors.primary),
+                  valueColor:
+                      const AlwaysStoppedAnimation(AppColors.primary),
                 ),
               ),
               Center(
@@ -42,7 +53,12 @@ class _BabyProgressState extends State<BabyProgress> {
           ),
         ),
         10.ph,
-        Text("90 days was left", style: AppTextStyles.font14Regular.copyWith(color: AppColors.neutralGray)),
+        Text(
+          "$daysLeft days left",
+          style: AppTextStyles.font14Regular.copyWith(
+            color: AppColors.neutralGray,
+          ),
+        ),
       ],
     );
   }

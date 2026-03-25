@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/widgets/custom_bottom_navigation_bar.dart';
 import '../widgets/widgets/nav_bar_page_selector.dart';
 
@@ -19,13 +18,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       body: NavBarPageSelector.getPage(_currentIndex),
       bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: _currentIndex,
-        onItemSelected: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+        onItemSelected: (index) => setState(() => _currentIndex = index),
       ),
     );
-
   }
 }

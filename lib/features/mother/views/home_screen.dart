@@ -7,18 +7,12 @@ import '../widgets/widgets/Custom_weeks_scroller.dart';
 import '../widgets/widgets/baby_progress_widget.dart';
 import '../widgets/widgets/custom_gridview_widget.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.lightSurface,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -26,16 +20,30 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               20.ph,
-              HomeHeader(),
+
+              //  بيجيب fullName من SharedPrefs تلقائياً
+              const HomeHeader(),
+
               20.ph,
+
               Text("Pregnancy\nJourney", style: AppTextStyles.font22Medium),
+
               20.ph,
-              CustomWeeksScroller(),
+
+              //  بيبدأ من الـ pregnancyWeek المحفوظة
+              const CustomWeeksScroller(),
+
               25.ph,
-              BabyProgress(),
+
+              //  بيحسب الـ progress من الـ week المحفوظة
+              const BabyProgress(),
+
               30.ph,
+
               Text("Daily Routine", style: AppTextStyles.font22Medium),
+
               20.ph,
+
               CustomGridviewWidget(
                 items: [
                   {
@@ -60,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ],
               ),
+
               40.ph,
             ],
           ),

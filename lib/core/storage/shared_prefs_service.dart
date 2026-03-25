@@ -4,47 +4,124 @@ import '../network/app_logger.dart';
 class SharedPrefsService {
   static SharedPreferences? _prefs;
 
-  /// Init
+  static const String _isFirstTimeKey = "is_first_time";
+  static const String _isLoggedInKey = "is_logged_in";
+  static const String _fullNameKey = "full_name";
+  static const String _pregnancyWeekKey = "pregnancy_week";
+
+  // ─── Init ─────────────────────────────────────────────────
+
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
     AppLogger.logger.i("SharedPreferences Initialized");
   }
 
-  /// Save String
+  // ─── Onboarding ───────────────────────────────────────────
+
+  static bool isFirstTime() {
+    return _prefs?.getBool(_isFirstTimeKey) ?? true;
+  }
+
+  static Future<void> setFirstTimeDone() async {
+    await _prefs?.setBool(_isFirstTimeKey, false);
+  }
+
+  // ─── Login State ──────────────────────────────────────────
+
+  static bool isLoggedIn() {
+    return _prefs?.getBool(_isLoggedInKey) ?? false;
+  }
+
+  static Future<void> setLoggedIn(bool value) async {
+    await _prefs?.setBool(_isLoggedInKey, value);
+  }
+
+  // ─── User Data ────────────────────────────────────────────
+  //  يتحفظ من register flow فقط
+
+  static Future<void> saveUserData({
+    required String fullName,
+    int? pregnancyWeek,
+  }) async {
+    if (_prefs == null) return;
+
+    final trimmedName = fullName.trim();
+
+    ///  متخزنش اسم فاضي
+    if (trimmedName.isEmpty) {
+      AppLogger.logger.w("Skipped saving empty fullName");
+      return;
+    }
+
+    ///  خزّن الاسم
+    await _prefs!.setString(_fullNameKey, trimmedName);
+
+    ///  خزّن الـ week لو موجود
+    if (pregnancyWeek != null) {
+      await _prefs!.setInt(_pregnancyWeekKey, pregnancyWeek);
+    }
+
+    AppLogger.logger.i(
+      "Saved user data: $trimmedName, week: $pregnancyWeek",
+    );
+  }
+
+  static String? getFullName() {
+    if (_prefs == null) return null;
+
+    final name = _prefs!.getString(_fullNameKey);
+
+    ///  لو فاضي رجّع null بدل ""
+    if (name == null || name.trim().isEmpty) {
+      return null;
+    }
+
+    return name.trim();
+  }
+
+  static int? getPregnancyWeek() {
+    return _prefs?.getInt(_pregnancyWeekKey);
+  }
+
+  // ─── Generic ──────────────────────────────────────────────
+
   static Future<void> setString(String key, String value) async {
-    await _prefs?.setString(key, value);
-    AppLogger.logger.i("Saved String: $key");
+    if (_prefs == null) return;
+    await _prefs!.setString(key, value);
   }
 
-  /// Get String
   static String? getString(String key) {
-    final value = _prefs?.getString(key);
-    AppLogger.logger.i("Fetched String: $key = $value");
-    return value;
+    return _prefs?.getString(key);
   }
 
-  /// Save Bool
   static Future<void> setBool(String key, bool value) async {
-    await _prefs?.setBool(key, value);
-    AppLogger.logger.i("Saved Bool: $key");
+    if (_prefs == null) return;
+    await _prefs!.setBool(key, value);
   }
 
-  /// Get Bool
   static bool getBool(String key) {
-    final value = _prefs?.getBool(key) ?? false;
-    AppLogger.logger.i("Fetched Bool: $key = $value");
-    return value;
+    return _prefs?.getBool(key) ?? false;
   }
 
-  /// Remove Key
   static Future<void> remove(String key) async {
-    await _prefs?.remove(key);
-    AppLogger.logger.i("Removed Key: $key");
+    if (_prefs == null) return;
+    await _prefs!.remove(key);
   }
 
-  /// Clear All
+  ///  FIX مهم: clear user data فقط (مش كل حاجة)
+  static Future<void> clearUserData() async {
+    if (_prefs == null) return;
+
+    await _prefs!.remove(_fullNameKey);
+    await _prefs!.remove(_pregnancyWeekKey);
+
+    AppLogger.logger.i("User data cleared");
+  }
+
+  ///  Full clear (يستخدم في logout فقط)
   static Future<void> clear() async {
-    await _prefs?.clear();
-    AppLogger.logger.i("Cleared All SharedPreferences");
+    if (_prefs == null) return;
+    await _prefs!.clear();
+    AppLogger.logger.i("All SharedPreferences cleared");
   }
 }

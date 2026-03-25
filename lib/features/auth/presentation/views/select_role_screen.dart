@@ -35,55 +35,36 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 34.h.ph,
-
                 const CustomAppBar(
                   text: 'Choose Parent Type',
                   backRoute: AppRoutes.signUpScreen,
                 ),
-
                 120.h.ph,
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    /// 👩 Mother
                     IconTextCard(
                       label: 'Mother',
                       imagePath: AppImages.pregnantWoman,
                       isSelected: selectedRole == 'mother',
-                      onTap: () {
-                        setState(() {
-                          selectedRole = 'mother';
-                        });
-                      },
+                      onTap: () => setState(() => selectedRole = 'mother'),
                     ),
-
-                    /// 👨 Father
                     IconTextCard(
                       label: 'Father',
                       imagePath: AppImages.father,
                       isSelected: selectedRole == 'father',
-                      onTap: () {
-                        setState(() {
-                          selectedRole = 'father';
-                        });
-                      },
+                      onTap: () => setState(() => selectedRole = 'father'),
                     ),
                   ],
                 ),
-
                 34.h.ph,
-
                 Text(
                   'To give you a customized experience, we need to know your role',
                   style: AppTextStyles.font14Regular.copyWith(
-                    color: AppColors.darkGray,
-                  ),
+                      color: AppColors.darkGray),
                   textAlign: TextAlign.center,
                 ),
-
                 120.h.ph,
-
                 CustomButton(
                   text: 'Continue',
                   onTap: () {
@@ -91,23 +72,16 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                       CustomSnackBar.show(context, 'Please select a role');
                       return;
                     }
-
                     data.role = selectedRole;
-
-                    if (selectedRole == 'mother') {
-                      data.profileType = "MotherProfile";
-                    } else {
-                      data.profileType = "FatherProfile";
-                    }
-
-                    /// 🔥 الاتنين يروحوا نفس الفلو
+                    data.profileType = selectedRole == 'mother'
+                        ? "MotherProfile"
+                        : "FatherProfile";
                     context.go(
                       AppRoutes.motherInformationScreen,
                       extra: data,
                     );
                   },
                 ),
-
                 56.h.ph,
               ],
             ),

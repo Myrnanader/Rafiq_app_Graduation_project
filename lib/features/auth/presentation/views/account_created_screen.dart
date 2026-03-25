@@ -22,52 +22,27 @@ class AccountCreatedSuccessfullyScreen extends StatelessWidget {
           child: Column(
             children: [
               20.h.ph,
-
-              /// 🔥 back بدون route (pop)
-              const CustomAppBar(
-                text: '',
-              ),
-
+              const CustomAppBar(text: ''),
               const Spacer(),
-
-              /// ✅ Success Icon
-              SvgPicture.asset(
-                AppIcons.verify,
-                width: 120.w,
-                height: 120.h,
-              ),
-
+              SvgPicture.asset(AppIcons.verify, width: 120.w, height: 120.h),
               16.h.ph,
-
-              /// ✅ Title
               Text(
                 'Account Created Successfully',
                 style: AppTextStyles.font20Medium,
                 textAlign: TextAlign.center,
               ),
-
               8.h.ph,
-
-              /// ✅ Subtext
               Text(
                 'Your account has been set up and is ready to use',
                 style: AppTextStyles.font14Regular.copyWith(
-                  color: AppColors.darkGray,
-                ),
+                    color: AppColors.darkGray),
                 textAlign: TextAlign.center,
               ),
-
               const Spacer(),
-
-              /// 🔥 Continue Button
               CustomButton(
                 text: 'Continue',
-                onTap: () {
-                  ///  يروح Home ويقفل كل اللي قبله
-                  context.go(AppRoutes.homeScreen);
-                },
+                onTap: () => context.go(AppRoutes.mainNavigationBarScreen),
               ),
-
               40.h.ph,
             ],
           ),

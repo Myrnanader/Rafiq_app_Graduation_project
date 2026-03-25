@@ -13,9 +13,7 @@ import '../../features/addMemoryAndDocs/widgets/widgets/doc_item.dart';
 import '../../features/addMemoryAndDocs/widgets/widgets/memory_item.dart';
 import '../../features/articles/views/article_screen.dart';
 import '../../features/auth/presentation/views/account_created_screen.dart';
-import '../../features/auth/presentation/views/choose_parent_type_screen.dart';
 import '../../features/auth/presentation/views/create_new_password_screen.dart';
-import '../../features/auth/presentation/views/doctor_information.dart';
 import '../../features/auth/presentation/views/forget_password_screen.dart';
 import '../../features/auth/presentation/views/mother_information.dart';
 import '../../features/auth/presentation/views/password_changed_screen.dart';
@@ -119,20 +117,11 @@ abstract class RouterGenerationConfig {
         ),
 
         GoRoute(
-          path: AppRoutes.chooseParentTypeScreen,
-          name: AppRoutes.chooseParentTypeScreen,
-          builder: (context, state) => const ChooseParentTypeScreen(),
-        ),
-        GoRoute(
           path: AppRoutes.motherInformationScreen,
           name: AppRoutes.motherInformationScreen,
           builder: (context, state) => const MotherInformationScreen(),
         ),
-        GoRoute(
-          path: AppRoutes.doctorInformationScreen,
-          name: AppRoutes.doctorInformationScreen,
-          builder: (context, state) => const DoctorInformationScreen(),
-        ),
+
         GoRoute(
           path: AppRoutes.accountCreatedSuccessfullyScreen,
           name: AppRoutes.accountCreatedSuccessfullyScreen,

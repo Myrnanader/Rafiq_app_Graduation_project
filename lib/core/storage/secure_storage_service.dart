@@ -22,7 +22,17 @@ class SecureStorageService {
     return await _storage.read(key: _refreshTokenKey);
   }
 
+  Future<bool> hasValidToken() async {
+    final token = await getAccessToken();
+    return token != null && token.isNotEmpty;
+  }
+
   Future<void> clearTokens() async {
+    await _storage.delete(key: _accessTokenKey);
+    await _storage.delete(key: _refreshTokenKey);
+  }
+
+  Future<void> clearAll() async {
     await _storage.deleteAll();
   }
 }

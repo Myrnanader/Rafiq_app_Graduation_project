@@ -7,11 +7,18 @@ import '../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../core/theming/app_colors.dart';
 import '../widgets/widgets/confirmation_dialog.dart';
 import '../widgets/widgets/settings_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rafiq_app/features/auth/presentation/cubit/auth_cubit.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
-  void _showConfirmationDialog(BuildContext context, String title, String content, VoidCallback onConfirm) {
+  void _showConfirmationDialog(
+    BuildContext context,
+    String title,
+    String content,
+    VoidCallback onConfirm,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -87,11 +94,11 @@ class SettingScreen extends StatelessWidget {
                 const Divider(indent: 20, endIndent: 25),
 
                 SettingsItem(
-                    svgIconPath: 'assets/icons/bell.svg',
+                  svgIconPath: 'assets/icons/bell.svg',
                   title: 'Notifications',
                   onTap: () {
                     context.push(AppRoutes.notificationScreen);
-                  }
+                  },
                 ),
                 const Divider(indent: 20, endIndent: 25),
 
@@ -126,7 +133,7 @@ class SettingScreen extends StatelessWidget {
                     context,
                     "Do You Want to delete account?",
                     "This action can't be undone.\n All your data will be permanently removed.",
-                        () {
+                    () {
                       print("Account Deleted!");
                     },
                   ),
@@ -141,8 +148,12 @@ class SettingScreen extends StatelessWidget {
                     context,
                     "Do You Want to log out?",
                     "You'll need to sign in again to access your account.",
-                        () {
-                      print("User Logged Out!");
+                    () async {
+                      await context.read<AuthCubit>().logout();
+
+                      if (context.mounted) {
+                        context.go(AppRoutes.signInScreen);
+                      }
                     },
                   ),
                 ),

@@ -30,23 +30,24 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(milliseconds: 1200),
     );
 
-    scaleAnimation = Tween<double>(begin: 0.6, end: 1.0).animate(
-      CurvedAnimation(parent: controller, curve: Curves.easeOutBack),
-    );
+    scaleAnimation = Tween<double>(
+      begin: 0.6,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOutBack));
 
     opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(controller);
 
     controller.forward();
 
-    Future.delayed(const Duration(seconds: 3), _navigate);
+    _initNavigation();
   }
 
-  Future<void> _navigate() async {
-    if (!mounted) return;
-
+  Future<void> _initNavigation() async {
     final secureStorage = getIt<SecureStorageService>();
     final hasToken = await secureStorage.hasValidToken();
     final isFirstTime = SharedPrefsService.isFirstTime();
+
+    await Future.delayed(const Duration(seconds: 2));
 
     if (!mounted) return;
 

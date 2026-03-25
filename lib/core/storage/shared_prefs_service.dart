@@ -37,7 +37,7 @@ class SharedPrefsService {
   }
 
   // ─── User Data ────────────────────────────────────────────
-  //  يتحفظ من register flow فقط
+  // يتحفظ من register flow فقط
 
   static Future<void> saveUserData({
     required String fullName,
@@ -56,8 +56,8 @@ class SharedPrefsService {
     ///  خزّن الاسم
     await _prefs!.setString(_fullNameKey, trimmedName);
 
-    ///  خزّن الـ week لو موجود
-    if (pregnancyWeek != null) {
+    ///  خزّن الـ week لو valid فقط
+    if (pregnancyWeek != null && pregnancyWeek > 0) {
       await _prefs!.setInt(_pregnancyWeekKey, pregnancyWeek);
     }
 
@@ -108,7 +108,7 @@ class SharedPrefsService {
     await _prefs!.remove(key);
   }
 
-  ///  FIX مهم: clear user data فقط (مش كل حاجة)
+  ///  clear user data فقط (لو احتجتها)
   static Future<void> clearUserData() async {
     if (_prefs == null) return;
 
@@ -118,7 +118,7 @@ class SharedPrefsService {
     AppLogger.logger.i("User data cleared");
   }
 
-  ///  Full clear (يستخدم في logout فقط)
+  /// Full clear (يفضل متستخدمهاش في logout)
   static Future<void> clear() async {
     if (_prefs == null) return;
     await _prefs!.clear();

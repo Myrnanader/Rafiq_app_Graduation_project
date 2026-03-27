@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rafiq_app/core/di/di.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
+import 'package:rafiq_app/features/auth/presentation/cubit/user_cubit.dart';
 import 'package:rafiq_app/features/mother/widgets/widgets/home_header_widget.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../core/routing/app_routes.dart';
@@ -12,65 +15,68 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              20.ph,
+    return BlocProvider(
+      create: (context) => getIt<UserCubit>()..getProfile(),
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                20.ph,
 
-              //  بيجيب fullName من SharedPrefs تلقائياً
-              const HomeHeader(),
+                //  بيجيب fullName من SharedPrefs تلقائياً
+                const HomeHeader(),
 
-              20.ph,
+                20.ph,
 
-              Text("Pregnancy\nJourney", style: AppTextStyles.font22Medium),
+                Text("Pregnancy\nJourney", style: AppTextStyles.font22Medium),
 
-              20.ph,
+                20.ph,
 
-              //  بيبدأ من الـ pregnancyWeek المحفوظة
-              const CustomWeeksScroller(),
+                //  بيبدأ من الـ pregnancyWeek المحفوظة
+                const CustomWeeksScroller(),
 
-              25.ph,
+                25.ph,
 
-              //  بيحسب الـ progress من الـ week المحفوظة
-              const BabyProgress(),
+                //  بيحسب الـ progress من الـ week المحفوظة
+                const BabyProgress(),
 
-              30.ph,
+                30.ph,
 
-              Text("Daily Routine", style: AppTextStyles.font22Medium),
+                Text("Daily Routine", style: AppTextStyles.font22Medium),
 
-              20.ph,
+                20.ph,
 
-              CustomGridviewWidget(
-                items: [
-                  {
-                    "route": AppRoutes.exerciseScreen,
-                    "icon": 'assets/icons/pergancy_woman_vector.svg',
-                    "label": "Daily Exercise",
-                  },
-                  {
-                    "route": AppRoutes.articleScreen,
-                    "icon": "assets/icons/Group.svg",
-                    "label": "Articles",
-                  },
-                  {
-                    "route": AppRoutes.videoScreen,
-                    "icon": "assets/icons/video.svg",
-                    "label": "Videos",
-                  },
-                  {
-                    "route": AppRoutes.foodScreen,
-                    "icon": "assets/icons/food.svg",
-                    "label": "Food",
-                  },
-                ],
-              ),
+                CustomGridviewWidget(
+                  items: [
+                    {
+                      "route": AppRoutes.exerciseScreen,
+                      "icon": 'assets/icons/pergancy_woman_vector.svg',
+                      "label": "Daily Exercise",
+                    },
+                    {
+                      "route": AppRoutes.articleScreen,
+                      "icon": "assets/icons/Group.svg",
+                      "label": "Articles",
+                    },
+                    {
+                      "route": AppRoutes.videoScreen,
+                      "icon": "assets/icons/video.svg",
+                      "label": "Videos",
+                    },
+                    {
+                      "route": AppRoutes.foodScreen,
+                      "icon": "assets/icons/food.svg",
+                      "label": "Food",
+                    },
+                  ],
+                ),
 
-              40.ph,
-            ],
+                40.ph,
+              ],
+            ),
           ),
         ),
       ),

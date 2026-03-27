@@ -41,9 +41,10 @@ class _SignInScreenState extends State<SignInScreen> {
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is AuthSuccess) {
+            if (state is LoginSuccess) {
               context.go(AppRoutes.mainNavigationBarScreen);
             }
+
             if (state is AuthError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -67,14 +68,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SignInHeader(),
                       42.h.ph,
 
-                      /// Email
                       EmailField(controller: emailController),
                       16.h.ph,
 
-                      /// Password
                       PasswordField(controller: passwordController),
 
-                      /// Forget Password
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
@@ -91,14 +89,10 @@ class _SignInScreenState extends State<SignInScreen> {
 
                       24.h.ph,
 
-                      /// Login Button
                       state is AuthLoading
                           ? const CircularProgressIndicator()
                           : CustomButton(
                               text: 'Sign in',
-                              style: AppTextStyles.font16Medium.copyWith(
-                                color: AppColors.lightBackground,
-                              ),
                               onTap: () {
                                 if (formKey.currentState?.validate() ?? false) {
                                   context.read<AuthCubit>().login(
@@ -113,18 +107,11 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
 
                       24.h.ph,
-
-                      /// OR Divider
                       const CustomOrLoginWidget(),
-
                       16.h.ph,
-
-                      /// Social Buttons
                       const CustomSocialLoginIcons(),
-
                       32.h.ph,
 
-                      /// Footer 
                       CustomAuthFooter(
                         questionText: "Don't have an account?",
                         actionText: "Sign Up",

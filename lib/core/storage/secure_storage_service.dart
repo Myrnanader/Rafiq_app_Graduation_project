@@ -6,6 +6,7 @@ class SecureStorageService {
   static const String _accessTokenKey = "access_token";
   static const String _refreshTokenKey = "refresh_token";
 
+  /// ================= SAVE =================
   Future<void> saveTokens({
     required String accessToken,
     required String refreshToken,
@@ -14,6 +15,7 @@ class SecureStorageService {
     await _storage.write(key: _refreshTokenKey, value: refreshToken);
   }
 
+  /// ================= GET =================
   Future<String?> getAccessToken() async {
     return await _storage.read(key: _accessTokenKey);
   }
@@ -22,11 +24,13 @@ class SecureStorageService {
     return await _storage.read(key: _refreshTokenKey);
   }
 
+  /// ================= CHECK =================
   Future<bool> hasValidToken() async {
     final token = await getAccessToken();
-    return token != null && token.isNotEmpty;
+    return token?.isNotEmpty == true;
   }
 
+  /// ================= CLEAR =================
   Future<void> clearTokens() async {
     await _storage.delete(key: _accessTokenKey);
     await _storage.delete(key: _refreshTokenKey);

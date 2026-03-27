@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:rafiq_app/core/errors/api_error_handler.dart';
 import 'package:rafiq_app/core/errors/error_model.dart';
-import 'package:rafiq_app/core/network/api_service.dart';
 
+import '../api/auth_api_service.dart';
+import '../models/basic_response.dart';
 import '../models/login_request.dart';
 import '../models/login_response.dart';
 import '../models/register_request.dart';
@@ -10,37 +11,15 @@ import '../models/register_response.dart';
 import '../models/verify_otp_request.dart';
 
 class AuthRepository {
-  final ApiService apiService;
+  final AuthApiService api;
 
-  AuthRepository(this.apiService);
+  AuthRepository(this.api);
 
-  /// ===========================
-  /// 🔵 LOGIN
-  /// ===========================
+  /// LOGIN
   Future<LoginResponse> login(LoginRequest request) async {
     try {
-      final response = await apiService.login(request.toJson());
-      final loginResponse = LoginResponse.fromJson(response);
+      final response = await api.login(request.toJson());
 
-      /// ✅ FIX: السيرفر بيرجع 200 حتى لو فشل - لازم نشيك على isSuccess
-      if (!loginResponse.isSuccess) {
-        throw ErrorModel(message: loginResponse.message);
-      }
-
-      return loginResponse;
-    } on DioException catch (error) {
-      throw ApiErrorHandler.handle(error);
-    }
-  }
-
-  /// ===========================
-  /// 🔴 REGISTER
-  /// ===========================
-  Future<RegisterResponse> register(RegisterRequest request) async {
-    try {
-      final response = await apiService.register(request);
-
-      /// ✅ FIX: شيك على isSuccess
       if (!response.isSuccess) {
         throw ErrorModel(message: response.message);
       }
@@ -51,22 +30,13 @@ class AuthRepository {
     }
   }
 
-  /// ===========================
-  /// 🔥 VERIFY REGISTRATION
-  /// ===========================
-  Future<dynamic> verifyRegistration({
-    required String email,
-    required String otp,
-  }) async {
+  /// REGISTER
+  Future<RegisterResponse> register(RegisterRequest request) async {
     try {
-      final response = await apiService.verifyRegistration({
-        "email": email,
-        "otpCode": otp,
-      });
+      final response = await api.register(request);
 
-      /// ✅ FIX: بعض الـ responses بتيجي مع isSuccess false
-      if (response is Map && response["isSuccess"] == false) {
-        throw ErrorModel(message: response["message"] ?? "Verification failed");
+      if (!response.isSuccess) {
+        throw ErrorModel(message: response.message);
       }
 
       return response;
@@ -75,91 +45,103 @@ class AuthRepository {
     }
   }
 
-  /// ===========================
-  /// 📧 FORGET PASSWORD
-  /// ===========================
-  Future<void> forgetPassword(String email) async {
+  /// VERIFY REGISTRATION
+  Future<LoginResponse> verifyRegistration({
+    required String email,
+    required String otp,
+  }) async {
     try {
-      final response = await apiService.forgetPassword({
+      final response = await api.verifyRegistration({
         "email": email,
+        "otpCode": otp,
       });
 
-      /// ✅ FIX: السيرفر بيرجع {"status": "Error", "message": "..."} لما يفشل
-      if (response is Map) {
-        final isSuccess = response["isSuccess"];
-        final status = response["status"];
-        final message = response["message"];
+      if (!response.isSuccess) {
+        throw ErrorModel(message: response.message);
+      }
 
-        if (isSuccess == false || status == "Error") {
-          throw ErrorModel(message: message ?? "Could not process request");
-        }
+      return response;
+    } on DioException catch (error) {
+      throw ApiErrorHandler.handle(error);
+    }
+  }
+
+  /// RESEND OTP
+  Future<void> resendOtp({
+    required String email,
+    required String purpose,
+  }) async {
+    try {
+      final response = await api.resendOtp({
+        "identifier": email,
+        "purpose": purpose,
+      });
+
+      if (response.status == "Error") {
+        throw ErrorModel(message: response.message ?? "Error");
       }
     } on DioException catch (error) {
       throw ApiErrorHandler.handle(error);
     }
   }
 
-  /// ===========================
-  /// 🔢 VERIFY OTP (RESET PASSWORD)
-  /// ===========================
+  /// FORGET PASSWORD
+  Future<void> forgetPassword(String email) async {
+    try {
+      final response = await api.forgetPassword({
+        "email": email,
+      });
+
+      if (response.status == "Error") {
+        throw ErrorModel(message: response.message ?? "Error");
+      }
+    } on DioException catch (error) {
+      throw ApiErrorHandler.handle(error);
+    }
+  }
+
+  /// VERIFY OTP
   Future<void> verifyOtp({
     required String email,
     required String otp,
   }) async {
     try {
-      final response = await apiService.verifyOtp(
-        VerifyOtpRequest(
-          email: email,
-          otpCode: otp,
-        ),
+      final response = await api.verifyOtp(
+        VerifyOtpRequest(email: email, otpCode: otp),
       );
 
-      /// ✅ FIX: شيك على الـ response
-      if (response is Map) {
-        final status = response["status"];
-        final message = response["message"];
-        if (status == "Error") {
-          throw ErrorModel(message: message ?? "Invalid OTP");
-        }
+      if (response.status == "Error") {
+        throw ErrorModel(message: response.message ?? "Invalid OTP");
       }
     } on DioException catch (error) {
       throw ApiErrorHandler.handle(error);
     }
   }
 
-  /// ===========================
-  /// 🔑 RESET PASSWORD
-  /// ===========================
+  /// RESET PASSWORD
   Future<void> resetPassword({
     required String email,
     required String newPassword,
   }) async {
     try {
-      final response = await apiService.resetPassword({
+      final response = await api.resetPassword({
         "email": email,
         "newPassword": newPassword,
-        "confirmPassword": newPassword, // ✅ متوافق مع الـ Swagger
+        "confirmPassword": newPassword,
       });
 
-      if (response is Map) {
-        final status = response["status"];
-        final message = response["message"];
-        if (status == "Error") {
-          throw ErrorModel(message: message ?? "Could not reset password");
-        }
+      if (response.status == "Error") {
+        throw ErrorModel(message: response.message ?? "Error");
       }
     } on DioException catch (error) {
       throw ApiErrorHandler.handle(error);
     }
   }
 
-  /// ===========================
-  /// 🚪 LOGOUT
-  /// ===========================
-  /// ✅ NEW: موجود في الـ Swagger بس مكانش موجود في الـ Repository
+  /// LOGOUT
   Future<void> logout() async {
     try {
-      await apiService.logout();
+      await api.logout();
     } on DioException catch (error) {
       throw ApiErrorHandler.handle(error);
     }

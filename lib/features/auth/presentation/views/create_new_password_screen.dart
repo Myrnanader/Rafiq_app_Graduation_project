@@ -31,9 +31,10 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is AuthSuccess) {
+            if (state is LoginSuccess) {
               context.go(AppRoutes.passwordChangedScreen);
             }
+
             if (state is AuthError) {
               CustomSnackBar.show(context, state.message);
             }
@@ -46,10 +47,13 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                   34.h.ph,
                   const CustomAppBar(text: 'Create New Password'),
                   64.h.ph,
+
                   PasswordField(controller: newPasswordController),
                   24.h.ph,
                   PasswordField(controller: confirmPasswordController),
+
                   const Spacer(),
+
                   state is AuthLoading
                       ? const CircularProgressIndicator()
                       : CustomButton(
@@ -69,6 +73,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                                 );
                           },
                         ),
+
                   56.h.ph,
                 ],
               ),

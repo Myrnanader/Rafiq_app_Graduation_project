@@ -7,6 +7,8 @@ import 'package:rafiq_app/core/storage/shared_prefs_service.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 import 'package:rafiq_app/core/utils/app_images.dart';
+import 'package:rafiq_app/features/auth/data/api/user_api_service.dart';
+import 'package:rafiq_app/features/auth/data/models/profile_response.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -51,8 +53,30 @@ class _SplashScreenState extends State<SplashScreen>
 
     if (!mounted) return;
 
+    ///  لو فيه token → تحقق منه
     if (hasToken) {
-      context.go(AppRoutes.mainNavigationBarScreen);
+      try {
+        final userApi = getIt<UserApiService>();
+
+        final ProfileResponse profile = await userApi.getProfile();
+
+        ///  خزّن بيانات المستخدم (جديد)
+        await SharedPrefsService.saveUserData(
+          fullName: profile.fullName ?? "",
+          pregnancyWeek: profile.pregnancyWeek,
+        );
+
+        await SharedPrefsService.setLoggedIn(true);
+
+        context.go(AppRoutes.mainNavigationBarScreen);
+      } catch (e) {
+        ///  token expired أو invalid
+        await secureStorage.clearAll();
+        await SharedPrefsService.setLoggedIn(false);
+        await SharedPrefsService.clearUserData();
+
+        context.go(AppRoutes.signInScreen);
+      }
     } else if (isFirstTime) {
       context.go(AppRoutes.onBoardScreen);
     } else {
@@ -81,7 +105,11 @@ class _SplashScreenState extends State<SplashScreen>
                   scale: scaleAnimation.value,
                   child: Opacity(
                     opacity: opacityAnimation.value,
-                    child: Image.asset(AppImages.logo, width: 200, height: 200),
+                    child: Image.asset(
+                      AppImages.logo,
+                      width: 200,
+                      height: 200,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),

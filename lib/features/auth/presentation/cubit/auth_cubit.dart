@@ -20,17 +20,11 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
   }) async {
     emit(AuthLoading());
+
     try {
       final response = await repository.login(
         LoginRequest(email: email, password: password),
       );
-
-      if (response.token == null ||
-          response.token!.isEmpty ||
-          response.refreshToken == null ||
-          response.refreshToken!.isEmpty) {
-        throw ErrorModel(message: "Invalid login response");
-      }
 
       await secureStorage.saveTokens(
         accessToken: response.token!,
@@ -39,7 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
 
       await SharedPrefsService.setLoggedIn(true);
 
-      emit(AuthSuccess());
+      emit(LoginSuccess());
     } catch (e) {
       emit(AuthError(e is ErrorModel ? e.message : "Unexpected error"));
     }
@@ -47,6 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> register(RegisterRequest request) async {
     emit(AuthLoading());
+
     try {
       await repository.register(request);
       emit(RegisterNeedsVerification(request.email));
@@ -62,31 +57,22 @@ class AuthCubit extends Cubit<AuthState> {
     required int? pregnancyWeek,
   }) async {
     emit(AuthLoading());
+
     try {
       final response = await repository.verifyRegistration(
         email: email,
         otp: otp,
       );
 
-      if (response is Map) {
-        final token = response["token"]?.toString() ?? "";
-        final refreshToken = response["refreshToken"]?.toString() ?? "";
+      await secureStorage.saveTokens(
+        accessToken: response.token!,
+        refreshToken: response.refreshToken!,
+      );
 
-        if (token.isNotEmpty && refreshToken.isNotEmpty) {
-          await secureStorage.saveTokens(
-            accessToken: token,
-            refreshToken: refreshToken,
-          );
-        }
-      }
-
-      ///  FIX: متخزنش بيانات فاضية
-      if (fullName.trim().isNotEmpty) {
-        await SharedPrefsService.saveUserData(
-          fullName: fullName.trim(),
-          pregnancyWeek: pregnancyWeek,
-        );
-      }
+      await SharedPrefsService.saveUserData(
+        fullName: fullName,
+        pregnancyWeek: pregnancyWeek,
+      );
 
       await SharedPrefsService.setLoggedIn(true);
 
@@ -96,8 +82,25 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> resendOtp({
+    required String email,
+    required String purpose,
+  }) async {
+    emit(ResendOtpLoading());
+
+    try {
+      await repository.resendOtp(email: email, purpose: purpose);
+      emit(ResendOtpSuccess());
+    } catch (e) {
+      emit(ResendOtpError(
+        e is ErrorModel ? e.message : "Unexpected error",
+      ));
+    }
+  }
+
   Future<void> forgetPassword(String email) async {
     emit(AuthLoading());
+
     try {
       await repository.forgetPassword(email);
       emit(RegisterNeedsVerification(email));
@@ -111,6 +114,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String otp,
   }) async {
     emit(AuthLoading());
+
     try {
       await repository.verifyOtp(email: email, otp: otp);
       emit(OtpVerified(email));
@@ -124,23 +128,28 @@ class AuthCubit extends Cubit<AuthState> {
     required String newPassword,
   }) async {
     emit(AuthLoading());
+
     try {
-      await repository.resetPassword(email: email, newPassword: newPassword);
-      emit(AuthSuccess());
+      await repository.resetPassword(
+        email: email,
+        newPassword: newPassword,
+      );
+
+      emit(LoginSuccess());
     } catch (e) {
       emit(AuthError(e is ErrorModel ? e.message : "Unexpected error"));
     }
   }
 
-  ///  FULL LOGOUT FIX
   Future<void> logout() async {
     emit(AuthLoading());
+
     try {
       await repository.logout();
     } catch (_) {}
-    
-await secureStorage.clearAll();
-await SharedPrefsService.setLoggedIn(false);
+
+    await secureStorage.clearAll();
+    await SharedPrefsService.setLoggedIn(false);
 
     emit(AuthInitial());
   }

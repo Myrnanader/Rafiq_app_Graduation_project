@@ -23,10 +23,33 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   late TextEditingController _pinController;
   String _otp = "";
 
+  int seconds = 30;
+  bool canResend = false;
+
   @override
   void initState() {
     super.initState();
     _pinController = TextEditingController();
+    startTimer();
+  }
+
+  void startTimer() {
+    seconds = 30;
+    canResend = false;
+
+    Future.doWhile(() async {
+      await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return false;
+
+      setState(() {
+        seconds--;
+        if (seconds <= 0) {
+          canResend = true;
+        }
+      });
+
+      return seconds > 0;
+    });
   }
 
   @override
@@ -39,11 +62,10 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   Widget build(BuildContext context) {
     final data = GoRouterState.of(context).extra as Map<String, dynamic>;
 
-    final String email = data["email"] as String;
-    final String type = data["type"] as String;
-
-    final String fullName = (data["fullName"] as String?)?.trim() ?? "";
-    final int? pregnancyWeek = data["pregnancyWeek"] as int?;
+    final String email = data["email"];
+    final String type = data["type"];
+    final String fullName = data["fullName"] ?? "";
+    final int? pregnancyWeek = data["pregnancyWeek"];
 
     return Scaffold(
       body: SafeArea(
@@ -59,6 +81,16 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                 );
               }
             }
+
+            if (state is ResendOtpSuccess) {
+              CustomSnackBar.show(context, "OTP resent successfully");
+              startTimer();
+            }
+
+            if (state is ResendOtpError) {
+              CustomSnackBar.show(context, state.message);
+            }
+
             if (state is AuthError) {
               CustomSnackBar.show(context, state.message);
             }
@@ -72,13 +104,16 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   34.h.ph,
                   const CustomAppBar(text: "Verify Your Email"),
                   40.h.ph,
+
                   Text(
                     "OTP Code",
                     style: AppTextStyles.font14Regular.copyWith(
                       color: AppColors.onSurfaceLight,
                     ),
                   ),
+
                   16.h.ph,
+
                   PinCodeTextField(
                     appContext: context,
                     length: 4,
@@ -102,8 +137,32 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                     enableActiveFill: true,
                     onChanged: (v) => _otp = v,
                   ),
-                  24.h.ph,
+
+                  16.h.ph,
+
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: canResend
+                          ? () {
+                              context.read<AuthCubit>().resendOtp(
+                                    email: email,
+                                    purpose: type == "register"
+                                        ? "Registration"
+                                        : "ResetPassword",
+                                  );
+                            }
+                          : null,
+                      child: Text(
+                        canResend
+                            ? "Resend OTP"
+                            : "Resend in $seconds s",
+                      ),
+                    ),
+                  ),
+
                   const Spacer(),
+
                   state is AuthLoading
                       ? const Center(child: CircularProgressIndicator())
                       : CustomButton(
@@ -130,6 +189,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                             }
                           },
                         ),
+
                   40.h.ph,
                 ],
               ),

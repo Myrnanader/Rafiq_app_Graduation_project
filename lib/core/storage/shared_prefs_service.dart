@@ -9,15 +9,13 @@ class SharedPrefsService {
   static const String _fullNameKey = "full_name";
   static const String _pregnancyWeekKey = "pregnancy_week";
 
-  // ─── Init ─────────────────────────────────────────────────
-
+  /// ================= INIT =================
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
     AppLogger.logger.i("SharedPreferences Initialized");
   }
 
-  // ─── Onboarding ───────────────────────────────────────────
-
+  /// ================= ONBOARDING =================
   static bool isFirstTime() {
     return _prefs?.getBool(_isFirstTimeKey) ?? true;
   }
@@ -26,8 +24,9 @@ class SharedPrefsService {
     await _prefs?.setBool(_isFirstTimeKey, false);
   }
 
-  // ─── Login State ──────────────────────────────────────────
-
+  /// ================= LOGIN STATE =================
+  ///  مش source of truth
+  /// الحقيقي = token + profile validation
   static bool isLoggedIn() {
     return _prefs?.getBool(_isLoggedInKey) ?? false;
   }
@@ -36,9 +35,10 @@ class SharedPrefsService {
     await _prefs?.setBool(_isLoggedInKey, value);
   }
 
-  // ─── User Data ────────────────────────────────────────────
-  // يتحفظ من register flow فقط
-
+  /// ================= USER DATA =================
+  ///  يتحفظ من:
+  /// - register
+  /// - login (profile API)
   static Future<void> saveUserData({
     required String fullName,
     int? pregnancyWeek,
@@ -47,16 +47,9 @@ class SharedPrefsService {
 
     final trimmedName = fullName.trim();
 
-    ///  متخزنش اسم فاضي
-    if (trimmedName.isEmpty) {
-      AppLogger.logger.w("Skipped saving empty fullName");
-      return;
-    }
-
-    ///  خزّن الاسم
+    ///  احفظ الاسم حتى لو فاضي
     await _prefs!.setString(_fullNameKey, trimmedName);
 
-    ///  خزّن الـ week لو valid فقط
     if (pregnancyWeek != null && pregnancyWeek > 0) {
       await _prefs!.setInt(_pregnancyWeekKey, pregnancyWeek);
     }
@@ -71,7 +64,6 @@ class SharedPrefsService {
 
     final name = _prefs!.getString(_fullNameKey);
 
-    ///  لو فاضي رجّع null بدل ""
     if (name == null || name.trim().isEmpty) {
       return null;
     }
@@ -83,8 +75,7 @@ class SharedPrefsService {
     return _prefs?.getInt(_pregnancyWeekKey);
   }
 
-  // ─── Generic ──────────────────────────────────────────────
-
+  /// ================= GENERIC =================
   static Future<void> setString(String key, String value) async {
     if (_prefs == null) return;
     await _prefs!.setString(key, value);
@@ -108,7 +99,7 @@ class SharedPrefsService {
     await _prefs!.remove(key);
   }
 
-  ///  clear user data فقط (لو احتجتها)
+  /// ================= CLEAR =================
   static Future<void> clearUserData() async {
     if (_prefs == null) return;
 
@@ -118,7 +109,7 @@ class SharedPrefsService {
     AppLogger.logger.i("User data cleared");
   }
 
-  /// Full clear (يفضل متستخدمهاش في logout)
+  ///  استخدمها بحذر (debug فقط)
   static Future<void> clear() async {
     if (_prefs == null) return;
     await _prefs!.clear();

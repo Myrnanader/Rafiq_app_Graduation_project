@@ -5,20 +5,44 @@ import 'package:rafiq_app/core/utils/app_images.dart';
 
 class CryRecordButton extends StatelessWidget {
   final VoidCallback onTap;
-  const CryRecordButton({super.key, required this.onTap});
+
+  /// لو شغال بيعرض animation مختلفة
+  final bool isRecording;
+
+  const CryRecordButton({
+    super.key,
+    required this.onTap,
+    this.isRecording = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         width: 80.w,
         height: 80.w,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.onPrimary,
+          color: isRecording ? Colors.red : AppColors.onPrimary,
+          boxShadow: isRecording
+              ? [
+                  BoxShadow(
+                    color: Colors.red.withOpacity(0.4),
+                    blurRadius: 20,
+                    spreadRadius: 5,
+                  ),
+                ]
+              : [],
         ),
-        child: Image.asset(AppImages.mic, width: 18.sp,height: 20.sp,),
+        child: isRecording
+            ? Icon(Icons.stop_rounded, color: Colors.white, size: 32.sp)
+            : Image.asset(
+                AppImages.mic,
+                width: 18.sp,
+                height: 20.sp,
+              ),
       ),
     );
   }

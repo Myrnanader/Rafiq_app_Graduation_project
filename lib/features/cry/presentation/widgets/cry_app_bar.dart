@@ -23,9 +23,7 @@ class CryAppBar extends StatelessWidget {
               size: 20.sp,
             ),
             onPressed: () {
-              context.push(
-                AppRoutes.mainNavigationBarScreen,
-              );
+              context.go(AppRoutes.mainNavigationBarScreen);
             },
           ),
 

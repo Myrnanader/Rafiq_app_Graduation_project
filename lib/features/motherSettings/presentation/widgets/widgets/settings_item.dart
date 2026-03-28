@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/theme/app_texts/app_text_styles.dart';
-import '../../../../core/theming/app_colors.dart';
+import '../../../../../core/theme/app_texts/app_text_styles.dart';
+import '../../../../../core/theming/app_colors.dart';
 
 class SettingsItem extends StatelessWidget {
   final String svgIconPath;

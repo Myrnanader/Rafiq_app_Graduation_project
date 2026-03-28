@@ -66,7 +66,7 @@ class _CustomWeeksScrollerState extends State<CustomWeeksScroller> {
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
             itemCount: weeks.length,
-            separatorBuilder: (_, __) => 18.pw,
+            separatorBuilder: (_, _) => 18.pw,
             itemBuilder: (context, index) {
               final bool isSelected = weeks[index] == selectedWeek;
 

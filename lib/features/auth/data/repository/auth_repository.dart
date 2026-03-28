@@ -3,7 +3,6 @@ import 'package:rafiq_app/core/errors/api_error_handler.dart';
 import 'package:rafiq_app/core/errors/error_model.dart';
 
 import '../api/auth_api_service.dart';
-import '../models/basic_response.dart';
 import '../models/login_request.dart';
 import '../models/login_response.dart';
 import '../models/register_request.dart';

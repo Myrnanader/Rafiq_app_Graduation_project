@@ -3,17 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/features/mother/widgets/widgets/custom_input_field.dart';
 
-import '../../../../core/helpers/extensions.dart';
-import '../../../../core/theming/app_colors.dart';
+import '../../../../../core/helpers/extensions.dart';
+import '../../../../../core/theming/app_colors.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({super.key});
 
   @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
+  _ChangePasswordScreenState createState() => _ChangePasswordScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           children: [
             // 25.ph,
             Text(
-              "Edit Profile",
+              "Change Password",
               style: AppTextStyles.font20SemiBold.copyWith(
                 color: AppColors.onPrimaryFixed,
               ),
@@ -58,21 +58,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  50.ph,
-                  CustomInputField(title: 'Full Name', hint: "Maram Mohammed"),
-                  CustomInputField(title: 'Email', hint: "Maram@gmail.com"),
-                  CustomInputField(title: 'Date of birth', hint: "6/10/1988",                     suffixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: SvgPicture.asset(
-                      'assets/icons/calender.svg',
-                      width: 10,
-                      height: 10,
-                      colorFilter: const ColorFilter.mode(
-                        AppColors.neutralGray,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),),
+                  40.ph,
+                  CustomInputField(
+                    title: 'Current Password',
+                    hint: "",
+                  ),
+                  CustomInputField(
+                    title: 'New Password',
+                    hint: "",
+                  ),
+                  CustomInputField(
+                    title: 'Confirm New Password',
+                    hint: "",
+                  ),
                 ],
               ),
             ),

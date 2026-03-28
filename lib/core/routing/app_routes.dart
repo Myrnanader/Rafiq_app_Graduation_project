@@ -12,7 +12,6 @@ class AppRoutes {
   static const String chooseParentTypeScreen = '/ChooseParentTypeScreen';
   static const String motherInformationScreen = '/MotherInformationScreen';
   static const String doctorInformationScreen = '/DoctorInformationScreen';
-
   static const String accountCreatedSuccessfullyScreen = '/AccountCreatedSuccessfullyScreen';
   static const String mainNavigationBarScreen = '/MainNavigationScreen';
   static const String homeScreen = '/HomeScreen';

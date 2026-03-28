@@ -1,6 +1,10 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rafiq_app/core/di/di.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
-import 'package:rafiq_app/features/mother/views/dashboard_screen.dart';
+import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubit.dart';
+import 'package:rafiq_app/features/mother/presentation/views/dashboard_screen.dart';
+import 'package:rafiq_app/features/motherSettings/presentation/cubit/mother_settings_cubit.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
 import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
 import '../../features/addMemoryAndDocs/views/add_docs_screen.dart';
@@ -39,15 +43,15 @@ import '../../features/foods/views/food_screen.dart';
 import '../../features/growth/presentation/views/add_growth_record_screen.dart';
 import '../../features/growth/presentation/views/growth_success_screen.dart';
 import '../../features/growth/presentation/views/growth_tracker_screen.dart';
-import '../../features/mother/views/add_experience_screen.dart';
-import '../../features/mother/views/add_father_id_screen.dart';
-import '../../features/mother/views/add_post_screen.dart';
-import '../../features/mother/views/baby_profile_screen.dart';
-import '../../features/mother/views/community_screen.dart';
-import '../../features/mother/views/experience_screen.dart';
-import '../../features/mother/views/home_screen.dart';
-import '../../features/mother/views/main_navigation_screen.dart';
-import '../../features/mother/views/profile_screen.dart';
+import '../../features/mother/presentation/views/add_experience_screen.dart';
+import '../../features/mother/presentation/views/add_father_id_screen.dart';
+import '../../features/mother/presentation/views/add_post_screen.dart';
+import '../../features/mother/presentation/views/baby_profile_screen.dart';
+import '../../features/mother/presentation/views/community_screen.dart';
+import '../../features/mother/presentation/views/experience_screen.dart';
+import '../../features/mother/presentation/views/home_screen.dart';
+import '../../features/mother/presentation/views/main_navigation_screen.dart';
+import '../../features/mother/presentation/views/profile_screen.dart';
 import '../../features/motherSettings/presentation/views/change_password_screen.dart';
 import '../../features/motherSettings/presentation/views/edit_profile_screen.dart';
 import '../../features/motherSettings/presentation/views/setting_screen.dart';
@@ -179,7 +183,12 @@ abstract class RouterGenerationConfig {
         GoRoute(
           path: AppRoutes.experienceScreen,
           name: AppRoutes.experienceScreen,
-          builder: (context, state) => const ExperienceScreen(userName: '', date: '', description: '', userImage: '',),
+          builder: (context, state) => const ExperienceScreen(
+            userName: '',
+            date: '',
+            description: '',
+            userImage: '',
+          ),
         ),
 
         GoRoute(
@@ -191,31 +200,31 @@ abstract class RouterGenerationConfig {
         GoRoute(
           path: AppRoutes.addPostScreen,
           name: AppRoutes.addPostScreen,
-          builder: (context, state) =>  AddPostScreen(),
+          builder: (context, state) => AddPostScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.profileScreen,
           name: AppRoutes.profileScreen,
-          builder: (context, state) =>  ProfileScreen(),
+          builder: (context, state) => ProfileScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.addMemoryScreen,
           name: AppRoutes.addMemoryScreen,
-          builder: (context, state) =>  AddMemoryScreen(),
+          builder: (context, state) => AddMemoryScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.memoriesScreen,
           name: AppRoutes.memoriesScreen,
-          builder: (context, state) =>  MemoriesScreen(),
+          builder: (context, state) => MemoriesScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.docsScreen,
           name: AppRoutes.docsScreen,
-          builder: (context, state) =>  DocsScreen(),
+          builder: (context, state) => DocsScreen(),
         ),
 
         GoRoute(
@@ -239,74 +248,87 @@ abstract class RouterGenerationConfig {
         GoRoute(
           path: AppRoutes.addDocScreen,
           name: AppRoutes.addDocScreen,
-          builder: (context, state) =>  AddDocScreen(),
+          builder: (context, state) => AddDocScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.babyProfileScreen,
           name: AppRoutes.babyProfileScreen,
-          builder: (context, state) =>  BabyProfileScreen(),
+          builder: (context, state) {
+            final cubit = state.extra as MotherProfileCubit;
+
+            return BlocProvider.value(
+              value: cubit, //  نفس الـ instance
+              child: const BabyProfileScreen(),
+            );
+          },
         ),
 
         GoRoute(
           path: AppRoutes.addFatherIdScreen,
           name: AppRoutes.addFatherIdScreen,
-          builder: (context, state) =>  AddFatherIdScreen(),
+          builder: (context, state) {
+            final cubit = state.extra as MotherProfileCubit;
+
+            return BlocProvider.value(
+              value: cubit,
+              child: const AddFatherIdScreen(),
+            );
+          },
         ),
 
         GoRoute(
           path: AppRoutes.settingScreen,
           name: AppRoutes.settingScreen,
-          builder: (context, state) =>  SettingScreen(),
+          builder: (context, state) => NotificationScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.notificationScreen,
           name: AppRoutes.notificationScreen,
-          builder: (context, state) =>  NotificationScreen(),
+          builder: (context, state) => NotificationScreen(),
         ),
         GoRoute(
           path: AppRoutes.notificationDetailsScreen,
           name: AppRoutes.notificationDetailsScreen,
-          builder: (context, state) =>  NotificationDetailsScreen(),
+          builder: (context, state) => NotificationDetailsScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.editProfileScreen,
           name: AppRoutes.editProfileScreen,
-          builder: (context, state) =>  EditProfileScreen(),
+          builder: (context, state) => const EditProfileScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.changePasswordScreen,
           name: AppRoutes.changePasswordScreen,
-          builder: (context, state) =>  ChangePasswordScreen(),
+          builder: (context, state) => ChangePasswordScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.exerciseScreen,
           name: AppRoutes.exerciseScreen,
-          builder: (context, state) =>  ExerciseScreen(),
+          builder: (context, state) => ExerciseScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.articleScreen,
           name: AppRoutes.articleScreen,
-          builder: (context, state) =>  ArticleScreen(),
+          builder: (context, state) => ArticleScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.videoScreen,
           name: AppRoutes.videoScreen,
-          builder: (context, state) =>  VideoScreen(),
+          builder: (context, state) => VideoScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.foodScreen,
           name: AppRoutes.foodScreen,
-          builder: (context, state) =>  FoodScreen(),
+          builder: (context, state) => FoodScreen(),
         ),
-
 
         // ================= Cry Feature =================
         GoRoute(
@@ -368,7 +390,6 @@ abstract class RouterGenerationConfig {
           },
         ),
 
-
         /// Growth
         GoRoute(
           path: AppRoutes.growthTrackerScreen,
@@ -387,7 +408,6 @@ abstract class RouterGenerationConfig {
           name: AppRoutes.growthSuccessScreen,
           builder: (context, state) => const GrowthSuccessScreen(),
         ),
-
 
         /*
       GoRoute(

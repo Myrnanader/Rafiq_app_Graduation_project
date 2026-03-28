@@ -30,7 +30,7 @@ class _MotherSettingsApiService implements MotherSettingsApiService {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/MotherProfile/edit',
+            'MotherProfile/edit',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -51,7 +51,7 @@ class _MotherSettingsApiService implements MotherSettingsApiService {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/MotherProfile/delete-account',
+            'MotherProfile/delete-account',
             queryParameters: queryParameters,
             data: _data,
           )

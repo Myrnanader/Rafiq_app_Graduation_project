@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:rafiq_app/features/mother/data/api/mother_profile_api_service.dart';
+import 'package:rafiq_app/features/mother/data/repository/mother_profile_repository.dart';
+import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubit.dart';
 import 'package:rafiq_app/features/motherSettings/data/api/mother_settings_api_service.dart';
 import 'package:rafiq_app/features/motherSettings/data/repository/mother_settings_repository.dart';
 import 'package:rafiq_app/features/motherSettings/presentation/cubit/mother_settings_cubit.dart';
@@ -70,5 +73,17 @@ getIt.registerLazySingleton<MotherSettingsRepository>(
 
 getIt.registerFactory(
   () => MotherSettingsCubit(getIt()),
+);
+
+getIt.registerLazySingleton<MotherProfileApiService>(
+  () => MotherProfileApiService(getIt()),
+);
+
+getIt.registerLazySingleton<MotherProfileRepository>(
+  () => MotherProfileRepository(getIt()),
+);
+
+getIt.registerFactory(
+  () => MotherProfileCubit(getIt()),
 );
 }

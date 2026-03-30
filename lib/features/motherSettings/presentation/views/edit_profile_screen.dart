@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/common/widgets/date_of_birth_feild.dart';
 import 'package:rafiq_app/features/mother/presentation/widgets/widgets/custom_input_field.dart';
@@ -18,26 +19,82 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final dobController = TextEditingController();
+  /// ✅ فصلنا firstName و lastName بدل Full Name field واحدة
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _dobController = TextEditingController();
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _dobController.dispose();
+    super.dispose();
+  }
+
+  void _submit(BuildContext context) {
+    final firstName = _firstNameController.text.trim();
+    final lastName = _lastNameController.text.trim();
+    final email = _emailController.text.trim();
+    final dob = _dobController.text.trim();
+
+    /// ✅ Client-side validation قبل إرسال الـ request
+    if (firstName.isEmpty) {
+      _showSnack(context, "First name is required");
+      return;
+    }
+    if (lastName.isEmpty) {
+      _showSnack(context, "Last name is required");
+      return;
+    }
+    if (email.isEmpty || !email.contains('@')) {
+      _showSnack(context, "Please enter a valid email");
+      return;
+    }
+    if (dob.isEmpty) {
+      _showSnack(context, "Date of birth is required");
+      return;
+    }
+
+    context.read<MotherSettingsCubit>().editProfile(
+          EditProfileRequest(
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            /// ✅ الـ dob بيجي ISO 8601 UTC من الـ DateOfBirthField مباشرة
+            dateOfBirth: dob,
+          ),
+        );
+  }
+
+  void _showSnack(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<MotherSettingsCubit, MotherSettingsState>(
       listener: (context, state) {
-        /// ✅ SUCCESS
         if (state is EditProfileSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Profile updated")),
+            const SnackBar(
+              content: Text("Profile updated successfully"),
+              backgroundColor: Colors.green,
+            ),
           );
           context.pop();
         }
 
-        /// ❌ ERROR
         if (state is EditProfileError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ),
           );
         }
       },
@@ -70,77 +127,76 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           centerTitle: true,
         ),
+        body: BlocBuilder<MotherSettingsCubit, MotherSettingsState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        50.ph,
 
-        body: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    50.ph,
+                        /// ✅ firstName field منفصلة
+                        CustomInputField(
+                          title: 'First Name',
+                          hint: "Maram",
+                          controller: _firstNameController,
+                        ),
 
-                    /// 👤 FULL NAME
-                    CustomInputField(
-                      title: 'Full Name',
-                      hint: "Maram Mohammed",
-                      controller: nameController,
+                        /// ✅ lastName field منفصلة
+                        CustomInputField(
+                          title: 'Last Name',
+                          hint: "Mohammed",
+                          controller: _lastNameController,
+                        ),
+
+                        CustomInputField(
+                          title: 'Email',
+                          hint: "Maram@gmail.com",
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+
+                        /// ✅ DateOfBirthField بتحفظ ISO في الـ controller
+                        DateOfBirthField(controller: _dobController),
+                      ],
                     ),
-
-                    ///  EMAIL
-                    CustomInputField(
-                      title: 'Email',
-                      hint: "Maram@gmail.com",
-                      controller: emailController,
-                    ),
-
-                    ///  DATE OF BIRTH ( باستخدام الwidget الجاهزة)
-                    DateOfBirthField(controller: dobController),
-                  ],
+                  ),
                 ),
-              ),
-            ),
 
-            /// 🔘 SAVE BUTTON
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    final fullName =
-                        nameController.text.trim().split(" ");
-
-                    context.read<MotherSettingsCubit>().editProfile(
-                          EditProfileRequest(
-                            firstName: fullName.first,
-                            lastName:
-                                fullName.length > 1 ? fullName.last : "",
-                            email: emailController.text.trim(),
-                            /// ✅ ISO جاي من الwidget مباشرة
-                            dateOfBirth: dobController.text,
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: state is EditProfileLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : ElevatedButton(
+                            onPressed: () => _submit(context),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: Text(
+                              'Save Changes',
+                              style: AppTextStyles.font16Medium.copyWith(
+                                color: AppColors.lightBackground,
+                              ),
+                            ),
                           ),
-                        );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    'Save Changes',
-                    style: AppTextStyles.font16Medium.copyWith(
-                      color: AppColors.lightBackground,
-                    ),
                   ),
                 ),
-              ),
-            ),
-            40.ph,
-          ],
+
+                40.ph,
+              ],
+            );
+          },
         ),
       ),
     );

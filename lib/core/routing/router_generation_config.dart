@@ -1,10 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rafiq_app/core/di/di.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubit.dart';
 import 'package:rafiq_app/features/mother/presentation/views/dashboard_screen.dart';
-import 'package:rafiq_app/features/motherSettings/presentation/cubit/mother_settings_cubit.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
 import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
 import '../../features/addMemoryAndDocs/views/add_docs_screen.dart';
@@ -54,7 +52,6 @@ import '../../features/mother/presentation/views/main_navigation_screen.dart';
 import '../../features/mother/presentation/views/profile_screen.dart';
 import '../../features/motherSettings/presentation/views/change_password_screen.dart';
 import '../../features/motherSettings/presentation/views/edit_profile_screen.dart';
-import '../../features/motherSettings/presentation/views/setting_screen.dart';
 import '../../features/notification/views/notification_details_screen.dart';
 import '../../features/notification/views/notification_screen.dart';
 import '../../features/vaccinations/views/vaccinations_screen.dart';

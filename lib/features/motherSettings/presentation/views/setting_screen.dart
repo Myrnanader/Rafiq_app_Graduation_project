@@ -29,7 +29,8 @@ class SettingScreen extends StatelessWidget {
           content:
               "This action can't be undone.\n All your data will be permanently removed.",
           onConfirm: () {
-            cubit.deleteAccount();
+             cubit.deleteAccount();
+           
           },
         );
       },
@@ -64,7 +65,7 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<MotherSettingsCubit, MotherSettingsState>(
       listener: (context, state) async {
-        /// ✅ DELETE SUCCESS → Go to Onboarding
+        ///  DELETE SUCCESS → Go to Onboarding
         if (state is DeleteAccountSuccess) {
           await context.read<AuthCubit>().logout();
 

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rafiq_app/core/di/di.dart';
-import 'package:rafiq_app/features/motherSettings/presentation/cubit/mother_settings_cubit.dart';
 import '../widgets/widgets/custom_bottom_navigation_bar.dart';
 import '../widgets/widgets/nav_bar_page_selector.dart';
 

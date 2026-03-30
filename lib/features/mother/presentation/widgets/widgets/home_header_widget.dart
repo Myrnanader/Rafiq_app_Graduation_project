@@ -20,7 +20,7 @@ class HomeHeader extends StatelessWidget {
         if (state is UserLoaded) {
           final fullName = state.profile.fullName;
 
-          if (fullName != null && fullName.trim().isNotEmpty) {
+          if (fullName.trim().isNotEmpty) {
             firstName = fullName.split(" ").first;
           }
         }

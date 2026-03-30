@@ -8,7 +8,7 @@ import 'package:rafiq_app/core/theming/app_colors.dart';
 class EmailField extends StatelessWidget {
   final TextEditingController controller;
 
-  /// ✅ أضفنا validator هنا
+  /// أضفنا validator هنا
   final String? Function(String?)? validator;
 
   const EmailField({

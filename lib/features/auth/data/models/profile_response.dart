@@ -13,10 +13,13 @@ class ProfileResponse {
 
   Map<String, dynamic> toJson() => _$ProfileResponseToJson(this);
 
-  ///  helper getters (مهمين جدًا)
-  String? get fullName => data?.user?.name;
+  ///  helpers (safe)
+  String get fullName => data?.user?.name ?? "";
 
-  int? get pregnancyWeek => data?.motherProfile?.currentPregnancyWeek;
+  String get dateOfBirth => data?.user?.dateOfBirth ?? "";
+
+  int get pregnancyWeek =>
+      data?.motherProfile?.currentPregnancyWeek ?? 0;
 }
 
 @JsonSerializable()
@@ -38,7 +41,10 @@ class ProfileData {
 class User {
   final String? name;
 
-  User({this.name});
+  @JsonKey(name: "dateOfBirth")
+  final String? dateOfBirth; // 🔥 المهم
+
+  User({this.name, this.dateOfBirth});
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);

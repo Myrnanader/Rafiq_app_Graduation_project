@@ -7,7 +7,7 @@ import '../../../core/helpers/date_picker_field.dart';
 import '../../../core/helpers/extensions.dart';
 import '../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../core/theming/app_colors.dart';
-import '../../mother/widgets/widgets/custom_input_field.dart';
+import '../../mother/presentation/widgets/widgets/custom_input_field.dart';
 
 class VaccineScheduleScreen extends StatefulWidget {
 

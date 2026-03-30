@@ -13,7 +13,7 @@ import 'package:rafiq_app/features/auth/presentation/widgets/widgets/custom_outh
 import 'package:rafiq_app/features/auth/presentation/widgets/widgets/custom_social_buttons.dart';
 import 'package:rafiq_app/features/auth/presentation/widgets/widgets/email_feild_widget.dart';
 import 'package:rafiq_app/features/auth/presentation/widgets/widgets/password_feild_widget.dart';
-import 'package:rafiq_app/features/auth/presentation/widgets/widgets/date_of_birth_feild.dart';
+import 'package:rafiq_app/core/common/widgets/date_of_birth_feild.dart';
 import 'package:rafiq_app/features/auth/presentation/widgets/widgets/full_name_feild.dart';
 
 class SignUpScreen extends StatefulWidget {

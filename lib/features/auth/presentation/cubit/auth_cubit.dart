@@ -15,10 +15,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this.repository, this.secureStorage) : super(AuthInitial());
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     emit(AuthLoading());
 
     try {
@@ -30,7 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
         accessToken: response.token!,
         refreshToken: response.refreshToken!,
       );
-
+      await secureStorage.saveEmail(email);
       await SharedPrefsService.setLoggedIn(true);
 
       emit(LoginSuccess());
@@ -68,7 +65,7 @@ class AuthCubit extends Cubit<AuthState> {
         accessToken: response.token!,
         refreshToken: response.refreshToken!,
       );
-
+      await secureStorage.saveEmail(email);
       await SharedPrefsService.saveUserData(
         fullName: fullName,
         pregnancyWeek: pregnancyWeek,
@@ -92,9 +89,7 @@ class AuthCubit extends Cubit<AuthState> {
       await repository.resendOtp(email: email, purpose: purpose);
       emit(ResendOtpSuccess());
     } catch (e) {
-      emit(ResendOtpError(
-        e is ErrorModel ? e.message : "Unexpected error",
-      ));
+      emit(ResendOtpError(e is ErrorModel ? e.message : "Unexpected error"));
     }
   }
 
@@ -109,10 +104,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> verifyOtp({
-    required String email,
-    required String otp,
-  }) async {
+  Future<void> verifyOtp({required String email, required String otp}) async {
     emit(AuthLoading());
 
     try {
@@ -130,10 +122,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
 
     try {
-      await repository.resetPassword(
-        email: email,
-        newPassword: newPassword,
-      );
+      await repository.resetPassword(email: email, newPassword: newPassword);
 
       emit(LoginSuccess());
     } catch (e) {

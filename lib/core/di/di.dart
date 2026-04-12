@@ -17,6 +17,11 @@ import '../../features/auth/data/repository/auth_repository.dart';
 import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/cubit/user_cubit.dart';
 
+import 'package:rafiq_app/features/growth/data/api/growth_api_service.dart';
+import 'package:rafiq_app/features/growth/data/repository/growth_repository.dart';
+import 'package:rafiq_app/features/growth/presentation/cubit/growth_cubit.dart';  
+
+
 final getIt = GetIt.instance;
 
 Future<void> configureDependencies() async {
@@ -42,48 +47,50 @@ Future<void> configureDependencies() async {
     () => UserApiService(getIt<Dio>()),
   );
 
+  getIt.registerLazySingleton<GrowthApiService>(
+    () => GrowthApiService(getIt<Dio>()),
+  );
+
   /// ================= REPOSITORIES =================
 
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepository(getIt<AuthApiService>()),
+  );
+  getIt.registerLazySingleton<GrowthRepository>(
+    () => GrowthRepository(getIt<GrowthApiService>()),
   );
 
   /// ================= CUBITS =================
 
   ///  Auth Cubit
   getIt.registerFactory<AuthCubit>(
-    () => AuthCubit(
-      getIt<AuthRepository>(),
-      getIt<SecureStorageService>(),
-    ),
+    () => AuthCubit(getIt<AuthRepository>(), getIt<SecureStorageService>()),
   );
 
   ///  User Cubit (Profile)
-  getIt.registerFactory<UserCubit>(
-    () => UserCubit(getIt<UserApiService>()),
-  );
+  getIt.registerFactory<UserCubit>(() => UserCubit(getIt<UserApiService>()));
 
   getIt.registerLazySingleton<MotherSettingsApiService>(
-  () => MotherSettingsApiService(getIt()),
-);
+    () => MotherSettingsApiService(getIt()),
+  );
 
-getIt.registerLazySingleton<MotherSettingsRepository>(
-  () => MotherSettingsRepository(getIt()),
-);
+  getIt.registerLazySingleton<MotherSettingsRepository>(
+    () => MotherSettingsRepository(getIt()),
+  );
 
-getIt.registerFactory(
-  () => MotherSettingsCubit(getIt()),
-);
+  getIt.registerFactory(() => MotherSettingsCubit(getIt()));
 
-getIt.registerLazySingleton<MotherProfileApiService>(
-  () => MotherProfileApiService(getIt()),
-);
+  getIt.registerLazySingleton<MotherProfileApiService>(
+    () => MotherProfileApiService(getIt()),
+  );
 
-getIt.registerLazySingleton<MotherProfileRepository>(
-  () => MotherProfileRepository(getIt()),
-);
+  getIt.registerLazySingleton<MotherProfileRepository>(
+    () => MotherProfileRepository(getIt()),
+  );
 
-getIt.registerFactory(
-  () => MotherProfileCubit(getIt()),
+  getIt.registerFactory(() => MotherProfileCubit(getIt()));
+
+  getIt.registerFactory<GrowthCubit>(
+  () => GrowthCubit(getIt<GrowthRepository>()),
 );
 }

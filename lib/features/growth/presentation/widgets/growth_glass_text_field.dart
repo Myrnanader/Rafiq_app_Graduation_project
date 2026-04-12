@@ -11,6 +11,7 @@ class GrowthGlassTextField extends StatelessWidget {
   final bool readOnly;
   final VoidCallback? onTap;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   const GrowthGlassTextField({
     super.key,
@@ -20,6 +21,7 @@ class GrowthGlassTextField extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.keyboardType,
+    this.controller, //  هنا الصح
   });
 
   @override
@@ -29,6 +31,7 @@ class GrowthGlassTextField extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
         child: TextFormField(
+          controller: controller,
           readOnly: readOnly,
           onTap: onTap,
           keyboardType: keyboardType,
@@ -41,7 +44,7 @@ class GrowthGlassTextField extends StatelessWidget {
             suffixText: suffixText,
             suffixIcon: suffixIcon,
             filled: true,
-            fillColor: Colors.transparent, 
+            fillColor: Colors.transparent,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 16.w,
               vertical: 14.h,

@@ -6,10 +6,16 @@ import 'package:rafiq_app/core/theming/app_colors.dart';
 import 'growth_glass_text_field.dart';
 
 class GrowthDatePickerField extends StatefulWidget {
-  const GrowthDatePickerField({super.key});
+  final Function(DateTime)? onDateSelected;
+
+  const GrowthDatePickerField({
+    super.key,
+    this.onDateSelected,
+  });
 
   @override
-  State<GrowthDatePickerField> createState() => _GrowthDatePickerFieldState();
+  State<GrowthDatePickerField> createState() =>
+      _GrowthDatePickerFieldState();
 }
 
 class _GrowthDatePickerFieldState extends State<GrowthDatePickerField> {
@@ -61,12 +67,17 @@ class _GrowthDatePickerFieldState extends State<GrowthDatePickerField> {
                     ),
                   ),
 
-                  // المهم هنا
+                  ///  هنا التعديل المهم
                   onValueChanged: (dates) {
                     if (dates.isNotEmpty) {
+                      final pickedDate = dates.first;
+
                       setState(() {
-                        selectedDate = dates.first;
+                        selectedDate = pickedDate;
                       });
+
+                      ///  نبعت القيمة للـ screen
+                      widget.onDateSelected?.call(pickedDate);
 
                       Navigator.pop(context);
                     }

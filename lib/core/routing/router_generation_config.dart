@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
+import 'package:rafiq_app/features/growth/data/models/child_response.dart';
+import 'package:rafiq_app/features/growth/presentation/views/select_child_screen.dart';
 import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubit.dart';
 import 'package:rafiq_app/features/mother/presentation/views/dashboard_screen.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
@@ -387,17 +389,29 @@ abstract class RouterGenerationConfig {
           },
         ),
 
-        /// Growth
+        /// ================= Growth =================
+        GoRoute(
+          path: AppRoutes.selectChildScreen,
+          name: AppRoutes.selectChildScreen,
+          builder: (context, state) => const SelectChildScreen(),
+        ),
+
         GoRoute(
           path: AppRoutes.growthTrackerScreen,
           name: AppRoutes.growthTrackerScreen,
-          builder: (context, state) => const GrowthTrackerScreen(),
+          builder: (context, state) {
+            final child = state.extra as ChildResponse;
+            return GrowthTrackerScreen(child: child);
+          },
         ),
 
         GoRoute(
           path: AppRoutes.addGrowthScreen,
           name: AppRoutes.addGrowthScreen,
-          builder: (context, state) => const AddGrowthRecordScreen(),
+          builder: (context, state) {
+            final childId = state.extra as String;
+            return AddGrowthRecordScreen(childId: childId);
+          },
         ),
 
         GoRoute(

@@ -13,7 +13,7 @@ class DioFactory {
     final dio = Dio();
 
     dio.options = BaseOptions(
-      baseUrl: "http://rafiq.runasp.net/api/",
+      baseUrl: "https://rafiq.runasp.net/api/",
       connectTimeout: const Duration(seconds: 60),
       receiveTimeout: const Duration(seconds: 60),
       headers: {

@@ -19,7 +19,13 @@ class GrowthCubit extends Cubit<GrowthState> {
       await _repository.createGrowthRecord(request);
       emit(GrowthAddSuccess());
     } catch (error) {
-      emit(GrowthError(error as ErrorModel));
+      emit(
+        GrowthError(
+          error is ErrorModel
+              ? error
+              : ErrorModel(message: "Unexpected error"),
+        ),
+      );
     }
   }
 
@@ -31,7 +37,13 @@ class GrowthCubit extends Cubit<GrowthState> {
       final records = await _repository.getGrowthRecords(childId);
       emit(GrowthLoaded(records));
     } catch (error) {
-      emit(GrowthError(error as ErrorModel));
+      emit(
+        GrowthError(
+          error is ErrorModel
+              ? error
+              : ErrorModel(message: "Unexpected error"),
+        ),
+      );
     }
   }
 }

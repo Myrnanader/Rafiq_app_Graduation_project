@@ -188,6 +188,12 @@ class GrowthChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    /// ✅ أهم FIX → لو مفيش data
+    if (records.isEmpty) {
+      return const SizedBox(); // يمنع أي crash
+    }
+
     return Container(
       height: 300.h,
       width: double.infinity,
@@ -224,10 +230,14 @@ class GrowthChart extends StatelessWidget {
   }
 
   LineChartData _chartData() {
+    /// ✅ double safety
+    if (records.isEmpty) {
+      return LineChartData(lineBarsData: []);
+    }
+
     List<FlSpot> heightSpots = [];
     List<FlSpot> weightSpots = [];
 
-    /// 🔥 أهم سطر
     final firstDate = records.first.measurementDate;
 
     for (final record in records) {
@@ -239,7 +249,7 @@ class GrowthChart extends StatelessWidget {
 
     return LineChartData(
       minX: 0,
-      maxX: 16, // زي التصميم بالظبط
+      maxX: 16,
       minY: 0,
       maxY: 70,
 

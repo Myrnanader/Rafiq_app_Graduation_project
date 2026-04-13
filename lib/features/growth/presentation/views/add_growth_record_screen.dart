@@ -96,6 +96,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:rafiq_app/core/common/widgets/app_gradient_background.dart';
 import 'package:rafiq_app/core/common/widgets/app_primary_button.dart';
+import 'package:rafiq_app/core/di/di.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
@@ -109,7 +110,12 @@ import '../cubit/growth_cubit.dart';
 import '../cubit/growth_state.dart';
 
 class AddGrowthRecordScreen extends StatefulWidget {
-  const AddGrowthRecordScreen({super.key});
+final String childId;
+
+  const AddGrowthRecordScreen({
+    super.key,
+    required this.childId,
+  });
 
   @override
   State<AddGrowthRecordScreen> createState() =>
@@ -125,7 +131,7 @@ class _AddGrowthRecordScreenState extends State<AddGrowthRecordScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => context.read<GrowthCubit>(),
+      create: (_) => getIt<GrowthCubit>(),
       child: BlocConsumer<GrowthCubit, GrowthState>(
         listener: (context, state) {
           if (state is GrowthAddSuccess) {
@@ -149,8 +155,10 @@ class _AddGrowthRecordScreenState extends State<AddGrowthRecordScreen> {
                     children: [
                       GrowthAppBar(
                         title: 'Add Growth Record',
-                        onBack: () =>
-                            context.go(AppRoutes.growthTrackerScreen),
+                        onBack: () => context.go(
+  AppRoutes.growthTrackerScreen,
+  extra: widget.childId,
+),
                       ),
                       Expanded(
                         child: SingleChildScrollView(
@@ -232,14 +240,14 @@ class _AddGrowthRecordScreenState extends State<AddGrowthRecordScreen> {
                             return;
                           }
 
-                          cubit.addGrowthRecord(
-                            GrowthRecordRequest(
-                              childId: "PUT_CHILD_ID_HERE",
-                              weightKg: weight,
-                              heightCm: height,
-                              measurementDate: selectedDate!,
-                            ),
-                          );
+cubit.addGrowthRecord(
+  GrowthRecordRequest(
+    childId: widget.childId,
+    weightKg: weight,
+    heightCm: height,
+    measurementDate: selectedDate!,
+  ),
+);
                         },
                       ),
 

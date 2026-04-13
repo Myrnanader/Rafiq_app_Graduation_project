@@ -9,7 +9,7 @@ import '../models/verify_otp_request.dart';
 
 part 'auth_api_service.g.dart';
 
-@RestApi(baseUrl: "http://rafiq.runasp.net/api/")
+@RestApi(baseUrl: "https://rafiq.runasp.net/api/")
 abstract class AuthApiService {
   factory AuthApiService(Dio dio, {String baseUrl}) = _AuthApiService;
 

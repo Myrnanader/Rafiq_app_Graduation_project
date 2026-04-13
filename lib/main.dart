@@ -24,7 +24,7 @@ void main() async {
       statusBarColor: Colors.transparent,
     ),
   );
-
+  
   runApp(
     DevicePreview(
       enabled: false,

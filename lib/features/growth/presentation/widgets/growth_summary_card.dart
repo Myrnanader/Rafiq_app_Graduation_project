@@ -121,8 +121,15 @@ class GrowthSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate =
-        DateFormat('EEE, dd MMM yyyy').format(record.measurementDate);
+
+    /// ✅ حماية من أي null أو crash
+    final weight = record.weightKg;
+    final height = record.heightCm;
+    final date = record.measurementDate;
+
+    final formattedDate = date != null
+        ? DateFormat('EEE, dd MMM yyyy').format(date)
+        : "-";
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
@@ -146,7 +153,10 @@ class GrowthSummaryCard extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  context.go(AppRoutes.addGrowthScreen);
+                  context.go(
+                    AppRoutes.addGrowthScreen,
+                    extra: record.childId,
+                  );
                 },
                 child: Text(
                   'Add +',
@@ -164,12 +174,12 @@ class GrowthSummaryCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _item(
-                value: record.weightKg.toString(),
+                value: weight != null ? weight.toString() : "--",
                 unit: 'kg',
                 date: formattedDate,
               ),
               _item(
-                value: record.heightCm.toString(),
+                value: height != null ? height.toString() : "--",
                 unit: 'cm',
                 date: formattedDate,
               ),

@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:rafiq_app/features/growth/data/api/children_api_service.dart';
+import 'package:rafiq_app/features/growth/data/repository/children_repository.dart';
+import 'package:rafiq_app/features/growth/presentation/cubit/children_cubit.dart';
 import 'package:rafiq_app/features/mother/data/api/mother_profile_api_service.dart';
 import 'package:rafiq_app/features/mother/data/repository/mother_profile_repository.dart';
 import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubit.dart';
@@ -19,8 +22,7 @@ import '../../features/auth/presentation/cubit/user_cubit.dart';
 
 import 'package:rafiq_app/features/growth/data/api/growth_api_service.dart';
 import 'package:rafiq_app/features/growth/data/repository/growth_repository.dart';
-import 'package:rafiq_app/features/growth/presentation/cubit/growth_cubit.dart';  
-
+import 'package:rafiq_app/features/growth/presentation/cubit/growth_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -50,6 +52,9 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<GrowthApiService>(
     () => GrowthApiService(getIt<Dio>()),
   );
+  getIt.registerLazySingleton<ChildrenApiService>(
+    () => ChildrenApiService(getIt<Dio>()),
+  );
 
   /// ================= REPOSITORIES =================
 
@@ -58,6 +63,9 @@ Future<void> configureDependencies() async {
   );
   getIt.registerLazySingleton<GrowthRepository>(
     () => GrowthRepository(getIt<GrowthApiService>()),
+  );
+  getIt.registerLazySingleton<ChildrenRepository>(
+    () => ChildrenRepository(getIt()),
   );
 
   /// ================= CUBITS =================
@@ -68,7 +76,9 @@ Future<void> configureDependencies() async {
   );
 
   ///  User Cubit (Profile)
-  getIt.registerFactory<UserCubit>(() => UserCubit(getIt<UserApiService>()));
+  getIt.registerFactory<UserCubit>(
+    () => UserCubit(getIt<UserApiService>(), getIt<SecureStorageService>()),
+  );
 
   getIt.registerLazySingleton<MotherSettingsApiService>(
     () => MotherSettingsApiService(getIt()),
@@ -91,6 +101,7 @@ Future<void> configureDependencies() async {
   getIt.registerFactory(() => MotherProfileCubit(getIt()));
 
   getIt.registerFactory<GrowthCubit>(
-  () => GrowthCubit(getIt<GrowthRepository>()),
-);
+    () => GrowthCubit(getIt<GrowthRepository>()),
+  );
+  getIt.registerFactory<ChildrenCubit>(() => ChildrenCubit(getIt()));
 }

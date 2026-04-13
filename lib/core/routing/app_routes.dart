@@ -65,6 +65,7 @@ class AppRoutes {
   static const String chatbotScreen = '/ChatbotScreen';
 
   // -------- Growth Feature --------
+  static const String selectChildScreen = "/selectChild";
   static const String growthTrackerScreen = '/GrowthTrackerScreen';
   static const String addGrowthScreen = '/AddGrowthScreen';
   static const String growthSuccessScreen = '/GrowthSuccessScreen';

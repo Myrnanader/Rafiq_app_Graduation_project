@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/helpers/extensions.dart';
-import '../../../core/theme/app_texts/app_text_styles.dart';
-import '../../../core/theming/app_colors.dart';
-import '../widgets/widgets/vaccine_details_info_row.dart';
-import '../widgets/widgets/vaccine_item.dart';
-import '../widgets/widgets/vaccine_schedule.dart';
+import '../../../../core/helpers/extensions.dart';
+import '../../../../core/theme/app_texts/app_text_styles.dart';
+import '../../../../core/theming/app_colors.dart';
+import '../widgets/vaccine_details_info_row.dart';
+import '../widgets/vaccine_item.dart';
+import '../widgets/vaccine_schedule.dart';
 
 class VaccineDetailsScreen extends StatelessWidget {
   final VaccineItem vaccine;

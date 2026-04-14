@@ -1,4 +1,4 @@
-import 'vaccine_item.dart';
+/*import 'vaccine_item.dart';
 
 final List<VaccineItem> birthVaccines = [
   VaccineItem("Oral Polio Vaccine (Zero dose)", "At birth", "At birth", true),
@@ -10,3 +10,4 @@ final List<VaccineItem> twoMonthsVaccines = [];
 final List<VaccineItem> fourMonthsVaccines = [];
 final List<VaccineItem> sixMonthsVaccines = [];
 final List<VaccineItem> nineMonthsVaccines = [];
+*/

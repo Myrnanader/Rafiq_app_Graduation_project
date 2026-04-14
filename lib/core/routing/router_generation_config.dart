@@ -9,6 +9,12 @@ import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubi
 import 'package:rafiq_app/features/mother/presentation/views/dashboard_screen.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
 import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
+import 'package:rafiq_app/features/vaccinations/presentation/cubit/vaccinations_cubit.dart';
+import 'package:rafiq_app/features/vaccinations/presentation/views/select_vaccination_child_screen.dart';
+import 'package:rafiq_app/features/vaccinations/presentation/views/vaccinations_screen.dart';
+import 'package:rafiq_app/features/vaccinations/presentation/views/vaccine_details_screen.dart';
+import 'package:rafiq_app/features/vaccinations/presentation/views/vaccine_schedule_screen.dart';
+import 'package:rafiq_app/features/vaccinations/presentation/widgets/vaccine_item.dart';
 import '../../features/addMemoryAndDocs/views/add_docs_screen.dart';
 import '../../features/addMemoryAndDocs/views/add_memory_screen.dart';
 import '../../features/addMemoryAndDocs/views/docs_screen.dart';
@@ -58,8 +64,6 @@ import '../../features/motherSettings/presentation/views/change_password_screen.
 import '../../features/motherSettings/presentation/views/edit_profile_screen.dart';
 import '../../features/notification/views/notification_details_screen.dart';
 import '../../features/notification/views/notification_screen.dart';
-import '../../features/vaccinations/views/vaccinations_screen.dart';
-import '../../features/vaccinations/views/vaccine_schedule_screen.dart';
 import '../../features/videos/views/video_screen.dart';
 
 abstract class RouterGenerationConfig {
@@ -163,16 +167,47 @@ abstract class RouterGenerationConfig {
           builder: (context, state) => NearbyHospitalScreen(),
         ),
 
+        /// ================= Vaccinations =================
+        GoRoute(
+          path: AppRoutes.selectVaccinationChildScreen,
+          name: AppRoutes.selectVaccinationChildScreen,
+          builder: (context, state) => const SelectVaccinationChildScreen(),
+        ),
+
         GoRoute(
           path: AppRoutes.vaccinationsScreen,
           name: AppRoutes.vaccinationsScreen,
-          builder: (context, state) => const VaccinationsScreen(),
+          builder: (context, state) {
+            final childId = state.extra as String;
+
+            return BlocProvider(
+              create: (_) => getIt<VaccinationsCubit>(),
+              child: VaccinationsScreen(childId: childId),
+            );
+          },
+        ),
+
+        GoRoute(
+          path: AppRoutes.vaccineDetailsScreen,
+          name: AppRoutes.vaccineDetailsScreen,
+          builder: (context, state) {
+            final vaccine = state.extra as VaccineItem;
+
+            return VaccineDetailsScreen(vaccine: vaccine);
+          },
         ),
 
         GoRoute(
           path: AppRoutes.vaccineScheduleScreen,
           name: AppRoutes.vaccineScheduleScreen,
-          builder: (context, state) => const VaccineScheduleScreen(),
+          builder: (context, state) {
+            final vaccineId = state.extra as String;
+
+            return BlocProvider.value(
+              value: getIt<VaccinationsCubit>(),
+              child: VaccineScheduleScreen(vaccineId: vaccineId),
+            );
+          },
         ),
 
         GoRoute(

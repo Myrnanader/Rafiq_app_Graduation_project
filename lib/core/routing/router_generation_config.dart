@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rafiq_app/core/di/di.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
+import 'package:rafiq_app/features/depression/presentation/cubit/postpartum_survey_cubit.dart';
 import 'package:rafiq_app/features/growth/data/models/child_response.dart';
 import 'package:rafiq_app/features/growth/presentation/views/select_child_screen.dart';
 import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubit.dart';
@@ -351,7 +353,10 @@ abstract class RouterGenerationConfig {
 
         GoRoute(
           path: AppRoutes.depressionSurveyScreen,
-          builder: (context, state) => const DepressionSurveyScreen(),
+          builder: (context, state) => BlocProvider(
+            create: (_) => getIt<PostpartumSurveyCubit>(),
+            child: const DepressionSurveyScreen(),
+          ),
         ),
 
         GoRoute(

@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:rafiq_app/features/depression/data/api/postpartum_survey_api_service.dart';
+import 'package:rafiq_app/features/depression/data/repository/postpartum_survey_repository.dart';
+import 'package:rafiq_app/features/depression/presentation/cubit/postpartum_survey_cubit.dart';
 import 'package:rafiq_app/features/growth/data/api/children_api_service.dart';
 import 'package:rafiq_app/features/growth/data/repository/children_repository.dart';
 import 'package:rafiq_app/features/growth/presentation/cubit/children_cubit.dart';
@@ -55,7 +58,9 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<ChildrenApiService>(
     () => ChildrenApiService(getIt<Dio>()),
   );
-
+getIt.registerLazySingleton<PostpartumSurveyApiService>(
+  () => PostpartumSurveyApiService(getIt()),
+);
   /// ================= REPOSITORIES =================
 
   getIt.registerLazySingleton<AuthRepository>(
@@ -68,6 +73,9 @@ Future<void> configureDependencies() async {
     () => ChildrenRepository(getIt()),
   );
 
+getIt.registerLazySingleton<PostpartumSurveyRepository>(
+  () => PostpartumSurveyRepository(getIt()),
+);
   /// ================= CUBITS =================
 
   ///  Auth Cubit
@@ -104,4 +112,8 @@ Future<void> configureDependencies() async {
     () => GrowthCubit(getIt<GrowthRepository>()),
   );
   getIt.registerFactory<ChildrenCubit>(() => ChildrenCubit(getIt()));
+
+  getIt.registerFactory(
+  () => PostpartumSurveyCubit(getIt()),
+);
 }

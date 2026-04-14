@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 
-import '../../../../core/routing/app_routes.dart';
 
 class GrowthAppBar extends StatelessWidget {
   final String title;
@@ -27,10 +26,7 @@ class GrowthAppBar extends StatelessWidget {
           /// Back button
           if (showBackButton)
             IconButton(
-              onPressed: () {
-                context.go(AppRoutes.mainNavigationBarScreen);
-              },
-              // onPressed: onBack ?? () => Navigator.pop(context),
+              onPressed: onBack ?? () => context.pop(),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: AppColors.onPrimaryFixed,
@@ -48,7 +44,7 @@ class GrowthAppBar extends StatelessWidget {
             style: AppTextStyles.font20SemiBold.copyWith(
               color: AppColors.onPrimaryFixed,
             ),
-       ),
+          ),
 
           const Spacer(),
         ],

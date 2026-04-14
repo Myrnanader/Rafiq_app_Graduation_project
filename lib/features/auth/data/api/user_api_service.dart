@@ -4,7 +4,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'user_api_service.g.dart';
 
-@RestApi(baseUrl: "http://rafiq.runasp.net/api/")
+@RestApi(baseUrl: "https://rafiq.runasp.net/api/")
 abstract class UserApiService {
   factory UserApiService(Dio dio, {String baseUrl}) = _UserApiService;
 

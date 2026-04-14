@@ -49,7 +49,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                   {
                     "icon": "assets/icons/growth.svg",
                     "label": "Growth Tracker",
-                    "route": AppRoutes.growthTrackerScreen,
+                    "route": AppRoutes.selectChildScreen,
                   },
                   {
                     "icon": "assets/icons/vaccinations.svg",

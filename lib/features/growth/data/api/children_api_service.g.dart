@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_api_service.dart';
+part of 'children_api_service.dart';
 
 // dart format off
 
@@ -10,8 +10,8 @@ part of 'user_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
-class _UserApiService implements UserApiService {
-  _UserApiService(this._dio, {this.baseUrl, this.errorLogger}) {
+class _ChildrenApiService implements ChildrenApiService {
+  _ChildrenApiService(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://rafiq.runasp.net/api/';
   }
 
@@ -22,25 +22,25 @@ class _UserApiService implements UserApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ProfileResponse> getProfile() async {
+  Future<ChildrenResponseWrapper> getChildren() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ProfileResponse>(
+    final _options = _setStreamType<ChildrenResponseWrapper>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'profile/me',
+            'MotherProfile/children',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ProfileResponse _value;
+    late ChildrenResponseWrapper _value;
     try {
-      _value = ProfileResponse.fromJson(_result.data!);
+      _value = ChildrenResponseWrapper.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

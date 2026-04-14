@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
+import 'package:rafiq_app/features/growth/data/models/child_response.dart';
+import 'package:rafiq_app/features/growth/presentation/views/select_child_screen.dart';
 import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubit.dart';
 import 'package:rafiq_app/features/mother/presentation/views/dashboard_screen.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
@@ -387,23 +389,40 @@ abstract class RouterGenerationConfig {
           },
         ),
 
-        /// Growth
+        /// ================= Growth =================
+        GoRoute(
+          path: AppRoutes.selectChildScreen,
+          builder: (context, state) => const SelectChildScreen(),
+        ),
+
         GoRoute(
           path: AppRoutes.growthTrackerScreen,
-          name: AppRoutes.growthTrackerScreen,
-          builder: (context, state) => const GrowthTrackerScreen(),
+          builder: (context, state) {
+            ///  ممكن يبعتوا ChildResponse أو String (childId)
+            final extra = state.extra;
+            if (extra is ChildResponse) {
+              return GrowthTrackerScreen(child: extra);
+            }
+
+            /// fallback لو بعت childId فقط → مش المفروض يحصل لكن للأمان
+            return const SelectChildScreen();
+          },
         ),
 
         GoRoute(
           path: AppRoutes.addGrowthScreen,
-          name: AppRoutes.addGrowthScreen,
-          builder: (context, state) => const AddGrowthRecordScreen(),
+          builder: (context, state) {
+            final childId = state.extra as String;
+            return AddGrowthRecordScreen(childId: childId);
+          },
         ),
 
         GoRoute(
           path: AppRoutes.growthSuccessScreen,
-          name: AppRoutes.growthSuccessScreen,
-          builder: (context, state) => const GrowthSuccessScreen(),
+          builder: (context, state) {
+            /// extra = childId (String) أو null
+            return const GrowthSuccessScreen();
+          },
         ),
 
         /*

@@ -7,6 +7,7 @@ class SecureStorageService {
   static const String _accessTokenKey = "access_token";
   static const String _refreshTokenKey = "refresh_token";
   static const String _emailKey = "user_email";
+  static const String _childIdKey = "child_id";
 
   /// ================= SAVE =================
 
@@ -22,6 +23,10 @@ class SecureStorageService {
     await _storage.write(key: _emailKey, value: email);
   }
 
+  Future<void> saveChildId(String childId) async {
+    await _storage.write(key: _childIdKey, value: childId);
+  }
+
   /// ================= GET =================
 
   Future<String?> getAccessToken() async {
@@ -34,6 +39,10 @@ class SecureStorageService {
 
   Future<String?> getEmail() async {
     return await _storage.read(key: _emailKey);
+  }
+
+  Future<String?> getChildId() async {
+    return await _storage.read(key: _childIdKey);
   }
 
   /// ================= CHECK =================

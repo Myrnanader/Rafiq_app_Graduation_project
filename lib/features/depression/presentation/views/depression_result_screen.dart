@@ -88,22 +88,19 @@ class DepressionResultScreen extends StatelessWidget {
                 onBack: () =>
                     context.go(AppRoutes.depressionSurveyScreen),
               ),
-
               96.h.verticalSpace,
-
               Center(
                 child: DepressionScoreIndicator(
                   value: score / 30,
                   score: score,
                 ),
               ),
-
               40.h.verticalSpace,
-
               Text(
                 getRiskDescription(risk),
                 style:
-                    AppTextStyles.font13Regular.copyWith(height: 1.6),
+                    AppTextStyles.font14Medium.copyWith(height: 1.6),
+                    textAlign: TextAlign.center,
               ),
               const Spacer(),
               AppPrimaryButton(

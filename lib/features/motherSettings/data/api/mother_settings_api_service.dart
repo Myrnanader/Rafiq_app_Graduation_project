@@ -15,4 +15,10 @@ abstract class MotherSettingsApiService {
 
   @DELETE('MotherProfile/delete-account')
   Future<dynamic> deleteAccount();
+
+  ///  NEW: Make Admin
+  @POST('Auth/make-admin')
+  Future<dynamic> makeAdmin(
+    @Body() Map<String, dynamic> body,
+  );
 }

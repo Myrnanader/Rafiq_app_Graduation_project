@@ -18,10 +18,10 @@ class RefreshTokenInterceptor extends Interceptor {
           return handler.next(err);
         }
 
-        /// ✅ FIX: Dio منفصل وبسيط - بدون interceptors عشان منتعملش loop
+        ///  FIX: Dio منفصل وبسيط - بدون interceptors عشان منتعملش loop
         final refreshDio = Dio(
           BaseOptions(
-            baseUrl: "http://rafiq.runasp.net/api/",
+            baseUrl: "https://rafiq.runasp.net/api/",
             connectTimeout: const Duration(seconds: 30),
             receiveTimeout: const Duration(seconds: 30),
             headers: {
@@ -42,7 +42,7 @@ class RefreshTokenInterceptor extends Interceptor {
         final newAccessToken = response.data["token"];
         final newRefreshToken = response.data["refreshToken"];
 
-        /// ✅ FIX: تأكد إن التوكنز مش null أو فاضيين قبل الحفظ
+        ///  FIX: تأكد إن التوكنز مش null أو فاضيين قبل الحفظ
         if (newAccessToken == null ||
             newAccessToken.toString().isEmpty ||
             newRefreshToken == null ||
@@ -60,7 +60,7 @@ class RefreshTokenInterceptor extends Interceptor {
         final options = err.requestOptions;
         options.headers["Authorization"] = "Bearer $newAccessToken";
 
-        /// ✅ استخدم refreshDio مش الـ Dio الأصلي عشان منعملش loop
+        ///  استخدم refreshDio مش الـ Dio الأصلي عشان منعملش loop
         final cloneReq = await refreshDio.fetch(options);
 
         return handler.resolve(cloneReq);

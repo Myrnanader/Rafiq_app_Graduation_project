@@ -3,25 +3,28 @@ import '../../data/models/growth_record_response.dart';
 
 abstract class GrowthState {}
 
-/// ===== Initial =====
 class GrowthInitial extends GrowthState {}
 
-/// ===== Loading =====
 class GrowthLoading extends GrowthState {}
 
-/// ===== Success (GET) =====
+///  بيحمل الـ dashboard كامل (records + latestRecord)
 class GrowthLoaded extends GrowthState {
   final List<GrowthRecordResponse> records;
+  final GrowthRecordResponse? latestRecord;
 
-  GrowthLoaded(this.records);
+  GrowthLoaded({
+    required this.records,
+    this.latestRecord,
+  });
 }
 
-/// ===== Success (ADD) =====
-class GrowthAddSuccess extends GrowthState {}
+class GrowthAddSuccess extends GrowthState {
+  ///  بنرجع الـ childId عشان نعرف نروح للـ tracker الصح
+  final String childId;
+  GrowthAddSuccess(this.childId);
+}
 
-/// ===== Error =====
 class GrowthError extends GrowthState {
   final ErrorModel error;
-
   GrowthError(this.error);
 }

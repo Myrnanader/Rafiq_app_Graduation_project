@@ -11,7 +11,7 @@ GrowthRecordRequest _$GrowthRecordRequestFromJson(Map<String, dynamic> json) =>
       childId: json['childId'] as String,
       weightKg: (json['weightKg'] as num).toDouble(),
       heightCm: (json['heightCm'] as num).toDouble(),
-      measurementDate: DateTime.parse(json['measurementDate'] as String),
+      measurementDate: json['measurementDate'] as String,
     );
 
 Map<String, dynamic> _$GrowthRecordRequestToJson(
@@ -20,5 +20,5 @@ Map<String, dynamic> _$GrowthRecordRequestToJson(
   'childId': instance.childId,
   'weightKg': instance.weightKg,
   'heightCm': instance.heightCm,
-  'measurementDate': instance.measurementDate.toIso8601String(),
+  'measurementDate': instance.measurementDate,
 };

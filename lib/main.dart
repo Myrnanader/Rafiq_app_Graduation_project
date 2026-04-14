@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rafiq_app/core/routing/router_generation_config.dart';
+import 'package:rafiq_app/features/auth/presentation/cubit/user_cubit.dart';
+import 'package:rafiq_app/features/growth/presentation/cubit/growth_cubit.dart';
 import 'core/di/di.dart';
 import 'core/storage/shared_prefs_service.dart';
 import 'my_app.dart';
@@ -20,11 +22,9 @@ void main() async {
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ),
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
-  
+
   runApp(
     DevicePreview(
       enabled: false,
@@ -32,11 +32,11 @@ void main() async {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (_) => AuthCubit(
-                AuthRepository(getIt()),
-                getIt(),
-              ),
+              create: (_) => AuthCubit(AuthRepository(getIt()), getIt()),
             ),
+            BlocProvider(create: (_) => getIt<UserCubit>()..getProfile()),
+
+            BlocProvider(create: (_) => getIt<GrowthCubit>()),
           ],
           child: const MyApp(),
         );

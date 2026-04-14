@@ -13,7 +13,7 @@ GrowthRecordResponse _$GrowthRecordResponseFromJson(
   childId: json['childId'] as String,
   weightKg: (json['weightKg'] as num).toDouble(),
   heightCm: (json['heightCm'] as num).toDouble(),
-  measurementDate: DateTime.parse(json['measurementDate'] as String),
+  measurementDate: GrowthRecordResponse._parseDate(json['measurementDate']),
 );
 
 Map<String, dynamic> _$GrowthRecordResponseToJson(

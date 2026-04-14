@@ -392,22 +392,25 @@ abstract class RouterGenerationConfig {
         /// ================= Growth =================
         GoRoute(
           path: AppRoutes.selectChildScreen,
-          name: AppRoutes.selectChildScreen,
           builder: (context, state) => const SelectChildScreen(),
         ),
 
         GoRoute(
           path: AppRoutes.growthTrackerScreen,
-          name: AppRoutes.growthTrackerScreen,
           builder: (context, state) {
-            final child = state.extra as ChildResponse;
-            return GrowthTrackerScreen(child: child);
+            ///  ممكن يبعتوا ChildResponse أو String (childId)
+            final extra = state.extra;
+            if (extra is ChildResponse) {
+              return GrowthTrackerScreen(child: extra);
+            }
+
+            /// fallback لو بعت childId فقط → مش المفروض يحصل لكن للأمان
+            return const SelectChildScreen();
           },
         ),
 
         GoRoute(
           path: AppRoutes.addGrowthScreen,
-          name: AppRoutes.addGrowthScreen,
           builder: (context, state) {
             final childId = state.extra as String;
             return AddGrowthRecordScreen(childId: childId);
@@ -416,8 +419,10 @@ abstract class RouterGenerationConfig {
 
         GoRoute(
           path: AppRoutes.growthSuccessScreen,
-          name: AppRoutes.growthSuccessScreen,
-          builder: (context, state) => const GrowthSuccessScreen(),
+          builder: (context, state) {
+            /// extra = childId (String) أو null
+            return const GrowthSuccessScreen();
+          },
         ),
 
         /*

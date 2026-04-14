@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/common/widgets/app_gradient_background.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
+import 'package:rafiq_app/core/theming/app_colors.dart';
+import 'package:rafiq_app/features/findaDoctorNow/widgets/growth_app_bar.dart';
 import 'package:rafiq_app/features/growth/presentation/cubit/children_cubit.dart';
 import 'package:rafiq_app/features/growth/presentation/widgets/child_card.dart';
 import 'package:rafiq_app/core/di/di.dart';
@@ -21,16 +23,17 @@ class SelectChildScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
               children: [
-                60.h.verticalSpace,
+                47.h.verticalSpace,
 
-                /// Title
-                const Text(
-                  "Select Your Child",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
+                GrowthAppBar(
+                  title: "Select Your Child",
+                  onBack: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      context.go(AppRoutes.dashboardScreen);
+                    }
+                  },
                 ),
 
                 24.h.verticalSpace,
@@ -40,8 +43,10 @@ class SelectChildScreen extends StatelessWidget {
                   child: BlocBuilder<ChildrenCubit, ChildrenState>(
                     builder: (context, state) {
                       if (state is ChildrenLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.primary,
+                          ),
                         );
                       }
 
@@ -50,18 +55,14 @@ class SelectChildScreen extends StatelessWidget {
                       }
 
                       if (state is ChildrenSuccess) {
-                        return ListView.builder(
+                        return ListView.separated(
                           itemCount: state.children.length,
+                          separatorBuilder: (_, __) => SizedBox(height: 12.h),
                           itemBuilder: (_, index) {
                             final child = state.children[index];
-
                             return ChildCard(
                               child: child,
                               onTap: () {
-                                /// 🔥 DEBUG
-                                print("🔥 Selected childId: ${child.id}");
-
-                                /// 🔥 نروح للـ Growth
                                 context.go(
                                   AppRoutes.growthTrackerScreen,
                                   extra: child,
@@ -71,7 +72,6 @@ class SelectChildScreen extends StatelessWidget {
                           },
                         );
                       }
-
                       return const SizedBox();
                     },
                   ),

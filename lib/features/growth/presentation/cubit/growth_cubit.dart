@@ -9,41 +9,37 @@ class GrowthCubit extends Cubit<GrowthState> {
 
   GrowthCubit(this._repository) : super(GrowthInitial());
 
-  /// ================= ADD =================
-  Future<void> addGrowthRecord(
-    GrowthRecordRequest request,
-  ) async {
-    emit(GrowthLoading());
+  // ─── ADD ──────────────────────────────────────────────────
 
+  Future<void> addGrowthRecord(GrowthRecordRequest request) async {
+    emit(GrowthLoading());
     try {
       await _repository.createGrowthRecord(request);
-      emit(GrowthAddSuccess());
+
+      ///  بنرجع الـ childId عشان الـ screen تروح للـ tracker بيه
+      emit(GrowthAddSuccess(request.childId));
     } catch (error) {
-      emit(
-        GrowthError(
-          error is ErrorModel
-              ? error
-              : ErrorModel(message: "Unexpected error"),
-        ),
-      );
+      emit(GrowthError(
+        error is ErrorModel ? error : ErrorModel(message: "Unexpected error"),
+      ));
     }
   }
 
-  /// ================= GET =================
+  // ─── GET ──────────────────────────────────────────────────
+
   Future<void> getGrowthRecords(String childId) async {
     emit(GrowthLoading());
-
     try {
-      final records = await _repository.getGrowthRecords(childId);
-      emit(GrowthLoaded(records));
+      final dashboard = await _repository.getGrowthRecords(childId);
+
+      emit(GrowthLoaded(
+        records: dashboard.records,
+        latestRecord: dashboard.latestRecord,
+      ));
     } catch (error) {
-      emit(
-        GrowthError(
-          error is ErrorModel
-              ? error
-              : ErrorModel(message: "Unexpected error"),
-        ),
-      );
+      emit(GrowthError(
+        error is ErrorModel ? error : ErrorModel(message: "Unexpected error"),
+      ));
     }
   }
 }

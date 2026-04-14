@@ -27,8 +27,6 @@ class GrowthAppBar extends StatelessWidget {
           if (showBackButton)
             IconButton(
               onPressed: onBack ?? () => context.pop(),
-
-              // onPressed: onBack ?? () => Navigator.pop(context),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: AppColors.onPrimaryFixed,

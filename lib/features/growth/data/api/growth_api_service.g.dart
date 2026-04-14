@@ -11,7 +11,9 @@ part of 'growth_api_service.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
 class _GrowthApiService implements GrowthApiService {
-  _GrowthApiService(this._dio, {this.baseUrl, this.errorLogger});
+  _GrowthApiService(this._dio, {this.baseUrl, this.errorLogger}) {
+    baseUrl ??= 'https://rafiq.runasp.net/api/';
+  }
 
   final Dio _dio;
 
@@ -20,13 +22,13 @@ class _GrowthApiService implements GrowthApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<void> createGrowthRecord(GrowthRecordRequest request) async {
+  Future<dynamic> createGrowthRecord(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
-    final _options = _setStreamType<void>(
+    _data.addAll(body);
+    final _options = _setStreamType<dynamic>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -36,16 +38,18 @@ class _GrowthApiService implements GrowthApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
+    return _value;
   }
 
   @override
-  Future<List<GrowthRecordResponse>> getGrowthRecords(String childId) async {
+  Future<dynamic> getGrowthRecords(String childId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<GrowthRecordResponse>>(
+    final _options = _setStreamType<dynamic>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -55,19 +59,8 @@ class _GrowthApiService implements GrowthApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<GrowthRecordResponse> _value;
-    try {
-      _value = _result.data!
-          .map(
-            (dynamic i) =>
-                GrowthRecordResponse.fromJson(i as Map<String, dynamic>),
-          )
-          .toList();
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
-      rethrow;
-    }
+    final _result = await _dio.fetch(_options);
+    final _value = _result.data;
     return _value;
   }
 

@@ -23,11 +23,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final confirmPasswordController = TextEditingController();
 
   @override
+  void dispose() {
+    currentPasswordController.dispose();
+    newPasswordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        ///  نجاح تغيير الباسورد
-        if (state is LoginSuccess) {
+        /// ✅ SUCCESS
+        if (state is ChangePasswordSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Password changed successfully")),
           );
@@ -35,7 +43,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           context.pop();
         }
 
-        ///  error
+        /// ❌ ERROR
         if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
@@ -106,60 +114,72 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
             ),
 
-            ///  Save Button
+            /// 🔘 Save Button
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    final newPass = newPasswordController.text;
-                    final confirm = confirmPasswordController.text;
+                child: BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    final isLoading = state is AuthLoading;
 
-                    /// validation
-                    if (newPass != confirm) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Passwords do not match"),
-                        ),
-                      );
-                      return;
-                    }
+                    return isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : ElevatedButton(
+                            onPressed: () {
+                              final currentPass =
+                                  currentPasswordController.text;
+                              final newPass = newPasswordController.text;
+                              final confirm =
+                                  confirmPasswordController.text;
 
-                    ///  get email from secure storage
-                    final email = await context
-                        .read<AuthCubit>()
-                        .secureStorage
-                        .getEmail();
+                              ///  validation
+                              if (currentPass.isEmpty ||
+                                  newPass.isEmpty ||
+                                  confirm.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        "All fields are required"),
+                                  ),
+                                );
+                                return;
+                              }
 
-                    if (email == null || email.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Something went wrong, try again"),
-                        ),
-                      );
-                      return;
-                    }
+                              if (newPass != confirm) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text("Passwords do not match"),
+                                  ),
+                                );
+                                return;
+                              }
 
-                    ///  call API
-                    context.read<AuthCubit>().resetPassword(
-                          email: email,
-                          newPassword: newPass,
-                        );
+                              ///  CALL API
+                              context.read<AuthCubit>().changePassword(
+                                    currentPassword: currentPass,
+                                    newPassword: newPass,
+                                    confirmPassword: confirm,
+                                  );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: Text(
+                              'Save',
+                              style: AppTextStyles.font16Medium.copyWith(
+                                color: AppColors.lightBackground,
+                              ),
+                            ),
+                          );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    'Save',
-                    style: AppTextStyles.font16Medium.copyWith(
-                      color: AppColors.lightBackground,
-                    ),
-                  ),
                 ),
               ),
             ),

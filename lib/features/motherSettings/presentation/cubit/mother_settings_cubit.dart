@@ -27,16 +27,18 @@ class MotherSettingsCubit extends Cubit<MotherSettingsState> {
   // ─── DELETE ACCOUNT ───────────────────────────────────────
 
   Future<void> deleteAccount() async {
-    emit(DeleteAccountLoading());
-    try {
-      await repository.deleteAccount();
-      emit(DeleteAccountSuccess());
-    } on ErrorModel catch (e) {
-      emit(DeleteAccountError(e.message));
-    } catch (e) {
-      emit(DeleteAccountError('Failed to delete account. Please try again.'));
-    }
-  }
+  if (state is DeleteAccountLoading) return; //  prevent double click
+
+  emit(DeleteAccountLoading());
+  try {
+    await repository.deleteAccount();
+    emit(DeleteAccountSuccess());
+  }  on ErrorModel catch (e) {
+  emit(DeleteAccountError(e.message));
+} catch (e) {
+  emit(DeleteAccountError("Failed to delete account"));
+}
+}
 
   // ─── MAKE ADMIN  ───────────────────────────────────────
 

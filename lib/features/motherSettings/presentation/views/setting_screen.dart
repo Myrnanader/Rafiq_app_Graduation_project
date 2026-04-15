@@ -30,11 +30,8 @@ class SettingScreen extends StatelessWidget {
           listener: (context, state) async {
             /// DELETE SUCCESS
             if (state is DeleteAccountSuccess) {
-              await context.read<AuthCubit>().logout();
-
-              if (context.mounted) {
                 context.go(AppRoutes.onBoardScreen);
-              }
+              
             }
 
             /// DELETE ERROR

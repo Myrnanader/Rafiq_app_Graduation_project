@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:rafiq_app/features/auth/data/models/basic_response.dart';
 import 'package:retrofit/retrofit.dart';
+
 
 part 'mother_settings_api_service.g.dart';
 
@@ -8,17 +10,21 @@ abstract class MotherSettingsApiService {
   factory MotherSettingsApiService(Dio dio) =
       _MotherSettingsApiService;
 
-  @PUT('MotherProfile/edit')
-  Future<dynamic> editProfile(
+  /// EDIT PROFILE
+  @PUT('motherprofile/edit')
+  Future<BasicResponse> editProfile(
     @Body() Map<String, dynamic> body,
   );
 
-  @DELETE('MotherProfile/delete-account')
-  Future<dynamic> deleteAccount();
+  /// DELETE ACCOUNT
+ @DELETE('motherprofile/delete-account')
+Future<BasicResponse> deleteAccount(
+  @Body() Map<String, dynamic> body,
+);
 
-  ///  NEW: Make Admin
-  @POST('Auth/make-admin')
-  Future<dynamic> makeAdmin(
+  /// MAKE ADMIN
+  @POST('mother/settings/make-admin')
+  Future<BasicResponse> makeAdmin(
     @Body() Map<String, dynamic> body,
   );
 }

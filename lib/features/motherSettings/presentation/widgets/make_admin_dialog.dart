@@ -76,12 +76,8 @@ class _MakeAdminDialogState extends State<MakeAdminDialog> {
                   child: ElevatedButton(
                     onPressed: () {
                       final email = controller.text.trim();
-
                       if (email.isEmpty) return;
-
                       cubit.makeAdmin(email);
-
-                      Navigator.pop(context);
                     },
                     child: const Text("Save"),
                   ),

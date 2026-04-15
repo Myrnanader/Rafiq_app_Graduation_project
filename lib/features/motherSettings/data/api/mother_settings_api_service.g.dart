@@ -20,67 +20,86 @@ class _MotherSettingsApiService implements MotherSettingsApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<dynamic> editProfile(Map<String, dynamic> body) async {
+  Future<BasicResponse> editProfile(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<dynamic>(
+    final _options = _setStreamType<BasicResponse>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'MotherProfile/edit',
+            'motherprofile/edit',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch(_options);
-    final _value = _result.data;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BasicResponse _value;
+    try {
+      _value = BasicResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
     return _value;
   }
 
   @override
-  Future<dynamic> deleteAccount() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<dynamic>(
-      Options(method: 'DELETE', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'MotherProfile/delete-account',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch(_options);
-    final _value = _result.data;
-    return _value;
-  }
-
-  @override
-  Future<dynamic> makeAdmin(Map<String, dynamic> body) async {
+  Future<BasicResponse> deleteAccount(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<dynamic>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+    final _options = _setStreamType<BasicResponse>(
+      Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'Auth/make-admin',
+            'motherprofile/delete-account',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch(_options);
-    final _value = _result.data;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BasicResponse _value;
+    try {
+      _value = BasicResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<BasicResponse> makeAdmin(Map<String, dynamic> body) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _options = _setStreamType<BasicResponse>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'mother/settings/make-admin',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BasicResponse _value;
+    try {
+      _value = BasicResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
     return _value;
   }
 

@@ -8,14 +8,20 @@ class DeleteAccountDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<MotherSettingsCubit>();
+    return BlocBuilder<MotherSettingsCubit, MotherSettingsState>(
+      builder: (context, state) {
+        final isLoading = state is DeleteAccountLoading;
 
-    return ConfirmationDialog(
-      title: "Do You Want to delete account?",
-      content:
-          "This action can't be undone.\n All your data will be permanently removed.",
-      onConfirm: () {
-        cubit.deleteAccount();
+        return ConfirmationDialog(
+          title: "Do You Want to delete account?",
+          content:
+              "This action can't be undone.\n All your data will be permanently removed.",
+          isLoading: isLoading,
+          autoClose: false, 
+          onConfirm: () {
+            context.read<MotherSettingsCubit>().deleteAccount();
+          },
+        );
       },
     );
   }

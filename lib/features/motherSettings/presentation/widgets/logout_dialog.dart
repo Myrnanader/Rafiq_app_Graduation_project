@@ -15,10 +15,6 @@ class LogoutDialog extends StatelessWidget {
       content: "You'll need to sign in again to access your account.",
       onConfirm: () async {
         await authCubit.logout();
-        if (context.mounted) {
-          Navigator.pop(context);
-          
-        }
       },
     );
   }

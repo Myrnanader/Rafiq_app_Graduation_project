@@ -11,6 +11,9 @@ class AuthLoading extends AuthState {}
 /// LOGIN SUCCESS
 class LoginSuccess extends AuthState {}
 
+///Change Password Success
+class ChangePasswordSuccess extends AuthState {}
+
 /// REGISTER → محتاج OTP
 class RegisterNeedsVerification extends AuthState {
   final String email;
@@ -23,7 +26,7 @@ class OtpVerified extends AuthState {
   OtpVerified(this.email);
 }
 
-/// 🔁 RESEND OTP STATES
+///  RESEND OTP STATES
 class ResendOtpLoading extends AuthState {}
 
 class ResendOtpSuccess extends AuthState {}

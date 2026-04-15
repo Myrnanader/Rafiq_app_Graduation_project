@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:rafiq_app/core/errors/api_error_handler.dart';
 import 'package:rafiq_app/core/errors/error_model.dart';
-
 import '../api/auth_api_service.dart';
 import '../models/login_request.dart';
 import '../models/login_response.dart';
@@ -87,9 +86,7 @@ class AuthRepository {
   /// FORGET PASSWORD
   Future<void> forgetPassword(String email) async {
     try {
-      final response = await api.forgetPassword({
-        "email": email,
-      });
+      final response = await api.forgetPassword({"email": email});
 
       if (response.status == "Error") {
         throw ErrorModel(message: response.message ?? "Error");
@@ -100,10 +97,7 @@ class AuthRepository {
   }
 
   /// VERIFY OTP
-  Future<void> verifyOtp({
-    required String email,
-    required String otp,
-  }) async {
+  Future<void> verifyOtp({required String email, required String otp}) async {
     try {
       final response = await api.verifyOtp(
         VerifyOtpRequest(email: email, otpCode: otp),
@@ -136,6 +130,29 @@ class AuthRepository {
       throw ApiErrorHandler.handle(error);
     }
   }
+
+  //change Password
+ Future<void> changePassword({
+  required String currentPassword,
+  required String newPassword,
+  required String confirmPassword,
+}) async {
+  try {
+    final response = await api.changePassword({
+      "currentPassword": currentPassword,
+      "newPassword": newPassword,
+      "confirmNewPassword": confirmPassword,
+    });
+
+    if (response.status != "Success") {
+      throw ErrorModel(
+        message: response.message ?? "Failed to change password",
+      );
+    }
+  } on DioException catch (e) {
+    throw ApiErrorHandler.handle(e);
+  }
+}
 
   /// LOGOUT
   Future<void> logout() async {

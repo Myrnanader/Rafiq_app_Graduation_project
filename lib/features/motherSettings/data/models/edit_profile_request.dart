@@ -30,9 +30,9 @@ class EditProfileRequest {
   }
 
   Map<String, dynamic> toJson() => {
-        "firstName": firstName.trim(),
-        "lastName": lastName.trim(),
-        "email": email.trim(),
-        "dateOfBirth": dateOfBirth,
-      };
+  "firstName": firstName.trim(),
+  "lastName": lastName.trim(),
+  "email": email.trim(),
+  "dateOfBirth": "${dateOfBirth}T00:00:00", 
+};
 }

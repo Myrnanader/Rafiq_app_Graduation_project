@@ -6,7 +6,7 @@ class AuthInterceptor extends Interceptor {
 
   AuthInterceptor(this.secureStorage);
 
-  /// 🔥 endpoints اللي مش محتاجة token
+  ///  endpoints اللي مش محتاجة token
   final List<String> _noAuthEndpoints = [
     "Auth/login",
     "Auth/register",
@@ -21,7 +21,7 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    /// 🔥 check لو endpoint مش محتاج auth
+    ///  check لو endpoint مش محتاج auth
     final isNoAuthRequired = _noAuthEndpoints.any(
       (endpoint) => options.path.contains(endpoint),
     );
@@ -30,7 +30,7 @@ class AuthInterceptor extends Interceptor {
       return handler.next(options);
     }
 
-    /// 🔐 add token لو موجود
+    ///  add token لو موجود
     final token = await secureStorage.getAccessToken();
 
     if (token != null && token.isNotEmpty) {

@@ -8,7 +8,13 @@ import 'package:rafiq_app/core/theming/app_colors.dart';
 import '../../features/growth/presentation/widgets/growth_glass_text_field.dart';
 
 class DatePickerField extends StatefulWidget {
-  const DatePickerField({super.key});
+  ///  Callback بيرجع الـ DateTime للـ parent
+  final Function(DateTime)? onDateSelected;
+
+  const DatePickerField({
+    super.key,
+    this.onDateSelected,
+  });
 
   @override
   State<DatePickerField> createState() => _DatePickerFieldState();
@@ -62,7 +68,8 @@ class _DatePickerFieldState extends State<DatePickerField> {
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
                     ),
-                    dayTextStyle: const TextStyle(color: AppColors.onPrimary),
+                    dayTextStyle:
+                        const TextStyle(color: AppColors.onPrimary),
                     weekdayLabelTextStyle: const TextStyle(
                       color: AppColors.onPrimary,
                     ),
@@ -70,13 +77,14 @@ class _DatePickerFieldState extends State<DatePickerField> {
                       color: AppColors.onPrimary,
                     ),
                   ),
-
-                  // المهم هنا
                   onValueChanged: (dates) {
-                    if (dates.isNotEmpty) {
+                    if (dates.isNotEmpty && dates.first != null) {
                       setState(() {
                         selectedDate = dates.first;
                       });
+
+                      ///  نبعت القيمة للـ parent
+                      widget.onDateSelected?.call(dates.first!);
 
                       Navigator.pop(context);
                     }

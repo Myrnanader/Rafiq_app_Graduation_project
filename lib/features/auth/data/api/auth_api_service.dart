@@ -9,7 +9,7 @@ import '../models/verify_otp_request.dart';
 
 part 'auth_api_service.g.dart';
 
-@RestApi(baseUrl: "https://rafiq.runasp.net/api/")
+@RestApi()
 abstract class AuthApiService {
   factory AuthApiService(Dio dio, {String baseUrl}) = _AuthApiService;
 
@@ -55,7 +55,7 @@ abstract class AuthApiService {
     @Body() Map<String, dynamic> body,
   );
 
-  /// LOGOUT
+  /// LOGOUT (هيحتاج token)
   @POST("Auth/logout")
   Future<void> logout();
 }

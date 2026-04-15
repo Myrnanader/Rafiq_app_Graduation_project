@@ -12,6 +12,9 @@ import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubi
 import 'package:rafiq_app/features/motherSettings/data/api/mother_settings_api_service.dart';
 import 'package:rafiq_app/features/motherSettings/data/repository/mother_settings_repository.dart';
 import 'package:rafiq_app/features/motherSettings/presentation/cubit/mother_settings_cubit.dart';
+import 'package:rafiq_app/features/vaccinations/data/api/vaccinations_api_service.dart';
+import 'package:rafiq_app/features/vaccinations/data/repository/vaccinations_repository.dart';
+import 'package:rafiq_app/features/vaccinations/presentation/cubit/vaccinations_cubit.dart';
 
 import '../network/dio_factory.dart';
 import '../storage/secure_storage_service.dart';
@@ -58,9 +61,13 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<ChildrenApiService>(
     () => ChildrenApiService(getIt<Dio>()),
   );
-getIt.registerLazySingleton<PostpartumSurveyApiService>(
-  () => PostpartumSurveyApiService(getIt()),
-);
+  getIt.registerLazySingleton<PostpartumSurveyApiService>(
+    () => PostpartumSurveyApiService(getIt()),
+  );
+  getIt.registerLazySingleton<VaccinationsApiService>(
+    () => VaccinationsApiService(getIt<Dio>()),
+  );
+
   /// ================= REPOSITORIES =================
 
   getIt.registerLazySingleton<AuthRepository>(
@@ -73,9 +80,13 @@ getIt.registerLazySingleton<PostpartumSurveyApiService>(
     () => ChildrenRepository(getIt()),
   );
 
-getIt.registerLazySingleton<PostpartumSurveyRepository>(
-  () => PostpartumSurveyRepository(getIt()),
-);
+  getIt.registerLazySingleton<PostpartumSurveyRepository>(
+    () => PostpartumSurveyRepository(getIt()),
+  );
+  getIt.registerLazySingleton<VaccinationsRepository>(
+    () => VaccinationsRepository(getIt()),
+  );
+
   /// ================= CUBITS =================
 
   ///  Auth Cubit
@@ -113,7 +124,6 @@ getIt.registerLazySingleton<PostpartumSurveyRepository>(
   );
   getIt.registerFactory<ChildrenCubit>(() => ChildrenCubit(getIt()));
 
-  getIt.registerFactory(
-  () => PostpartumSurveyCubit(getIt()),
-);
+  getIt.registerFactory(() => PostpartumSurveyCubit(getIt()));
+  getIt.registerFactory<VaccinationsCubit>(() => VaccinationsCubit(getIt()));
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/theming/app_colors.dart';
-import '../../../../../core/theme/app_texts/app_text_styles.dart';
+import '../../../../core/theming/app_colors.dart';
+import '../../../../core/theme/app_texts/app_text_styles.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String title;
   final String content;
   final VoidCallback onConfirm;
   final bool isLoading;
+  final bool autoClose;
 
   const ConfirmationDialog({
     super.key,
@@ -14,6 +15,7 @@ class ConfirmationDialog extends StatelessWidget {
     required this.content,
     required this.onConfirm,
     this.isLoading = false,
+    this.autoClose = true,
   });
 
   @override
@@ -21,14 +23,9 @@ class ConfirmationDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: AppColors.lightBackground,
       insetPadding: const EdgeInsets.symmetric(horizontal: 24),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 24,
-          horizontal: 20,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -89,7 +86,9 @@ class ConfirmationDialog extends StatelessWidget {
                     onPressed: isLoading
                         ? null
                         : () {
-                            Navigator.of(context).pop();
+                            if (autoClose) {
+                              Navigator.of(context).pop();
+                            }
                             onConfirm();
                           },
                     style: OutlinedButton.styleFrom(

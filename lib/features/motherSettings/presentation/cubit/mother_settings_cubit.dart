@@ -18,7 +18,6 @@ class MotherSettingsCubit extends Cubit<MotherSettingsState> {
       await repository.editProfile(request);
       emit(EditProfileSuccess());
     } on ErrorModel catch (e) {
-      ///  ErrorModel بيتعمل من الـ validation أو الـ API response
       emit(EditProfileError(e.message));
     } catch (e) {
       emit(EditProfileError('Failed to update profile. Please try again.'));
@@ -36,6 +35,21 @@ class MotherSettingsCubit extends Cubit<MotherSettingsState> {
       emit(DeleteAccountError(e.message));
     } catch (e) {
       emit(DeleteAccountError('Failed to delete account. Please try again.'));
+    }
+  }
+
+  // ─── MAKE ADMIN  ───────────────────────────────────────
+
+  Future<void> makeAdmin(String email) async {
+    emit(MakeAdminLoading());
+
+    try {
+      await repository.makeAdmin(email);
+      emit(MakeAdminSuccess());
+    } on ErrorModel catch (e) {
+      emit(MakeAdminError(e.message));
+    } catch (e) {
+      emit(MakeAdminError('Failed to promote user'));
     }
   }
 }

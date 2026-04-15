@@ -10,8 +10,8 @@ import 'package:rafiq_app/features/growth/presentation/cubit/children_cubit.dart
 import 'package:rafiq_app/features/growth/presentation/widgets/child_card.dart';
 import 'package:rafiq_app/core/di/di.dart';
 
-class SelectChildScreen extends StatelessWidget {
-  const SelectChildScreen({super.key});
+class SelectVaccinationChildScreen extends StatelessWidget {
+  const SelectVaccinationChildScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,9 @@ class SelectChildScreen extends StatelessWidget {
             child: Column(
               children: [
                 47.h.verticalSpace,
-
+                ///  App Bar
                 GrowthAppBar(
-                  title: "Select Your Child",
+                  title: "Vaccinations child",
                   onBack: () {
                     if (context.canPop()) {
                       context.pop();
@@ -35,13 +35,12 @@ class SelectChildScreen extends StatelessWidget {
                     }
                   },
                 ),
-
                 24.h.verticalSpace,
-
-                /// Content
+                ///  Content
                 Expanded(
                   child: BlocBuilder<ChildrenCubit, ChildrenState>(
                     builder: (context, state) {
+                      /// Loading
                       if (state is ChildrenLoading) {
                         return Center(
                           child: CircularProgressIndicator(
@@ -50,22 +49,26 @@ class SelectChildScreen extends StatelessWidget {
                         );
                       }
 
+                      /// Error
                       if (state is ChildrenError) {
                         return Center(child: Text(state.message));
                       }
 
+                      /// Success
                       if (state is ChildrenSuccess) {
                         return ListView.separated(
                           itemCount: state.children.length,
-                          separatorBuilder: (_, _) => SizedBox(height: 12.h),
+                          separatorBuilder: (_, _) =>
+                              SizedBox(height: 12.h),
                           itemBuilder: (_, index) {
                             final child = state.children[index];
                             return ChildCard(
                               child: child,
                               onTap: () {
-                                context.go(
-                                  AppRoutes.growthTrackerScreen,
-                                  extra: child,
+                                
+                                context.push(
+                                  AppRoutes.vaccinationsScreen,
+                                  extra: child.id,    
                                 );
                               },
                             );

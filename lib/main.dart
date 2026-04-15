@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rafiq_app/core/routing/router_generation_config.dart';
 import 'package:rafiq_app/features/auth/presentation/cubit/user_cubit.dart';
 import 'package:rafiq_app/features/growth/presentation/cubit/growth_cubit.dart';
+import 'package:rafiq_app/features/vaccinations/presentation/cubit/vaccinations_cubit.dart';
 import 'core/di/di.dart';
 import 'core/storage/shared_prefs_service.dart';
 import 'my_app.dart';
@@ -37,6 +38,7 @@ void main() async {
             BlocProvider(create: (_) => getIt<UserCubit>()..getProfile()),
 
             BlocProvider(create: (_) => getIt<GrowthCubit>()),
+            BlocProvider(create: (_) => getIt<VaccinationsCubit>()),
           ],
           child: const MyApp(),
         );

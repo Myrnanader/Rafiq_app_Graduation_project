@@ -54,7 +54,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                   {
                     "icon": "assets/icons/vaccinations.svg",
                     "label": "Vaccinations",
-                    "route": AppRoutes.vaccinationsScreen,
+                    "route": AppRoutes.selectVaccinationChildScreen,
                   },
                   {
                     "icon": "assets/icons/solar_stethoscope-bold.svg",

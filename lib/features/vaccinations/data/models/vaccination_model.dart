@@ -25,6 +25,29 @@ class VaccinationModel {
     required this.isTaken,
     this.notes,
   });
+  VaccinationModel copyWith({
+  String? id,
+  String? childId,
+  String? vaccineName,
+  String? ageGroup,
+  String? dueDate,
+  String? scheduledDate,
+  String? takenDate,
+  bool? isTaken,
+  String? notes,
+}) {
+  return VaccinationModel(
+    id: id ?? this.id,
+    childId: childId ?? this.childId,
+    vaccineName: vaccineName ?? this.vaccineName,
+    ageGroup: ageGroup ?? this.ageGroup,
+    dueDate: dueDate ?? this.dueDate,
+    scheduledDate: scheduledDate ?? this.scheduledDate,
+    takenDate: takenDate ?? this.takenDate,
+    isTaken: isTaken ?? this.isTaken,
+    notes: notes ?? this.notes,
+  );
+}
 
   factory VaccinationModel.fromJson(Map<String, dynamic> json) =>
       _$VaccinationModelFromJson(json);

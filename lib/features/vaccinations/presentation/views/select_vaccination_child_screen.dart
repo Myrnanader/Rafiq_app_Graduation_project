@@ -24,10 +24,9 @@ class SelectVaccinationChildScreen extends StatelessWidget {
             child: Column(
               children: [
                 47.h.verticalSpace,
-
                 ///  App Bar
                 GrowthAppBar(
-                  title: "Select Your Child for Vaccinations",
+                  title: "Vaccinations child",
                   onBack: () {
                     if (context.canPop()) {
                       context.pop();
@@ -36,9 +35,7 @@ class SelectVaccinationChildScreen extends StatelessWidget {
                     }
                   },
                 ),
-
                 24.h.verticalSpace,
-
                 ///  Content
                 Expanded(
                   child: BlocBuilder<ChildrenCubit, ChildrenState>(
@@ -61,16 +58,15 @@ class SelectVaccinationChildScreen extends StatelessWidget {
                       if (state is ChildrenSuccess) {
                         return ListView.separated(
                           itemCount: state.children.length,
-                          separatorBuilder: (_, __) =>
+                          separatorBuilder: (_, _) =>
                               SizedBox(height: 12.h),
                           itemBuilder: (_, index) {
                             final child = state.children[index];
-
                             return ChildCard(
                               child: child,
                               onTap: () {
                                 
-                                context.go(
+                                context.push(
                                   AppRoutes.vaccinationsScreen,
                                   extra: child.id,    
                                 );

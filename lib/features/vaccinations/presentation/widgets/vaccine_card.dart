@@ -3,12 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/features/vaccinations/presentation/cubit/vaccinations_cubit.dart';
 import 'package:rafiq_app/features/vaccinations/presentation/widgets/vaccine_item.dart';
-
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../core/theming/app_colors.dart';
-import '../views/vaccine_details_screen.dart';
 /*
 class VaccineCard extends StatefulWidget {
   final VaccineItem vaccine;
@@ -125,6 +123,7 @@ class _VaccineCardState extends State<VaccineCard> {
   }
 }
 */
+
 class VaccineCard extends StatelessWidget {
   final VaccineItem vaccine;
 
@@ -138,15 +137,18 @@ class VaccineCard extends StatelessWidget {
       color: AppColors.lightBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
-        side: BorderSide(color: AppColors.lightBackground),
+        side: const BorderSide(color: AppColors.lightBackground),
       ),
       child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 10,
+        ),
         title: Text(
           vaccine.name,
-          style: AppTextStyles.font14Medium
-              .copyWith(color: AppColors.onBackgroundLight),
+          style: AppTextStyles.font14Medium.copyWith(
+            color: AppColors.onBackgroundLight,
+          ),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,59 +156,90 @@ class VaccineCard extends StatelessWidget {
             4.ph,
             Row(
               children: [
-                Text("Due On ",
-                    style: AppTextStyles.font12Medium
-                        .copyWith(color: AppColors.neutralGray)),
+                Text(
+                  "Due On ",
+                  style: AppTextStyles.font12Medium.copyWith(
+                    color: AppColors.neutralGray,
+                  ),
+                ),
                 Text(vaccine.dueOn),
               ],
             ),
             8.ph,
             Row(
               children: [
-                Text("Scheduled Date ",
-                    style: AppTextStyles.font12Medium
-                        .copyWith(color: AppColors.neutralGray)),
-                Text(vaccine.scedule),
+                Text(
+                  "Scheduled Date ",
+                  style: AppTextStyles.font12Medium.copyWith(
+                    color: AppColors.neutralGray,
+                  ),
+                ),
+                Text(vaccine.schedule),
               ],
             ),
             18.ph,
             Row(
               children: [
-                /// 🔥 Mark Taken
+                /// Mark Taken
                 OutlinedButton(
-                  onPressed: () {
-                    context
-                        .read<VaccinationsCubit>()
-                        .markTaken(vaccine.id);
-                  },
-                  child: const Text("Mark Taken"),
+                  onPressed: vaccine.isPending
+                      ? () {
+                          context.read<VaccinationsCubit>().markTaken(
+                            vaccine.id,
+                          );
+                        }
+                      : null, //  disable after taken
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: vaccine.isPending
+                        ? AppColors.lightBackground
+                        : Colors.green,
+                    side: BorderSide(
+                      color: vaccine.isPending
+                          ? AppColors.primary
+                          : Colors.green,
+                    ),
+                  ),
+                  child: Text(
+                    vaccine.isPending ? "Mark Taken" : "Taken",
+                    style: TextStyle(
+                      color: vaccine.isPending
+                          ? AppColors.primary
+                          : Colors.white,
+                    ),
+                  ),
                 ),
 
                 5.pw,
 
-                /// 🔥 Schedule
-                OutlinedButton(
+                /// Schedule
+                ElevatedButton(
                   onPressed: () {
-                    context.go(
-                      AppRoutes.vaccineScheduleScreen,
+                    GoRouter.of(context).pushNamed(
+                      AppRoutes.vaccineScheduleName,
                       extra: vaccine.id,
                     );
                   },
-                  child: const Text("Schedule"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                  ),
+                  child: const Text(
+                    "Schedule",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
           ],
         ),
-
-        /// 🔥 Details
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          size: 16,
+          color: AppColors.primary,
+        ),
         onTap: () {
-          context.go(
-            AppRoutes.vaccineDetailsScreen,
-            extra: vaccine,
-          );
+          GoRouter.of(
+            context,
+          ).pushNamed(AppRoutes.vaccineDetailsName, extra: vaccine);
         },
       ),
     );

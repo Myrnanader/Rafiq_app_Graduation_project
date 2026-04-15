@@ -10,39 +10,39 @@ abstract class VaccinationsApiService {
   factory VaccinationsApiService(Dio dio, {String baseUrl}) =
       _VaccinationsApiService;
 
-  /// 🔹 Get all vaccines for child
+  ///  Get all vaccines for child
   @GET("vaccinations/child/{childId}")
   Future<VaccinationResponse> getVaccines(
     @Path("childId") String childId,
   );
 
-  /// 🔹 Get single vaccine by id
+  ///  Get single vaccine
   @GET("vaccinations/{id}")
   Future<VaccinationSingleResponse> getVaccineById(
     @Path("id") String id,
   );
 
-  /// 🔹 Create vaccine (admin)
+  ///  Create vaccine (Admin)
   @POST("vaccinations/CreateVaccine")
   Future<VaccinationSingleResponse> createVaccine(
     @Body() Map<String, dynamic> body,
   );
 
-  /// 🔹 Schedule vaccine
+  ///  Schedule vaccine
   @PATCH("vaccinations/{id}/schedule")
   Future<VaccinationSingleResponse> scheduleVaccine(
     @Path("id") String id,
     @Body() Map<String, dynamic> body,
   );
 
-  /// 🔹 Mark taken
+  ///  Mark taken (FIXED )
   @PATCH("vaccinations/{id}/mark-taken")
   Future<VaccinationSingleResponse> markTaken(
     @Path("id") String id,
     @Query("takenDate") String? takenDate,
   );
 
-  /// 🔹 Delete vaccine
+  ///  Delete vaccine
   @DELETE("vaccinations/{id}")
   Future<void> deleteVaccine(
     @Path("id") String id,

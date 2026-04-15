@@ -129,9 +129,6 @@ class _VaccinationsScreenState extends State<VaccinationsScreen> {
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:rafiq_app/core/routing/app_routes.dart';
-
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../core/theming/app_colors.dart';
@@ -158,7 +155,7 @@ class _VaccinationsScreenState extends State<VaccinationsScreen> {
     "2 Months",
     "4 Months",
     "6 Months",
-    "9 Months"
+    "9 Months",
   ];
 
   @override
@@ -167,13 +164,23 @@ class _VaccinationsScreenState extends State<VaccinationsScreen> {
     context.read<VaccinationsCubit>().getVaccines(widget.childId);
   }
 
+  String _formatDate(String? date) {
+    if (date == null || date.isEmpty) return "Not yet";
+    try {
+      final d = DateTime.parse(date).toLocal();
+      return "${d.day}/${d.month}/${d.year}";
+    } catch (_) {
+      return date;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.onSecondary,
         leading: IconButton(
-          onPressed: () => GoRouter.of(context).pop,
+          onPressed: () => context.pop(),
           icon: SvgPicture.asset(
             "assets/icons/back_arrow.svg",
             width: 20,
@@ -188,78 +195,90 @@ class _VaccinationsScreenState extends State<VaccinationsScreen> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.onSecondary, AppColors.lightBackground],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: BlocListener<VaccinationsCubit, VaccinationsState>(
+        listener: (context, state) {
+          if (state is VaccinationActionSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Deleted successfully")),
+            );
+          }
+
+          if (state is VaccinationActionError) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.message)));
+          }
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.onSecondary, AppColors.lightBackground],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-        ),
-        child: BlocBuilder<VaccinationsCubit, VaccinationsState>(
-          builder: (context, state) {
-            /// 🔄 Loading
-            if (state is VaccinationsLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
+          child: BlocBuilder<VaccinationsCubit, VaccinationsState>(
+            builder: (context, state) {
+              if (state is VaccinationsLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            /// ❌ Error
-            if (state is VaccinationsError) {
-              return Center(child: Text(state.message));
-            }
+              if (state is VaccinationsError) {
+                return Center(child: Text(state.message));
+              }
 
-            /// ✅ Success
-            if (state is VaccinationsSuccess) {
-              final cubit = context.read<VaccinationsCubit>();
-
-              final vaccines = cubit.vaccines
-                  .where((v) => v.ageGroup == _tabs[_selectedTabIndex])
-                  .map((e) => VaccineItem(
+              if (state is VaccinationsSuccess) {
+                final cubit = context.read<VaccinationsCubit>();
+                final vaccines = cubit.vaccines
+                    .where(
+                      (v) =>
+                          v.ageGroup.trim().toLowerCase() ==
+                          _tabs[_selectedTabIndex].trim().toLowerCase(),
+                    )
+                    .map(
+                      (e) => VaccineItem(
                         e.id,
                         e.vaccineName,
-                        e.dueDate,
-                        e.scheduledDate ?? "Not yet",
+                        _formatDate(e.dueDate),
+                        _formatDate(e.scheduledDate),
                         !e.isTaken,
-                      ))
-                  .toList();
+                      ),
+                    )
+                    .toList();
 
-              return Column(
-                children: [
-                  20.ph,
+                return Column(
+                  children: [
+                    20.ph,
 
-                  /// Tabs
-                  VaccinationsTabBar(
-                    tabs: _tabs,
-                    selectedIndex: _selectedTabIndex,
-                    onTabSelected: (index) {
-                      setState(() {
-                        _selectedTabIndex = index;
-                      });
-                    },
-                  ),
+                    VaccinationsTabBar(
+                      tabs: _tabs,
+                      selectedIndex: _selectedTabIndex,
+                      onTabSelected: (index) {
+                        setState(() => _selectedTabIndex = index);
+                      },
+                    ),
 
-                  15.ph,
+                    15.ph,
 
-                  /// List
-                  Expanded(
-                    child: vaccines.isEmpty
-                        ? const Center(
-                            child: Text("No vaccines for this age group"),
-                          )
-                        : ListView.builder(
-                            padding: const EdgeInsets.all(16),
-                            itemCount: vaccines.length,
-                            itemBuilder: (_, index) => VaccineCard(
-                              vaccine: vaccines[index],
+                    Expanded(
+                      child: vaccines.isEmpty
+                          ? const Center(
+                              child: Text("No vaccines for this age group"),
+                            )
+                          : ListView.builder(
+                              padding: const EdgeInsets.all(16),
+                              itemCount: vaccines.length,
+                              itemBuilder: (_, index) =>
+                                  VaccineCard(vaccine: vaccines[index]),
                             ),
-                          ),
-                  ),
-                ],
-              );
-            }
+                    ),
+                  ],
+                );
+              }
 
-            return const SizedBox();
-          },
+              return const SizedBox();
+            },
+          ),
         ),
       ),
     );

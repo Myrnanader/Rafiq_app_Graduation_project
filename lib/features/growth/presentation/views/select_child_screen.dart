@@ -57,7 +57,7 @@ class SelectChildScreen extends StatelessWidget {
                       if (state is ChildrenSuccess) {
                         return ListView.separated(
                           itemCount: state.children.length,
-                          separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                          separatorBuilder: (_, _) => SizedBox(height: 12.h),
                           itemBuilder: (_, index) {
                             final child = state.children[index];
                             return ChildCard(

@@ -44,10 +44,16 @@ class AppRoutes {
   static const String addFatherIdScreen = '/AddFatherIdScreen';
 
   // -------- Vaccinations Feature --------
-  static const String vaccinationsScreen = '/VaccinationsScreen';
-  static const String vaccineScheduleScreen = '/VaccineScheduleScreen';
-  static const String vaccineDetailsScreen = '/VaccineDetailsScreen';
-  static const String selectVaccinationChildScreen = '/SelectVaccinationChild';
+ 
+  /// Parent
+  static const String vaccinationsScreen = '/vaccinations';
+
+  /// Child NAMES (لـ pushNamed)
+  static const String vaccineScheduleName = 'vaccineSchedule';
+  static const String vaccineDetailsName = 'vaccineDetails';
+
+  /// Other
+  static const String selectVaccinationChildScreen = '/select-child';
 
   // -------- Settings --------
   static const String settingScreen = '/SettingScreen';

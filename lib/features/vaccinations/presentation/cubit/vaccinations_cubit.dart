@@ -6,77 +6,75 @@ import 'vaccinations_state.dart';
 class VaccinationsCubit extends Cubit<VaccinationsState> {
   final VaccinationsRepository repo;
 
-  VaccinationsCubit(this.repo) : super(VaccinationsInitial());
-
+  String? childId;
   List<VaccinationModel> vaccines = [];
 
-  /// 🔹 GET vaccines
-  Future<void> getVaccines(String childId) async {
-    emit(VaccinationsLoading());
+  VaccinationsCubit(this.repo) : super(VaccinationsInitial());
 
+  Future<void> getVaccines(String childId) async {
+    this.childId = childId;
+
+    emit(VaccinationsLoading());
     try {
       final result = await repo.getVaccines(childId);
       vaccines = result;
-      emit(VaccinationsSuccess(vaccines));
+
+      emit(VaccinationsSuccess(List.from(vaccines)));
     } catch (e) {
       emit(VaccinationsError(e.toString()));
     }
   }
 
-  /// 🔹 Schedule vaccine
+  /// 🔵 Schedule
   Future<void> scheduleVaccine(String id, String date) async {
     emit(VaccinationActionLoading());
 
     try {
-      final updated = await repo.scheduleVaccine(id, date);
-
-      _updateLocal(updated);
+      await repo.scheduleVaccine(id, date);
 
       emit(VaccinationActionSuccess());
-      emit(VaccinationsSuccess(vaccines));
+
+      if (childId != null) {
+        getVaccines(childId!);
+      }
     } catch (e) {
       emit(VaccinationActionError(e.toString()));
     }
   }
 
-  /// 🔹 Mark taken
+  /// 🟢 Mark Taken
   Future<void> markTaken(String id) async {
     emit(VaccinationActionLoading());
 
     try {
-      final updated = await repo.markTaken(id);
+      final now = DateTime.now().toIso8601String();
 
-      _updateLocal(updated);
+      await repo.markTaken(id, now);
 
-      emit(VaccinationActionSuccess());
-      emit(VaccinationsSuccess(vaccines));
+      if (childId != null) {
+        await getVaccines(childId!);
+      }
     } catch (e) {
       emit(VaccinationActionError(e.toString()));
     }
   }
 
-  /// 🔹 Delete vaccine
+  /// 🔴 Delete
   Future<void> deleteVaccine(String id) async {
     emit(VaccinationActionLoading());
 
     try {
       await repo.deleteVaccine(id);
 
-      vaccines.removeWhere((e) => e.id == id);
+      await repo.deleteVaccine(id);
 
       emit(VaccinationActionSuccess());
-      emit(VaccinationsSuccess(vaccines));
+
+      if (childId != null) {
+        getVaccines(childId!);
+      }
     } catch (e) {
       emit(VaccinationActionError(e.toString()));
-    }
-  }
-
-  ///  Update local list after API
-  void _updateLocal(VaccinationModel updated) {
-    final index = vaccines.indexWhere((e) => e.id == updated.id);
-
-    if (index != -1) {
-      vaccines[index] = updated;
     }
   }
 }

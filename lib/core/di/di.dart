@@ -61,12 +61,13 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<ChildrenApiService>(
     () => ChildrenApiService(getIt<Dio>()),
   );
-getIt.registerLazySingleton<PostpartumSurveyApiService>(
-  () => PostpartumSurveyApiService(getIt()),
-);
-getIt.registerLazySingleton<VaccinationsApiService>(
-  () => VaccinationsApiService(getIt<Dio>()),
-);
+  getIt.registerLazySingleton<PostpartumSurveyApiService>(
+    () => PostpartumSurveyApiService(getIt()),
+  );
+  getIt.registerLazySingleton<VaccinationsApiService>(
+    () => VaccinationsApiService(getIt<Dio>()),
+  );
+
   /// ================= REPOSITORIES =================
 
   getIt.registerLazySingleton<AuthRepository>(
@@ -79,12 +80,13 @@ getIt.registerLazySingleton<VaccinationsApiService>(
     () => ChildrenRepository(getIt()),
   );
 
-getIt.registerLazySingleton<PostpartumSurveyRepository>(
-  () => PostpartumSurveyRepository(getIt()),
-);
-getIt.registerLazySingleton<VaccinationsRepository>(
-  () => VaccinationsRepository(getIt()),
-);
+  getIt.registerLazySingleton<PostpartumSurveyRepository>(
+    () => PostpartumSurveyRepository(getIt()),
+  );
+  getIt.registerLazySingleton<VaccinationsRepository>(
+    () => VaccinationsRepository(getIt()),
+  );
+
   /// ================= CUBITS =================
 
   ///  Auth Cubit
@@ -122,10 +124,6 @@ getIt.registerLazySingleton<VaccinationsRepository>(
   );
   getIt.registerFactory<ChildrenCubit>(() => ChildrenCubit(getIt()));
 
-  getIt.registerFactory(
-  () => PostpartumSurveyCubit(getIt()),
-);
-getIt.registerFactory<VaccinationsCubit>(
-  () => VaccinationsCubit(getIt()),
-);
+  getIt.registerFactory(() => PostpartumSurveyCubit(getIt()));
+  getIt.registerFactory<VaccinationsCubit>(() => VaccinationsCubit(getIt()));
 }

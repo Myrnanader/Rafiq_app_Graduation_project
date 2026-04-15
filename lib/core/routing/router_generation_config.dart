@@ -167,49 +167,46 @@ abstract class RouterGenerationConfig {
           builder: (context, state) => NearbyHospitalScreen(),
         ),
 
-        /// ================= Vaccinations =================
-        GoRoute(
-          path: AppRoutes.selectVaccinationChildScreen,
-          name: AppRoutes.selectVaccinationChildScreen,
-          builder: (context, state) => const SelectVaccinationChildScreen(),
-        ),
+       /// ================= Vaccinations =================
 
-        GoRoute(
-          path: AppRoutes.vaccinationsScreen,
-          name: AppRoutes.vaccinationsScreen,
-          builder: (context, state) {
-            final childId = state.extra as String;
+GoRoute(
+  path: AppRoutes.selectVaccinationChildScreen,
+  name: AppRoutes.selectVaccinationChildScreen,
+  builder: (context, state) =>
+      const SelectVaccinationChildScreen(),
+),
 
-            return BlocProvider(
-              create: (_) => getIt<VaccinationsCubit>(),
-              child: VaccinationsScreen(childId: childId),
-            );
-          },
-        ),
+GoRoute(
+  path: AppRoutes.vaccinationsScreen,
+  name: AppRoutes.vaccinationsScreen, // ✅ ضيف name
+  builder: (context, state) {
+    final childId = state.extra as String;
+    return VaccinationsScreen(childId: childId);
+  },
 
-        GoRoute(
-          path: AppRoutes.vaccineDetailsScreen,
-          name: AppRoutes.vaccineDetailsScreen,
-          builder: (context, state) {
-            final vaccine = state.extra as VaccineItem;
+  routes: [
+    /// 🔵 Schedule
+    GoRoute(
+      path: 'schedule', // ✅ بدون /
+      name: AppRoutes.vaccineScheduleName, // ✅ لازم name
+      builder: (context, state) {
+        final vaccineId = state.extra as String;
+        return VaccineScheduleScreen(vaccineId: vaccineId);
+      },
+    ),
 
-            return VaccineDetailsScreen(vaccine: vaccine);
-          },
-        ),
-
-        GoRoute(
-          path: AppRoutes.vaccineScheduleScreen,
-          name: AppRoutes.vaccineScheduleScreen,
-          builder: (context, state) {
-            final vaccineId = state.extra as String;
-
-            return BlocProvider.value(
-              value: getIt<VaccinationsCubit>(),
-              child: VaccineScheduleScreen(vaccineId: vaccineId),
-            );
-          },
-        ),
-
+    /// 🔵 Details
+    GoRoute(
+      path: 'details', //  بدون /
+      name: AppRoutes.vaccineDetailsName, // مهم جدًا
+      builder: (context, state) {
+        final vaccine = state.extra as VaccineItem;
+        return VaccineDetailsScreen(vaccine: vaccine);
+      },
+    ),
+  ],
+),
+//____________________________________
         GoRoute(
           path: AppRoutes.communityScreen,
           name: AppRoutes.communityScreen,

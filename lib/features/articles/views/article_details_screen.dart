@@ -6,13 +6,17 @@ import '../../../core/helpers/extensions.dart';
 import '../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../core/theming/app_colors.dart';
 
-
 class ArticleDetailsScreen extends StatelessWidget {
-  const ArticleDetailsScreen({super.key});
+  final String title;
+  final String content;
+  final String image;
 
-  // final ArticleItem article;
-
-  // const ArticleDetailsScreen({super.key, required this.article});
+  const ArticleDetailsScreen({
+    super.key,
+    required this.title,
+    required this.content,
+    required this.image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class ArticleDetailsScreen extends StatelessWidget {
           children: [
             5.ph,
             Text(
-              "Morning Sickness",
+              title,
               style: AppTextStyles.font20SemiBold.copyWith(
                 color: AppColors.onPrimaryFixed,
               ),
@@ -70,10 +74,8 @@ class ArticleDetailsScreen extends StatelessWidget {
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25),
                 ),
-                child: Image.asset(
-                  'assets/images/nausea.jpg',
-                  fit: BoxFit.cover,
-                ),
+                child: Image.network(
+                    image, fit: BoxFit.cover),
               ),
             ),
           ),
@@ -111,7 +113,7 @@ class ArticleDetailsScreen extends StatelessWidget {
                     // ),
                     // 20.ph,
                     Text(
-"Morning sickness is a common experience during early pregnancy, usually appearing in the first trimester due to hormonal changes, increased sensitivity to smells, and changes in digestion. Although it is called “morning” sickness, nausea can occur at any time of the day. Fortunately, several natural strategies can help reduce discomfort and make daily life easier.\n\nOne of the most effective methods is eating small, frequent meals instead of large ones. An empty stomach can worsen nausea, so keeping light snacks such as crackers, toast, or nuts nearby—especially in the morning—can help stabilize blood sugar levels and reduce symptoms. Drinking small amounts of fluids throughout the day rather than large amounts at once can also prevent stomach irritation and dehydration.\n\nGinger is widely known for its natural anti-nausea properties. Drinking ginger tea, adding fresh ginger to meals, or consuming ginger biscuits in moderate amounts may significantly relieve nausea. Similarly, peppermint tea can help relax the digestive system and reduce the feeling of queasiness for some women.\n\nAnother helpful approach is avoiding strong smells and trigger foods, such as greasy, spicy, or heavily fried meals, which can worsen nausea. Choosing simple, bland foods—like rice, bananas, yogurt, and boiled potatoes—often feels easier on the stomach. Getting fresh air and light physical activity, such as a short walk, may also improve digestion and reduce nausea.\n\nFinally, adequate rest and stress reduction play an important role. Fatigue can intensify morning sickness, so maintaining a regular sleep schedule and practicing relaxation techniques like deep breathing can provide additional relief. If nausea becomes severe, persistent, or leads to dehydration, consulting a healthcare professional is important to ensure proper care and treatment.",
+                      content,
                       style: AppTextStyles.font12Regular.copyWith(
                         color: AppColors.grey,
                       ),

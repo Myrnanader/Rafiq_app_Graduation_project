@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 
 import '../../../../../core/helpers/extensions.dart';
 import '../../../../../core/theming/app_colors.dart';
+import '../cubit/mother_experiences_cubit.dart';
 
 class AddExperienceScreen extends StatefulWidget {
   const AddExperienceScreen({super.key});
 
   @override
-  AddExperienceScreenState createState() => AddExperienceScreenState();
+  State<AddExperienceScreen> createState() => AddExperienceScreenState();
 }
 
 class AddExperienceScreenState extends State<AddExperienceScreen> {
+  final TextEditingController challengeController = TextEditingController();
+  final TextEditingController solutionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +71,7 @@ class AddExperienceScreenState extends State<AddExperienceScreen> {
                     ),
                   ),
                   TextFormField(
+                    controller: challengeController,
                     maxLines: 5,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
@@ -106,6 +112,7 @@ class AddExperienceScreenState extends State<AddExperienceScreen> {
                     ),
                   ),
                   TextFormField(
+                    controller: solutionController,
                     maxLines: 5,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
@@ -151,7 +158,15 @@ class AddExperienceScreenState extends State<AddExperienceScreen> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await context.read<ExperiencesCubit>().addExperience(
+                    challengeController.text,
+                    solutionController.text,
+                  );
+
+                  if (!context.mounted) return;
+                  context.pop();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   padding: const EdgeInsets.symmetric(vertical: 15),

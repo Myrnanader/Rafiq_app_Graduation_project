@@ -84,6 +84,40 @@ class ProfileScreen extends StatelessWidget {
 
                   20.ph,
 
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomProfileButton(
+                          svgIconPath: 'assets/icons/plus.svg',
+                          text: 'Memories',
+                          onPressed: () {
+                            context.push(
+                              AppRoutes.addMemoryScreen,
+                            //   extra: context
+                            //       .read<MotherProfileCubit>(), // 🔥
+                            );
+                          },
+                        ),
+                      ),
+                      10.pw,
+                      Expanded(
+                        child: CustomProfileButton(
+                          svgIconPath: 'assets/icons/plus.svg',
+                          text: 'Documents',
+                          onPressed: () {
+                            context.push(
+                              AppRoutes.docsScreen,
+                              // extra: context
+                                  // .read<MotherProfileCubit>(),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  20.ph,
+
                   /// 📊 Age + Month
                   BlocBuilder<UserCubit, UserState>(
                     builder: (context, state) {
@@ -150,7 +184,7 @@ class ProfileScreen extends StatelessWidget {
                       Expanded(
                         child: CustomProfileButton(
                           svgIconPath: 'assets/icons/plus.svg',
-                          text: 'Add Baby Profile',
+                          text: 'Add Baby',
                           onPressed: () {
                             context.push(
                               AppRoutes.babyProfileScreen,

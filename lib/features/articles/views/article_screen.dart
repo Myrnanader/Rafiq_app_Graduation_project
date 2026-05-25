@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../../core/helpers/extensions.dart';
 import '../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../core/theming/app_colors.dart';
+import '../../auth/data/models/profile_response.dart';
+import '../widgets/widgets/article_data.dart';
 import '../widgets/widgets/custom_article_card.dart';
 
 class ArticleScreen extends StatefulWidget {
@@ -17,6 +19,15 @@ class ArticleScreen extends StatefulWidget {
 class _ArticleScreenState extends State<ArticleScreen> {
   @override
   Widget build(BuildContext context) {
+
+    final ProfileResponse profileResponse = ProfileResponse();
+
+    final int week = profileResponse.pregnancyWeek == 0
+        ? 3
+        : profileResponse.pregnancyWeek;
+
+    final articles = weeklyPregnancyArticles[week] ?? [];
+
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
       appBar: AppBar(
@@ -53,44 +64,13 @@ class _ArticleScreenState extends State<ArticleScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            CustomArticleCard(
-              title: "Morning Sickness: How to Reduce Nausea Naturally",
-              description:
-                  "Simple daily habits and breathing techniques that help reduce nausea during early pregnancy.",
-              postImage: "assets/images/nausea.jpg",
-            ),
-            CustomArticleCard(
-              title: "Safe Yoga Poses During Pregnancy",
-              description:
-                  "A guide to pregnancy-safe yoga poses for all trimesters and how to practice them correctly.",
-              postImage: "assets/images/yoga.jpg",
-            ),
-            CustomArticleCard(
-              title: "Managing Back Pain While Pregnant",
-              description:
-                  "Learn why back pain happens during pregnancy and practical ways to relieve it safely.",
-              postImage: "assets/images/lower-back-pain.jpg",
-            ),
-            CustomArticleCard(
-              title: "The Importance of Pelvic Floor Exercises",
-              description:
-                  "Why Kegel exercises matter and how they support easier delivery and recovery.",
-              postImage: "assets/images/Pelvic-Floor-Exercises.jpg",
-            ),
-            CustomArticleCard(
-              title: "Exercises to Reduce Leg Swelling",
-              description:
-                  "Gentle movements and tips to improve circulation and reduce swollen ankles.",
-              postImage: "assets/images/leg-swelling.jpg",
-            ),
-            CustomArticleCard(
-              title: "Breathing Techniques for Stress Relief",
-              description:
-                  "Simple breathing exercises to calm anxiety and improve sleep during pregnancy.",
-              postImage: "assets/images/breathing.png",
-            ),
-          ],
+          children: articles.map((article) {
+            return CustomArticleCard(
+              title: article["title"],
+              postImage: article["image"],
+              content: article["content"],
+            );
+          }).toList(),
         ),
       ),
     );

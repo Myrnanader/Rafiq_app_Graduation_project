@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:rafiq_app/features/mother/presentation/widgets/widgets/photogrid_widget.dart';
 
@@ -19,23 +18,6 @@ class _AddPhotoState extends State<AddPhoto> {
   @override
   void initState() {
     super.initState();
-    requestPermissionsAndLoadImages();
-  }
-
-  Future<void> requestPermissionsAndLoadImages() async {
-    PermissionStatus cameraStatus = await Permission.camera.request();
-    PermissionStatus photosStatus = await Permission.photos.request();
-    PermissionStatus storageStatus = await Permission.storage.request();
-
-    bool granted =
-        cameraStatus.isGranted &&
-        (photosStatus.isGranted || storageStatus.isGranted);
-
-    if (!granted) {
-      openAppSettings();
-      return;
-    }
-
     loadGalleryImages();
   }
 

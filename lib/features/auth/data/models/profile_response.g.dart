@@ -34,11 +34,15 @@ Map<String, dynamic> _$ProfileDataToJson(ProfileData instance) =>
 User _$UserFromJson(Map<String, dynamic> json) => User(
   name: json['name'] as String?,
   dateOfBirth: json['dateOfBirth'] as String?,
+  image: json['image'] as String?,
+  role: json['role'] as String?,
 );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
   'name': instance.name,
   'dateOfBirth': instance.dateOfBirth,
+  'image': instance.image,
+  'role': instance.role,
 };
 
 MotherProfile _$MotherProfileFromJson(Map<String, dynamic> json) =>

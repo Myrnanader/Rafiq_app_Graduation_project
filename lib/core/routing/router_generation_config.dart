@@ -9,21 +9,23 @@ import 'package:rafiq_app/features/mother/presentation/cubit/mother_profile_cubi
 import 'package:rafiq_app/features/mother/presentation/views/dashboard_screen.dart';
 import 'package:rafiq_app/features/onBoarding/presentation/screens/on_boarding_screen.dart';
 import 'package:rafiq_app/features/splash/presentation/screens/splash_screen.dart';
-import 'package:rafiq_app/features/vaccinations/presentation/cubit/vaccinations_cubit.dart';
 import 'package:rafiq_app/features/vaccinations/presentation/views/select_vaccination_child_screen.dart';
 import 'package:rafiq_app/features/vaccinations/presentation/views/vaccinations_screen.dart';
 import 'package:rafiq_app/features/vaccinations/presentation/views/vaccine_details_screen.dart';
 import 'package:rafiq_app/features/vaccinations/presentation/views/vaccine_schedule_screen.dart';
 import 'package:rafiq_app/features/vaccinations/presentation/widgets/vaccine_item.dart';
-import '../../features/addMemoryAndDocs/views/add_docs_screen.dart';
-import '../../features/addMemoryAndDocs/views/add_memory_screen.dart';
-import '../../features/addMemoryAndDocs/views/docs_screen.dart';
-import '../../features/addMemoryAndDocs/views/memories_screen.dart';
-import '../../features/addMemoryAndDocs/views/see_docs_screen.dart';
-import '../../features/addMemoryAndDocs/views/see_memories_screen.dart';
-import '../../features/addMemoryAndDocs/widgets/widgets/doc_item.dart';
-import '../../features/addMemoryAndDocs/widgets/widgets/memory_item.dart';
+import '../../features/addMemoryAndDocs/data/models/document_model.dart';
+import '../../features/addMemoryAndDocs/data/models/memory_model.dart';
+import '../../features/addMemoryAndDocs/presentation/cubit/document_cubit.dart';
+import '../../features/addMemoryAndDocs/presentation/cubit/memory_cubit.dart';
+import '../../features/addMemoryAndDocs/presentation/views/add_docs_screen.dart';
+import '../../features/addMemoryAndDocs/presentation/views/add_memory_screen.dart';
+import '../../features/addMemoryAndDocs/presentation/views/docs_screen.dart';
+import '../../features/addMemoryAndDocs/presentation/views/memories_screen.dart';
+import '../../features/addMemoryAndDocs/presentation/views/see_docs_screen.dart';
+import '../../features/addMemoryAndDocs/presentation/views/see_memories_screen.dart';
 import '../../features/articles/views/article_screen.dart';
+import '../../features/auth/presentation/cubit/user_cubit.dart';
 import '../../features/auth/presentation/views/account_created_screen.dart';
 import '../../features/auth/presentation/views/create_new_password_screen.dart';
 import '../../features/auth/presentation/views/forget_password_screen.dart';
@@ -38,7 +40,11 @@ import '../../features/chat/screens/chatbot_screen.dart';
 import '../../features/cry/presentation/views/cry_analysis_screen.dart';
 import '../../features/cry/presentation/views/cry_progress_screen.dart';
 import '../../features/cry/presentation/views/cry_results_screen.dart';
-import '../../features/dailyExercise/views/exercise_screen.dart';
+import '../../features/dailyExercise/data/models/exercise_model.dart';
+import '../../features/dailyExercise/presentation/cubit/exercise_cubit.dart';
+import '../../features/dailyExercise/presentation/views/add_exercise_screen.dart';
+import '../../features/dailyExercise/presentation/views/exercise_details_screen.dart';
+import '../../features/dailyExercise/presentation/views/exercise_screen.dart';
 import '../../features/delivery/presentation/view/delivery_result_screen.dart';
 import '../../features/delivery/presentation/view/delivery_start_screen.dart';
 import '../../features/delivery/presentation/view/delivery_survey_screen.dart';
@@ -47,13 +53,18 @@ import '../../features/depression/presentation/views/depression_start_screen.dar
 import '../../features/depression/presentation/views/depression_survey_screen.dart';
 import '../../features/findaDoctorNow/views/hospital_live_doctor_screen.dart';
 import '../../features/findaDoctorNow/views/nearby_hospital_screen.dart';
-import '../../features/foods/views/food_screen.dart';
+import '../../features/foods/presentation/cubit/food_cubit.dart';
+import '../../features/foods/presentation/views/add_food_screen.dart';
+import '../../features/foods/presentation/views/food_screen.dart';
 import '../../features/growth/presentation/views/add_growth_record_screen.dart';
 import '../../features/growth/presentation/views/growth_success_screen.dart';
 import '../../features/growth/presentation/views/growth_tracker_screen.dart';
+import '../../features/mother/data/models/post_model.dart';
+import '../../features/mother/presentation/cubit/mother_experiences_cubit.dart';
 import '../../features/mother/presentation/views/add_experience_screen.dart';
 import '../../features/mother/presentation/views/add_father_id_screen.dart';
 import '../../features/mother/presentation/views/add_post_screen.dart';
+import '../../features/mother/presentation/views/admin_community_screen.dart';
 import '../../features/mother/presentation/views/baby_profile_screen.dart';
 import '../../features/mother/presentation/views/community_screen.dart';
 import '../../features/mother/presentation/views/experience_screen.dart';
@@ -167,73 +178,95 @@ abstract class RouterGenerationConfig {
           builder: (context, state) => NearbyHospitalScreen(),
         ),
 
-       /// ================= Vaccinations =================
+        /// ================= Vaccinations =================
+        GoRoute(
+          path: AppRoutes.selectVaccinationChildScreen,
+          name: AppRoutes.selectVaccinationChildScreen,
+          builder: (context, state) => const SelectVaccinationChildScreen(),
+        ),
 
-GoRoute(
-  path: AppRoutes.selectVaccinationChildScreen,
-  name: AppRoutes.selectVaccinationChildScreen,
-  builder: (context, state) =>
-      const SelectVaccinationChildScreen(),
-),
+        GoRoute(
+          path: AppRoutes.vaccinationsScreen,
+          name: AppRoutes.vaccinationsScreen, // ✅ ضيف name
+          builder: (context, state) {
+            final childId = state.extra as String;
+            return VaccinationsScreen(childId: childId);
+          },
 
-GoRoute(
-  path: AppRoutes.vaccinationsScreen,
-  name: AppRoutes.vaccinationsScreen, // ✅ ضيف name
-  builder: (context, state) {
-    final childId = state.extra as String;
-    return VaccinationsScreen(childId: childId);
-  },
+          routes: [
+            /// 🔵 Schedule
+            GoRoute(
+              path: 'schedule', // ✅ بدون /
+              name: AppRoutes.vaccineScheduleName, // ✅ لازم name
+              builder: (context, state) {
+                final vaccineId = state.extra as String;
+                return VaccineScheduleScreen(vaccineId: vaccineId);
+              },
+            ),
 
-  routes: [
-    /// 🔵 Schedule
-    GoRoute(
-      path: 'schedule', // ✅ بدون /
-      name: AppRoutes.vaccineScheduleName, // ✅ لازم name
-      builder: (context, state) {
-        final vaccineId = state.extra as String;
-        return VaccineScheduleScreen(vaccineId: vaccineId);
-      },
-    ),
-
-    /// 🔵 Details
-    GoRoute(
-      path: 'details', //  بدون /
-      name: AppRoutes.vaccineDetailsName, // مهم جدًا
-      builder: (context, state) {
-        final vaccine = state.extra as VaccineItem;
-        return VaccineDetailsScreen(vaccine: vaccine);
-      },
-    ),
-  ],
-),
-//____________________________________
+            /// 🔵 Details
+            GoRoute(
+              path: 'details', //  بدون /
+              name: AppRoutes.vaccineDetailsName, // مهم جدًا
+              builder: (context, state) {
+                final vaccine = state.extra as VaccineItem;
+                return VaccineDetailsScreen(vaccine: vaccine);
+              },
+            ),
+          ],
+        ),
+        //____________________________________
         GoRoute(
           path: AppRoutes.communityScreen,
           name: AppRoutes.communityScreen,
-          builder: (context, state) => const CommunityScreen(),
+          builder: (context, state) {
+            final userState = context.read<UserCubit>().state;
+
+            final isAdmin = userState is UserLoaded &&
+                userState.profile.role == "Admin";
+
+            return isAdmin
+                ? const AdminCommunityWrapper()
+                : const CommunityWrapper();
+          },
         ),
 
         GoRoute(
           path: AppRoutes.experienceScreen,
           name: AppRoutes.experienceScreen,
-          builder: (context, state) => const ExperienceScreen(
-            userName: '',
-            date: '',
-            description: '',
-            userImage: '',
-          ),
-        ),
+          builder: (context, state) {
+            final post = state.extra as PostModel;
 
-        GoRoute(
-          path: AppRoutes.addExperienceScreen,
-          name: AppRoutes.addExperienceScreen,
-          builder: (context, state) => AddExperienceScreen(),
+            return ExperienceScreen(post: post);
+
+          },
         ),
 
         GoRoute(
           path: AppRoutes.addPostScreen,
           name: AppRoutes.addPostScreen,
-          builder: (context, state) => AddPostScreen(),
+          builder: (context, state) => const AddPostScreen(),
+        ),
+
+        GoRoute(
+          path: AppRoutes.addExerciseScreen,
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => getIt<ExercisesCubit>(),
+              child: const AddExerciseScreen(),
+            );
+          },
+        ),
+
+        GoRoute(
+          path: AppRoutes.addExperienceScreen,
+          builder: (context, state) {
+            final cubit = state.extra as ExperiencesCubit;
+            return BlocProvider.value(
+              value: cubit,
+              child: const AddExperienceScreen(),
+            );
+          },
         ),
 
         GoRoute(
@@ -244,27 +277,40 @@ GoRoute(
 
         GoRoute(
           path: AppRoutes.addMemoryScreen,
-          name: AppRoutes.addMemoryScreen,
-          builder: (context, state) => AddMemoryScreen(),
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => getIt<MemoriesCubit>(),
+              child: const AddMemoryScreen(),
+            );
+          },
         ),
 
         GoRoute(
           path: AppRoutes.memoriesScreen,
-          name: AppRoutes.memoriesScreen,
-          builder: (context, state) => MemoriesScreen(),
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => getIt<MemoriesCubit>(),
+              child: const MemoriesScreen(),
+            );
+          },
         ),
 
         GoRoute(
           path: AppRoutes.docsScreen,
           name: AppRoutes.docsScreen,
-          builder: (context, state) => DocsScreen(),
+          builder: (context, state) {
+            return BlocProvider(
+              create: (context) => getIt<DocumentsCubit>()..getDocuments(),
+              child: const DocsScreen(),
+            );
+          },
         ),
 
         GoRoute(
           path: AppRoutes.seeMemoriesScreen,
           name: AppRoutes.seeMemoriesScreen,
           builder: (context, state) {
-            final memory = state.extra as MemoryItem;
+            final memory = state.extra as MemoryModel;
             return SeeMemoriesScreen(memory: memory);
           },
         ),
@@ -273,15 +319,20 @@ GoRoute(
           path: AppRoutes.seeDocsScreen,
           name: AppRoutes.seeDocsScreen,
           builder: (context, state) {
-            final doc = state.extra as DocItem;
+            final doc = state.extra as DocumentModel;
+
             return SeeDocsScreen(doc: doc);
           },
         ),
 
         GoRoute(
           path: AppRoutes.addDocScreen,
-          name: AppRoutes.addDocScreen,
-          builder: (context, state) => AddDocScreen(),
+          builder: (context, state) {
+            return BlocProvider.value(
+              value: getIt<DocumentsCubit>(),
+              child: const AddDocScreen(),
+            );
+          },
         ),
 
         GoRoute(
@@ -342,7 +393,20 @@ GoRoute(
         GoRoute(
           path: AppRoutes.exerciseScreen,
           name: AppRoutes.exerciseScreen,
-          builder: (context, state) => ExerciseScreen(),
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<ExercisesCubit>(),
+            child: const ExerciseScreen(),
+          ),
+        ),
+
+        GoRoute(
+          path: AppRoutes.exerciseDetailsScreen,
+          name: AppRoutes.exerciseDetailsScreen,
+          builder: (context, state) {
+            final exercise = state.extra as ExerciseModel;
+
+            return ExerciseDetailsScreen(exercise: exercise);
+          },
         ),
 
         GoRoute(
@@ -360,7 +424,22 @@ GoRoute(
         GoRoute(
           path: AppRoutes.foodScreen,
           name: AppRoutes.foodScreen,
-          builder: (context, state) => FoodScreen(),
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => getIt<FoodsCubit>()..getFoods(),
+              child: const FoodScreen(),
+            );
+          },
+        ),
+
+        GoRoute(
+          path: AppRoutes.addFoodScreen,
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => getIt<FoodsCubit>(),
+              child: const AddFoodScreen(),
+            );
+          },
         ),
 
         // ================= Cry Feature =================

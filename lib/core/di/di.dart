@@ -16,6 +16,20 @@ import 'package:rafiq_app/features/vaccinations/data/api/vaccinations_api_servic
 import 'package:rafiq_app/features/vaccinations/data/repository/vaccinations_repository.dart';
 import 'package:rafiq_app/features/vaccinations/presentation/cubit/vaccinations_cubit.dart';
 
+import '../../features/addMemoryAndDocs/data/api/documents_api_service.dart';
+import '../../features/addMemoryAndDocs/data/api/memories_api_service.dart';
+import '../../features/addMemoryAndDocs/data/repository/document_repository.dart';
+import '../../features/addMemoryAndDocs/data/repository/memory_repository.dart';
+import '../../features/addMemoryAndDocs/presentation/cubit/document_cubit.dart';
+import '../../features/addMemoryAndDocs/presentation/cubit/memory_cubit.dart';
+import '../../features/dailyExercise/data/api/exercises_api_service.dart';
+import '../../features/dailyExercise/data/repository/exercise_repository.dart';
+import '../../features/dailyExercise/presentation/cubit/exercise_cubit.dart';
+import '../../features/foods/data/api/foods_api_service.dart';
+import '../../features/foods/data/repository/food_repository.dart';
+import '../../features/foods/presentation/cubit/food_cubit.dart';
+import '../../features/mother/presentation/cubit/mother_comments_cubit.dart';
+import '../../features/mother/presentation/cubit/mother_experiences_cubit.dart';
 import '../network/dio_factory.dart';
 import '../storage/secure_storage_service.dart';
 import '../storage/shared_prefs_service.dart';
@@ -29,6 +43,10 @@ import '../../features/auth/presentation/cubit/user_cubit.dart';
 import 'package:rafiq_app/features/growth/data/api/growth_api_service.dart';
 import 'package:rafiq_app/features/growth/data/repository/growth_repository.dart';
 import 'package:rafiq_app/features/growth/presentation/cubit/growth_cubit.dart';
+
+import 'package:rafiq_app/features/mother/data/api/mother_posts_api_service.dart';
+import 'package:rafiq_app/features/mother/data/repository/mother_posts_repository.dart';
+import 'package:rafiq_app/features/mother/presentation/cubit/mother_posts_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -68,6 +86,28 @@ Future<void> configureDependencies() async {
     () => VaccinationsApiService(getIt<Dio>()),
   );
 
+  getIt.registerLazySingleton<PostsApiService>(
+        () => PostsApiService(getIt<Dio>()),
+  );
+
+  /// Documents API
+  getIt.registerLazySingleton<DocumentsApiService>(
+    () => DocumentsApiService(getIt<Dio>()),
+  );
+
+  /// Memories API
+  getIt.registerLazySingleton<MemoriesApiService>(
+    () => MemoriesApiService(getIt<Dio>()),
+  );
+
+  getIt.registerLazySingleton<FoodsApiService>(
+    () => FoodsApiService(getIt<Dio>()),
+  );
+
+  getIt.registerLazySingleton<ExercisesApiService>(
+    () => ExercisesApiService(getIt<Dio>()),
+  );
+
   /// ================= REPOSITORIES =================
 
   getIt.registerLazySingleton<AuthRepository>(
@@ -85,6 +125,26 @@ Future<void> configureDependencies() async {
   );
   getIt.registerLazySingleton<VaccinationsRepository>(
     () => VaccinationsRepository(getIt()),
+  );
+
+  getIt.registerLazySingleton<PostsRepository>(
+        () => PostsRepository(getIt<PostsApiService>()),
+  );
+
+  /// Dos Repo
+  getIt.registerLazySingleton<DocumentsRepository>(
+    () => DocumentsRepository(getIt<DocumentsApiService>()),
+  );
+
+  /// Memories Repo
+  getIt.registerLazySingleton<MemoriesRepository>(
+    () => MemoriesRepository(getIt<MemoriesApiService>()),
+  );
+
+  getIt.registerLazySingleton<FoodsRepository>(() => FoodsRepository(getIt()));
+
+  getIt.registerLazySingleton<ExercisesRepository>(
+    () => ExercisesRepository(getIt()),
   );
 
   /// ================= CUBITS =================
@@ -126,4 +186,34 @@ Future<void> configureDependencies() async {
 
   getIt.registerFactory(() => PostpartumSurveyCubit(getIt()));
   getIt.registerFactory<VaccinationsCubit>(() => VaccinationsCubit(getIt()));
+
+  /// Posts Cubit
+  getIt.registerFactory<PostsCubit>(() => PostsCubit(getIt<PostsRepository>()));
+
+  getIt.registerFactory<ExperiencesCubit>(
+        () => ExperiencesCubit(getIt<PostsRepository>()),
+  );
+
+  /// Docs Cubit
+  getIt.registerFactory<DocumentsCubit>(
+    () => DocumentsCubit(getIt<DocumentsRepository>()),
+  );
+
+  /// Memories Cubit
+  getIt.registerFactory<MemoriesCubit>(
+    () => MemoriesCubit(getIt<MemoriesRepository>()),
+  );
+
+  getIt.registerFactory(() => FoodsCubit(getIt()));
+
+  getIt.registerFactory<ExercisesCubit>(
+    () => ExercisesCubit(getIt<ExercisesRepository>()),
+  );
+
+  getIt.registerFactory<CommentsCubit>(
+        () => CommentsCubit(
+      getIt<PostsRepository>(),
+      getIt<PostsCubit>(),
+    ),
+  );
 }

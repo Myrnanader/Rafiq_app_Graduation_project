@@ -8,7 +8,6 @@ import 'package:rafiq_app/core/theming/app_colors.dart';
 import '../../features/growth/presentation/widgets/growth_glass_text_field.dart';
 
 class DatePickerField extends StatefulWidget {
-  ///  Callback بيرجع الـ DateTime للـ parent
   final Function(DateTime)? onDateSelected;
 
   const DatePickerField({
@@ -83,7 +82,6 @@ class _DatePickerFieldState extends State<DatePickerField> {
                         selectedDate = dates.first;
                       });
 
-                      ///  نبعت القيمة للـ parent
                       widget.onDateSelected?.call(dates.first!);
 
                       Navigator.pop(context);

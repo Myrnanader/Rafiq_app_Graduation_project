@@ -63,9 +63,12 @@ class AppRoutes {
 
   // -------- Content (Exercise / Articles / Videos / Food) --------
   static const String exerciseScreen = '/ExerciseScreen';
+  static const String addExerciseScreen = '/AddExerciseScreen';
+  static const exerciseDetailsScreen = "/exerciseDetailsScreen";
   static const String articleScreen = '/ArticleScreen';
   static const String videoScreen = '/VideoScreen';
   static const String foodScreen = '/FoodScreen';
+  static const String addFoodScreen = '/AddFoodScreen';
 
   // -------- Cry Feature --------
   static const String cryAnalysisScreen = '/CryAnalysisScreen';

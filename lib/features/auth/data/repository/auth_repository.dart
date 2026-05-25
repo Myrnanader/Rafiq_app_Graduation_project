@@ -162,4 +162,5 @@ class AuthRepository {
       throw ApiErrorHandler.handle(error);
     }
   }
+
 }

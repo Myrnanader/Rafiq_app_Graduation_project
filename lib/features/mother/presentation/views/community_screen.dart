@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:rafiq_app/core/routing/app_routes.dart';
-import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
+
+import '../../../../core/di/di.dart';
+import '../../../../core/helpers/date_format_helper.dart';
+import '../../../../core/theme/app_texts/app_text_styles.dart';
+import '../../../auth/presentation/cubit/user_cubit.dart';
+import '../cubit/mother_comments_cubit.dart';
+import '../cubit/mother_experiences_cubit.dart';
+import '../cubit/mother_experiences_state.dart';
+import '../cubit/mother_posts_cubit.dart';
+import '../cubit/mother_posts_state.dart';
 
 import '../widgets/widgets/custom_post_card.dart';
 import '../widgets/widgets/custom_previous_experience_card.dart';
+
+import 'comment_screen.dart';
 
 class CommunityScreen extends StatefulWidget {
   const CommunityScreen({super.key});
@@ -18,13 +31,18 @@ class CommunityScreenState extends State<CommunityScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  bool get isPostsTab => _tabController.index == 0;
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(() {
-      setState(() {});
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<PostsCubit>().getFeed();
+      context.read<ExperiencesCubit>().getExperiences();
     });
+
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -36,7 +54,6 @@ class CommunityScreenState extends State<CommunityScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.lightSurface,
       appBar: AppBar(
         backgroundColor: AppColors.lightSurface,
         bottom: TabBar(
@@ -58,107 +75,235 @@ class CommunityScreenState extends State<CommunityScreen>
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(4.0),
         child: TabBarView(
           controller: _tabController,
           children: [
-            ListView(
-              children: [
-                CustomPostCard(
-                  userName: "Maram Mohammed ",
-                  date: "Today , 4:20 Am",
-                  description: "Pregnancy yoga is tailored to support the changing needs of your body during each trimester. Gentle stretches....more",
-                  userImage: "assets/images/flower.jpg",
-                  postImage: "assets/images/yoga.jpg",
-                  initialLikes: 30,
-                  comments: 12,
-                ),
-                CustomPostCard(
-                  userName: "Sara Ali",
-                  date: "yesterday , 5:30 Pm",
-                  description: " Eating a variety of fresh vegetables helps provide essential vitamins and strengthens your immune system.",
-                  userImage: "assets/images/user2.jpg",
-                  postImage: "assets/images/food.png",
-                  initialLikes: 90,
-                  comments: 20,
-                ),
-                CustomPostCard(
-                  userName: "Mai Adel",
-                  date: "3 days ago",
-                  description: "Had so much fun today!\nHad so much fun today!\nHad so much fun today!",
-                  userImage: "assets/images/mather1.png",
-                  postImage: "assets/images/food.png",
-                  initialLikes: 150,
-                  comments: 30,
-                ),
-              ],
+            /// ================= POSTS =================
+            BlocBuilder<UserCubit, UserState>(
+              builder: (context, userState) {
+                String userName = "Anonymous Mom";
+
+                if (userState is UserLoaded) {
+                  final fullName = userState.profile.fullName;
+                  if (fullName.trim().isNotEmpty) {
+                    userName = fullName;
+                  }
+                }
+
+                String? userImage;
+
+                if (userState is UserLoaded) {
+                  userImage = userState.profile.fullImageUrl;
+                }
+
+                return BlocBuilder<PostsCubit, PostsState>(
+                  builder: (context, state) {
+                    if (state is PostsLoading) {
+                      return const Center(child: CircularProgressIndicator(color: AppColors.lavender,));
+                    }
+
+                    if (state is PostsError) {
+                      return Center(child: Text(state.message));
+                    }
+
+                    if (state is PostsLoaded) {
+                      return ListView.builder(
+                        itemCount: state.posts.length,
+                        itemBuilder: (context, index) {
+                          final post = state.posts[index];
+
+                          return BlocBuilder<UserCubit, UserState>(
+                            builder: (context, userState) {
+                              bool isAdmin = false;
+
+                              if (userState is UserLoaded) {
+                                isAdmin = userState.profile.role == "Admin";
+                              }
+                              return CustomPostCard(
+                                id: post.id,
+                                userName: userName,
+                                userImage:
+                                    userImage ?? "assets/images/user.png",
+                                date: post.createdAt?.toTimeAgo() ?? "",
+                                description: post.contentOrSolution ?? "",
+                                postImage: post.fullImageUrl ?? "",
+                                likesCount: post.likeCount ?? 0,
+                                comments: post.commentCount ?? 0,
+                                isLiked: post.isLikedByMe ?? false,
+                                isSaved: post.isSavedByMe ?? false,
+                                onLike: () => context
+                                    .read<PostsCubit>()
+                                    .toggleLike(post.id),
+                                onSave: () => context
+                                    .read<PostsCubit>()
+                                    .toggleSave(post.id),
+                                onComment: () =>
+                                    showModalBottomSheet(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      builder: (_) => BlocProvider.value(
+                                        value: context.read<PostsCubit>(),
+                                        child: CommentsSheet(postId: post.id),
+                                      ),
+                                    ).whenComplete(() {
+                                      if (context.mounted) {
+                                        context.read<PostsCubit>().getFeed();
+                                      }
+                                    }),
+                                canDelete: true,
+                                onDelete: () async {
+                                  if (isAdmin) {
+                                    await context.read<PostsCubit>().deleteAnyPost(post.id);
+                                  } else {
+                                    await context.read<PostsCubit>().deleteMyPost(post.id);
+                                  }
+
+                                  await context.read<PostsCubit>().getFeed();
+                                }, isAdmin: false,
+                              );
+                            },
+                          );
+                        },
+                      );
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                );
+              },
             ),
-            ListView(
-              children: [
-                CustomPreviousExperienceCard(
-                  userName: "Experience 1",
-                  date: "Sarah M. 2days ago",
-                  description:
-                  "After my second child was born, I struggled with severe sleep deprivation. My youngest would wake up every 2 hours, and my toddler was going through a regression phase. I felt exhausted, overwhelmed, and couldn't function properly during the day. My patience was running thin, and I knew something had to change.",
-                  userImage: "assets/images/user2.jpg",
-                  initialLikes: 123,
-                  comments: 18,
-                ),
-                CustomPreviousExperienceCard(
-                  userName: "Experience 2",
-                  date: "Mariam M. 5days ago",
-                  description: "I experienced feelings of sadness, anxiety, and guilt after giving birth. Simple tasks felt overwhelming, and I isolated myself from friends and family.",
-                  userImage: "assets/images/user3.png",
-                  initialLikes: 255,
-                  comments: 42,
-                ),
-                CustomPreviousExperienceCard(
-                  userName: "Experience 3",
-                  date: "Soha M. 1week ago",
-                  description: "Managing household tasks, taking care of the newborn, and maintaining work responsibilities left me feeling overwhelmed and exhausted.",
-                  userImage: "assets/images/flower.jpg",
-                  initialLikes: 188,
-                  comments: 31,
-                ),
-                CustomPreviousExperienceCard(
-                  userName: "Experience 4",
-                  date: "Sarah M. 2days ago",
-                  description: "During my pregnancy, I constantly worried about the health of my baby and potential complications. This stress affected my sleep and mood.",
-                  userImage: "assets/images/user.png",
-                  initialLikes: 123,
-                  comments: 18,
-                ),
-              ],
+
+            /// ================= EXPERIENCES =================
+            BlocBuilder<UserCubit, UserState>(
+              builder: (context, userState) {
+                String userName = "Anonymous Mom";
+
+                if (userState is UserLoaded) {
+                  final fullName = userState.profile.fullName;
+                  if (fullName.trim().isNotEmpty) {
+                    userName = fullName;
+                  }
+                }
+
+                String? userImage;
+
+                if (userState is UserLoaded) {
+                  userImage = userState.profile.fullImageUrl;
+                }
+
+                return BlocBuilder<ExperiencesCubit, ExperiencesState>(
+                  builder: (context, state) {
+                    if (state is ExperiencesLoading) {
+                      return const Center(child: CircularProgressIndicator(color: AppColors.lavender,));
+                    }
+
+                    if (state is ExperiencesError) {
+                      return Center(child: Text(state.message));
+                    }
+
+                    if (state is ExperiencesLoaded) {
+                      final experiences = state.experiences;
+
+                      if (experiences.isEmpty) {
+                        return const Center(child: Text("No experiences yet"));
+                      }
+
+                      return ListView.builder(
+                        itemCount: experiences.length,
+                        itemBuilder: (context, index) {
+                          final exp = experiences[index];
+
+                          return GestureDetector(
+                            onTap: () {
+                              context.push(
+                                AppRoutes.experienceScreen,
+                                extra: exp,
+                              );
+                            },
+                            child: CustomPreviousExperienceCard(
+                              id: exp.id,
+                              userName: userName,
+                              date: exp.createdAt?.toTimeAgo() ?? "",
+                              description: exp.type == 2
+                                  ? "${exp.titleOrChallenge ?? ''}\n\n${exp.contentOrSolution ?? ''}"
+                                  : exp.contentOrSolution ?? "",
+                              userImage: userImage,
+                              likesCount: exp.likeCount ?? 0,
+                              commentsCount: exp.commentCount ?? 0,
+                              isLiked: exp.isLikedByMe ?? false,
+                              isSaved: exp.isSavedByMe ?? false,
+
+                              onLike: () => context
+                                  .read<ExperiencesCubit>()
+                                  .toggleLike(exp.id),
+                              onSave: () => context
+                                  .read<ExperiencesCubit>()
+                                  .toggleSave(exp.id),
+                              onComment: () =>
+                                  showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (_) => BlocProvider.value(
+                                      value: context.read<PostsCubit>(),
+                                      child: CommentsSheet(postId: exp.id),
+                                    ),
+                                  ).whenComplete(() {
+                                    if (context.mounted) {
+                                      context
+                                          .read<ExperiencesCubit>()
+                                          .getExperiences();
+                                    }
+                                  }),
+                            ),
+                          );
+                        },
+                      );
+                    }
+
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                );
+              },
             ),
           ],
         ),
       ),
 
-      floatingActionButton: _tabController.index == 0
-          ? SizedBox(
-              width: 70,
-              height: 70,
-              child: FloatingActionButton(
-                backgroundColor: AppColors.primary,
-                shape: CircleBorder(),
-                onPressed: () {
-                  context.push(AppRoutes.addPostScreen);
-                },
-                child: const Icon(Icons.add, color: AppColors.lightBackground),
-              ),
-            )
-          : SizedBox(
-        width: 70,
-        height: 70,
-        child: FloatingActionButton(
-          backgroundColor: AppColors.primary,
-          shape: CircleBorder(),
-          onPressed: () {
-            context.push(AppRoutes.addExperienceScreen);
-          },
-          child: const Icon(Icons.add, color: AppColors.lightBackground),
-        ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primary,
+        shape: CircleBorder(),
+        onPressed: () {
+          if (isPostsTab) {
+            context.push(AppRoutes.addPostScreen);
+          } else {
+            context.push(
+              AppRoutes.addExperienceScreen,
+              extra: context.read<ExperiencesCubit>(),
+            );
+          }
+        },
+        child: const Icon(Icons.add, color: AppColors.lightBackground),
       ),
+    );
+  }
+}
+
+class CommunityWrapper extends StatelessWidget {
+  const CommunityWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<PostsCubit>()..getFeed()),
+        BlocProvider(
+          create: (_) => getIt<ExperiencesCubit>()..getExperiences(),
+        ),
+        BlocProvider(create: (_) => getIt<CommentsCubit>()),
+      ],
+      child: const CommunityScreen(),
     );
   }
 }

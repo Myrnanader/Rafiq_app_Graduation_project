@@ -7,14 +7,14 @@ import '../../views/article_details_screen.dart';
 
 class CustomArticleCard extends StatefulWidget {
   final String title;
-  final String description;
   final String postImage;
+  final String content;
 
   const CustomArticleCard({
     super.key,
     required this.title,
-    required this.description,
     required this.postImage,
+    required this.content,
   });
 
   @override
@@ -32,9 +32,9 @@ class _CustomArticleCardState extends State<CustomArticleCard> {
           context,
           MaterialPageRoute(
             builder: (_) => ArticleDetailsScreen(
-              // title: "Pregnancy yoga",
-              // description: "Pregnancy Yoga helps alleviate the effect of common symptoms such as morning sickness, painful leg cramps, swollen ankles, and constipation. Pregnancy Yoga helps alleviate the effect of common symptoms such as morning sickness, painful leg cramps, swollen ankles, and constipation. Pregnancy Yoga helps alleviate the effect of common symptoms such as morning sickness, painful leg cramps, swollen ankles, and constipation.\n\nPregnancy Yoga helps alleviate the effect of common symptoms such as morning sickness, painful leg cramps, swollen ankles, and constipation. Pregnancy Yoga helps alleviate the effect of common symptoms such as morning sickness, painful leg cramps, swollen ankles, and constipation. Pregnancy Yoga helps alleviate the effect of common symptoms such as morning sickness, painful leg cramps, swollen ankles, and constipation.",
-              // image: "assets/images/exercise.png",
+              title: widget.title,
+              content: widget.content,
+              image: widget.postImage,
             ),
           ),
         );
@@ -52,8 +52,8 @@ class _CustomArticleCardState extends State<CustomArticleCard> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  widget.postImage,
+                child: Image.network(
+                widget.postImage,
                   height: 200,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -72,10 +72,11 @@ class _CustomArticleCardState extends State<CustomArticleCard> {
               12.ph,
 
               Text(
-                widget.description,
+                widget.content,
                 style: AppTextStyles.font11Regular.copyWith(
                   color: AppColors.grey,
                 ),
+                maxLines: 2,
               ),
               12.ph,
               Row(

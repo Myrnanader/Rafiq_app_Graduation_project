@@ -20,6 +20,15 @@ class ProfileResponse {
 
   int get pregnancyWeek =>
       data?.motherProfile?.currentPregnancyWeek ?? 0;
+
+  String? get fullImageUrl {
+    final img = data?.user?.image;
+    if (img == null || img.isEmpty) return null;
+    if (img.startsWith("http")) return img;
+    return "https://rafiq.runasp.net/$img";
+  }
+
+  String get role => data?.user?.role ?? "";
 }
 
 @JsonSerializable()
@@ -44,7 +53,11 @@ class User {
   @JsonKey(name: "dateOfBirth")
   final String? dateOfBirth; // 🔥 المهم
 
-  User({this.name, this.dateOfBirth});
+  final String? image;
+
+  final String? role;
+
+  User({this.name, this.dateOfBirth, this.image, this.role});
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);

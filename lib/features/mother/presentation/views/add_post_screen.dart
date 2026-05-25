@@ -17,6 +17,8 @@ class AddPostScreen extends StatefulWidget {
 
 class _AddPostScreenState extends State<AddPostScreen> {
   List<String> imagePaths = [];
+  TextEditingController contentController = TextEditingController();
+
 
   Future<void> _openImagePicker() async {
     final result = await showModalBottomSheet<List<AssetEntity>>(
@@ -104,7 +106,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
               },
             ),
           ),
-          Expanded(child: CaptionContainerWidget()),
+          Expanded(
+            child: CaptionContainerWidget(
+              imagePaths: imagePaths,
+            ),
+          ),
         ],
       ),
     );

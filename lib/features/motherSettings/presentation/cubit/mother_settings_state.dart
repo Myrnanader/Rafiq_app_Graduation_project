@@ -26,7 +26,11 @@ class DeleteAccountError extends MotherSettingsState {
 
 class MakeAdminLoading extends MotherSettingsState {}
 
-class MakeAdminSuccess extends MotherSettingsState {}
+class MakeAdminSuccess extends MotherSettingsState {
+  final String message;
+
+  MakeAdminSuccess(this.message);
+}
 
 class MakeAdminError extends MotherSettingsState {
   final String message;

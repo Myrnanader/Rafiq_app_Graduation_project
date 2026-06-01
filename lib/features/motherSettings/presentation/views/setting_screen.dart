@@ -30,8 +30,7 @@ class SettingScreen extends StatelessWidget {
           listener: (context, state) async {
             /// DELETE SUCCESS
             if (state is DeleteAccountSuccess) {
-                context.go(AppRoutes.onBoardScreen);
-              
+              context.go(AppRoutes.onBoardScreen);
             }
 
             /// DELETE ERROR
@@ -43,9 +42,9 @@ class SettingScreen extends StatelessWidget {
 
             /// MAKE ADMIN SUCCESS
             if (state is MakeAdminSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("User promoted to admin")),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
             }
 
             /// MAKE ADMIN ERROR

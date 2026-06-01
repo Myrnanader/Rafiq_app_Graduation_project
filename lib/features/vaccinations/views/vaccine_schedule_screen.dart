@@ -7,11 +7,7 @@ import '../../../core/helpers/date_picker_field.dart';
 import '../../../core/helpers/extensions.dart';
 import '../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../core/theming/app_colors.dart';
-import '../../growth/presentation/widgets/growth_date_picker_field.dart';
 import '../../mother/presentation/widgets/widgets/custom_input_field.dart';
-import '../widgets/widgets/vaccine_details_info_row.dart';
-import '../widgets/widgets/vaccine_item.dart';
-import '../widgets/widgets/vaccine_schedule.dart';
 
 class VaccineScheduleScreen extends StatefulWidget {
 
@@ -102,7 +98,7 @@ class _VaccineScheduleScreenState extends State<VaccineScheduleScreen> {
                       suffixIcon: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          'pm',
+                          'AM',
                           style: AppTextStyles.font13Regular.copyWith(
                             color: AppColors.neutralGray,
                           ),

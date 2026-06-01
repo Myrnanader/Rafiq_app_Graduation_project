@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/di/di.dart';
 import '../../../../core/helpers/date_format_helper.dart';
-import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theming/app_colors.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 
-import '../../../auth/presentation/cubit/user_cubit.dart';
 import '../cubit/mother_posts_cubit.dart';
 import '../cubit/mother_posts_state.dart';
-import '../cubit/mother_comments_cubit.dart';
 import '../widgets/widgets/custom_post_card.dart';
-import 'comment_screen.dart';
 
 class AdminCommunityScreen extends StatefulWidget {
   const AdminCommunityScreen({super.key});

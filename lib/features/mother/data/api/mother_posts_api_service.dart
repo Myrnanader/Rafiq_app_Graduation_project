@@ -4,7 +4,6 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../addMemoryAndDocs/data/models/basic_response.dart';
 import '../models/comments_response.dart';
-import '../models/experience_response.dart';
 import '../models/posts_response.dart';
 
 part 'mother_posts_api_service.g.dart';

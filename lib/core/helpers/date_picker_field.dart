@@ -77,12 +77,12 @@ class _DatePickerFieldState extends State<DatePickerField> {
                     ),
                   ),
                   onValueChanged: (dates) {
-                    if (dates.isNotEmpty && dates.first != null) {
+                    if (dates.isNotEmpty) {
                       setState(() {
                         selectedDate = dates.first;
                       });
 
-                      widget.onDateSelected?.call(dates.first!);
+                      widget.onDateSelected?.call(dates.first);
 
                       Navigator.pop(context);
                     }

@@ -17,8 +17,7 @@ class MotherSettingsRepository {
     request.validate();
 
     try {
-      final BasicResponse response =
-          await api.editProfile(request.toJson());
+      final BasicResponse response = await api.editProfile(request.toJson());
 
       if (response.status != "Success") {
         throw ErrorModel(
@@ -32,38 +31,31 @@ class MotherSettingsRepository {
 
   // ─── DELETE ACCOUNT ───────────────────────────────────────
 
- Future<void> deleteAccount() async {
-  try {
-    final response = await api.deleteAccount({}); 
-
-    if (response.status != "Success") {
-      throw ErrorModel(
-        message: response.message ?? 'Failed to delete account',
-      );
-    }
-  } on DioException catch (e) {
-    throw ApiErrorHandler.handle(e);
-  } catch (e) {
-    throw ErrorModel(message: 'Failed to delete account');
-  }
-}
-
-  // ─── MAKE ADMIN ─────────────────────────────────────────
-
-  Future<void> makeAdmin(String email) async {
+  Future<void> deleteAccount() async {
     try {
-      final BasicResponse response =
-          await api.makeAdmin({"email": email});
+      final response = await api.deleteAccount({});
 
       if (response.status != "Success") {
         throw ErrorModel(
-          message: response.message ?? 'Failed to make admin',
+          message: response.message ?? 'Failed to delete account',
         );
       }
     } on DioException catch (e) {
       throw ApiErrorHandler.handle(e);
     } catch (e) {
-      throw ErrorModel(message: 'Failed to make admin');
+      throw ErrorModel(message: 'Failed to delete account');
     }
   }
+
+  // ─── MAKE ADMIN ─────────────────────────────────────────
+
+  Future<String> makeAdmin(String email) async {
+  try {
+    final response = await api.makeAdmin({"email": email});
+
+    return response.message ?? "Operation completed";
+  } on DioException catch (e) {
+    throw ApiErrorHandler.handle(e);
+  }
+}
 }

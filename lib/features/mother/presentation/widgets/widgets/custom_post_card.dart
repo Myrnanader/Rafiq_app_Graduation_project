@@ -118,7 +118,7 @@ class CustomPostCard extends StatelessWidget {
 
             12.ph,
 
-            if (postImage != null && postImage.isNotEmpty)
+            if (postImage.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.asset(

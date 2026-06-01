@@ -43,15 +43,15 @@ class MotherSettingsCubit extends Cubit<MotherSettingsState> {
   // ─── MAKE ADMIN  ───────────────────────────────────────
 
   Future<void> makeAdmin(String email) async {
-    emit(MakeAdminLoading());
+  emit(MakeAdminLoading());
 
-    try {
-      await repository.makeAdmin(email);
-      emit(MakeAdminSuccess());
-    } on ErrorModel catch (e) {
-      emit(MakeAdminError(e.message));
-    } catch (e) {
-      emit(MakeAdminError('Failed to promote user'));
-    }
+  try {
+    final message = await repository.makeAdmin(email);
+    emit(MakeAdminSuccess(message));
+  } on ErrorModel catch (e) {
+    emit(MakeAdminError(e.message));
+  } catch (e) {
+    emit(MakeAdminError('Failed to promote user'));
   }
+}
 }

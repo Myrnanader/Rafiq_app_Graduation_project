@@ -35,7 +35,7 @@ class VaccinationsRepository {
     return res.data;
   }
 
-  ///  Mark taken (FIXED ✅)
+  ///  Mark taken 
   Future<VaccinationModel> markTaken(
       String id, String? takenDate) async {
     final res = await api.markTaken(id, takenDate);

@@ -3,43 +3,76 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/common/widgets/app_gradient_background.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
-import 'package:rafiq_app/features/cry/presentation/widgets/cry_section_header.dart';
+import 'package:rafiq_app/features/cry/data/models/cry_model.dart';
 import '../widgets/cry_app_bar.dart';
 import '../widgets/cry_illustration.dart';
 import '../widgets/cry_primary_button.dart';
+import '../widgets/cry_section_header.dart';
 
 class CryResultScreen extends StatelessWidget {
-  const CryResultScreen({super.key});
+  final CryAnalysisResult result;
+
+  const CryResultScreen({
+    super.key,
+    required this.result,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AppGradientBackground(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+          ),
           child: Column(
             children: [
-              const CryAppBar(title: 'Analysis Result'),
-              39.h.verticalSpace,
-              const CrySectionHeader(
-                title: ' ',
-                subtitle: 'that your baby feel is',
+              const CryAppBar(
+                title: 'Analysis Result',
               ),
-              70.h.verticalSpace,
+
+              30.h.verticalSpace,
+
+              const CrySectionHeader(
+                title: 'Cry Analysis',
+                subtitle:
+                    'Analysis completed successfully',
+              ),
+
+              40.h.verticalSpace,
+
               const CryIllustration(),
-              //47.h.verticalSpace,
-              const CrySectionHeader(
-                title: 'Angry 81.3%  ',
-                subtitle: 'Sleepy 18.7% ',
+
+              32.h.verticalSpace,
+
+              Text(
+                "Status: ${result.status}",
               ),
+
+              16.h.verticalSpace,
+
+              Text(
+                "Reason: ${result.reason}",
+              ),
+
+              16.h.verticalSpace,
+
+              Text(
+                "Recording ID: ${result.recordingId}",
+              ),
+
               const Spacer(),
+
               CryPrimaryButton(
-                text: 'Try Again',
+                text: 'Analyze Again',
                 onTap: () {
-                  context.go(AppRoutes.cryAnalysisScreen);
+                  context.go(
+                    AppRoutes.selectCryChildScreen,
+                  );
                 },
               ),
-              119.h.verticalSpace,
+
+              80.h.verticalSpace,
             ],
           ),
         ),

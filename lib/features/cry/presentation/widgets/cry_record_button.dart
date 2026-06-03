@@ -5,7 +5,13 @@ import 'package:rafiq_app/core/utils/app_images.dart';
 
 class CryRecordButton extends StatelessWidget {
   final VoidCallback onTap;
-  const CryRecordButton({super.key, required this.onTap});
+  final bool isRecording;
+
+  const CryRecordButton({
+    super.key,
+    required this.onTap,
+    this.isRecording = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +20,25 @@ class CryRecordButton extends StatelessWidget {
       child: Container(
         width: 80.w,
         height: 80.w,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.onPrimary,
+          color: isRecording
+              ? Colors.red
+              : AppColors.onPrimary,
         ),
-        child: Image.asset(AppImages.mic, width: 18.sp,height: 20.sp,),
+        child: Center(
+          child: isRecording
+              ? Icon(
+                  Icons.stop,
+                  size: 32.sp,
+                  color: Colors.white,
+                )
+              : Image.asset(
+                  AppImages.mic,
+                  width: 18.sp,
+                  height: 20.sp,
+                ),
+        ),
       ),
     );
   }

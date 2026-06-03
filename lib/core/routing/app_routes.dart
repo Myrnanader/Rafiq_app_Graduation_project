@@ -12,7 +12,8 @@ class AppRoutes {
   static const String chooseParentTypeScreen = '/ChooseParentTypeScreen';
   static const String motherInformationScreen = '/MotherInformationScreen';
   static const String doctorInformationScreen = '/DoctorInformationScreen';
-  static const String accountCreatedSuccessfullyScreen ='/AccountCreatedSuccessfullyScreen';
+  static const String accountCreatedSuccessfullyScreen =
+      '/AccountCreatedSuccessfullyScreen';
 
   // -------- Main Navigation --------
   static const String mainNavigationBarScreen = '/MainNavigationScreen';
@@ -44,7 +45,7 @@ class AppRoutes {
   static const String addFatherIdScreen = '/AddFatherIdScreen';
 
   // -------- Vaccinations Feature --------
- 
+
   /// Parent
   static const String vaccinationsScreen = '/vaccinations';
 
@@ -71,6 +72,8 @@ class AppRoutes {
   static const String addFoodScreen = '/AddFoodScreen';
 
   // -------- Cry Feature --------
+
+  static const String selectCryChildScreen = '/SelectCryChildScreen';
   static const String cryAnalysisScreen = '/CryAnalysisScreen';
   static const String cryProgressScreen = '/CryProgressScreen';
   static const String cryResultScreen = '/CryResultScreen';

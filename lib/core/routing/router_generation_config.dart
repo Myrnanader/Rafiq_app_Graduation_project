@@ -2,6 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rafiq_app/core/di/di.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
+import 'package:rafiq_app/features/cry/data/models/cry_model.dart';
+import 'package:rafiq_app/features/cry/presentation/cubit/cry_cubit.dart';
+import 'package:rafiq_app/features/cry/presentation/views/select_cry_child_screen.dart';
 import 'package:rafiq_app/features/depression/presentation/cubit/postpartum_survey_cubit.dart';
 import 'package:rafiq_app/features/growth/data/models/child_response.dart';
 import 'package:rafiq_app/features/growth/presentation/views/select_child_screen.dart';
@@ -38,7 +41,6 @@ import '../../features/auth/presentation/views/verify_otp_screen.dart';
 import '../../features/chat/screens/chat_ai_screen.dart';
 import '../../features/chat/screens/chatbot_screen.dart';
 import '../../features/cry/presentation/views/cry_analysis_screen.dart';
-import '../../features/cry/presentation/views/cry_progress_screen.dart';
 import '../../features/cry/presentation/views/cry_results_screen.dart';
 import '../../features/dailyExercise/data/models/exercise_model.dart';
 import '../../features/dailyExercise/presentation/cubit/exercise_cubit.dart';
@@ -194,20 +196,18 @@ abstract class RouterGenerationConfig {
           },
 
           routes: [
-            /// 🔵 Schedule
             GoRoute(
-              path: 'schedule', // ✅ بدون /
-              name: AppRoutes.vaccineScheduleName, // ✅ لازم name
+              path: 'schedule',
+              name: AppRoutes.vaccineScheduleName,
               builder: (context, state) {
                 final vaccineId = state.extra as String;
                 return VaccineScheduleScreen(vaccineId: vaccineId);
               },
             ),
 
-            /// 🔵 Details
             GoRoute(
-              path: 'details', //  بدون /
-              name: AppRoutes.vaccineDetailsName, // مهم جدًا
+              path: 'details',
+              name: AppRoutes.vaccineDetailsName,
               builder: (context, state) {
                 final vaccine = state.extra as VaccineItem;
                 return VaccineDetailsScreen(vaccine: vaccine);
@@ -222,8 +222,8 @@ abstract class RouterGenerationConfig {
           builder: (context, state) {
             final userState = context.read<UserCubit>().state;
 
-            final isAdmin = userState is UserLoaded &&
-                userState.profile.role == "Admin";
+            final isAdmin =
+                userState is UserLoaded && userState.profile.role == "Admin";
 
             return isAdmin
                 ? const AdminCommunityWrapper()
@@ -238,7 +238,6 @@ abstract class RouterGenerationConfig {
             final post = state.extra as PostModel;
 
             return ExperienceScreen(post: post);
-
           },
         ),
 
@@ -444,18 +443,29 @@ abstract class RouterGenerationConfig {
 
         // ================= Cry Feature =================
         GoRoute(
-          path: AppRoutes.cryAnalysisScreen,
-          builder: (context, state) => const CryAnalysisScreen(),
+          path: AppRoutes.selectCryChildScreen,
+          builder: (context, state) => const SelectCryChildScreen(),
         ),
 
         GoRoute(
-          path: AppRoutes.cryProgressScreen,
-          builder: (context, state) => const CryProgressScreen(),
+          path: AppRoutes.cryAnalysisScreen,
+          builder: (context, state) {
+            final childId = state.extra as String;
+
+            return BlocProvider(
+              create: (_) => getIt<CryCubit>(),
+              child: CryAnalysisScreen(childId: childId),
+            );
+          },
         ),
 
         GoRoute(
           path: AppRoutes.cryResultScreen,
-          builder: (context, state) => const CryResultScreen(),
+          builder: (context, state) {
+            final result = state.extra as CryAnalysisResult;
+
+            return CryResultScreen(result: result);
+          },
         ),
         GoRoute(
           path: AppRoutes.depressionStartScreen,

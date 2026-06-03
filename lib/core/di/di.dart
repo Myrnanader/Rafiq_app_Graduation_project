@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:rafiq_app/features/cry/data/api/cry_api_service.dart';
+import 'package:rafiq_app/features/cry/data/repository/cry_repository.dart';
+import 'package:rafiq_app/features/cry/presentation/cubit/cry_cubit.dart';
 import 'package:rafiq_app/features/depression/data/api/postpartum_survey_api_service.dart';
 import 'package:rafiq_app/features/depression/data/repository/postpartum_survey_repository.dart';
 import 'package:rafiq_app/features/depression/presentation/cubit/postpartum_survey_cubit.dart';
@@ -87,7 +90,7 @@ Future<void> configureDependencies() async {
   );
 
   getIt.registerLazySingleton<PostsApiService>(
-        () => PostsApiService(getIt<Dio>()),
+    () => PostsApiService(getIt<Dio>()),
   );
 
   /// Documents API
@@ -128,7 +131,7 @@ Future<void> configureDependencies() async {
   );
 
   getIt.registerLazySingleton<PostsRepository>(
-        () => PostsRepository(getIt<PostsApiService>()),
+    () => PostsRepository(getIt<PostsApiService>()),
   );
 
   /// Dos Repo
@@ -191,7 +194,7 @@ Future<void> configureDependencies() async {
   getIt.registerFactory<PostsCubit>(() => PostsCubit(getIt<PostsRepository>()));
 
   getIt.registerFactory<ExperiencesCubit>(
-        () => ExperiencesCubit(getIt<PostsRepository>()),
+    () => ExperiencesCubit(getIt<PostsRepository>()),
   );
 
   /// Docs Cubit
@@ -211,9 +214,22 @@ Future<void> configureDependencies() async {
   );
 
   getIt.registerFactory<CommentsCubit>(
-        () => CommentsCubit(
-      getIt<PostsRepository>(),
-      getIt<PostsCubit>(),
-    ),
+    () => CommentsCubit(getIt<PostsRepository>(), getIt<PostsCubit>()),
   );
+
+  getIt.registerLazySingleton<CryApiService>(
+  () => CryApiService(getIt<Dio>()),
+);
+
+getIt.registerLazySingleton<CryRepository>(
+  () => CryRepository(
+    getIt<CryApiService>(),
+  ),
+);
+
+getIt.registerFactory(
+  () => CryCubit(
+    getIt<CryRepository>(),
+  ),
+);
 }

@@ -39,7 +39,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                   {
                     "icon": "assets/icons/Baby_crying.svg",
                     "label": "Cry Analysis",
-                    "route": AppRoutes.cryAnalysisScreen,
+                    "route": AppRoutes.selectCryChildScreen,
                   },
                   {
                     "icon": "assets/icons/stress.svg",

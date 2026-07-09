@@ -32,14 +32,14 @@ class DashboardScreenState extends State<DashboardScreen> {
               CustomGridviewWidget(
                 items: [
                   {
-                    "icon": "assets/icons/pregnant_vector.svg",
-                    "label": "Delivery",
-                    "route": AppRoutes.deliveryStartScreen,
-                  },
-                  {
                     "icon": "assets/icons/Baby_crying.svg",
                     "label": "Cry Analysis",
                     "route": AppRoutes.selectCryChildScreen,
+                  },
+                  {
+                    "icon": "assets/icons/pregnant_vector.svg",
+                    "label": "Delivery",
+                    "route": AppRoutes.deliveryStartScreen,
                   },
                   {
                     "icon": "assets/icons/stress.svg",
@@ -56,16 +56,16 @@ class DashboardScreenState extends State<DashboardScreen> {
                     "label": "Vaccinations",
                     "route": AppRoutes.selectVaccinationChildScreen,
                   },
-                  {
-                    "icon": "assets/icons/solar_stethoscope-bold.svg",
-                    "label": "Find a Doctor Now",
-                    "route": AppRoutes.nearbyHospitalScreen,
-                  },
-                  {
-                    "icon": "assets/icons/Chatbot.svg",
-                    "label": "Chatbot",
-                    "route": AppRoutes.chatAiScreen,
-                  },
+                  // {
+                  //   "icon": "assets/icons/solar_stethoscope-bold.svg",
+                  //   "label": "Find a Doctor Now",
+                  //   "route": AppRoutes.nearbyHospitalScreen,
+                  // },
+                  // {
+                  //   "icon": "assets/icons/Chatbot.svg",
+                  //   "label": "Chatbot",
+                  //   "route": AppRoutes.chatAiScreen,
+                  // },
                 ],
               ),
             ],

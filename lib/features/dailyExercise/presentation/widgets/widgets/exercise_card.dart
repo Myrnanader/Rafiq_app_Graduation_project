@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../core/common/widgets/custom_app_images.dart';
 import '../../../../../core/routing/app_routes.dart';
 import '../../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../../core/theming/app_colors.dart';
@@ -17,6 +18,9 @@ class ExerciseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // String imagePath =
+    // CustomAppImages.getImage(exercise.title);
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       shadowColor: const Color(0x50000000),
@@ -30,9 +34,12 @@ class ExerciseCard extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 1),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: exercise.fullImageUrl != null
-              ? Image.network(
+          child:
+          exercise.fullImageUrl != null
+              ?
+          Image.asset(
             exercise.fullImageUrl!,
+            // imagePath,
             width: 50,
             height: 50,
             fit: BoxFit.cover,

@@ -44,6 +44,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.lightSurface,
       appBar: AppBar(
         backgroundColor: AppColors.lightSurface,
@@ -95,23 +96,27 @@ class _AddPostScreenState extends State<AddPostScreen> {
           10.pw,
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 350,
-            child: ImageRowWidget(
-              imagePaths: imagePaths,
-              onRemove: (index) {
-                setState(() => imagePaths.removeAt(index));
-              },
+      body: SafeArea(
+        child: Column(
+          children: [
+            Flexible(
+              flex: 2,
+              child: ImageRowWidget(
+                imagePaths: imagePaths,
+                onRemove: (index) {
+                  setState(() => imagePaths.removeAt(index));
+                },
+              ),
             ),
-          ),
-          Expanded(
-            child: CaptionContainerWidget(
-              imagePaths: imagePaths,
+
+            Flexible(
+              flex: 3,
+              child: CaptionContainerWidget(
+                imagePaths: imagePaths,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

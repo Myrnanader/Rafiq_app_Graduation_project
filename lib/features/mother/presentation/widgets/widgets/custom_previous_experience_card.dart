@@ -5,8 +5,10 @@ import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 import 'package:rafiq_app/core/helpers/extensions.dart';
 
+import '../../../../../core/common/widgets/custom_app_images.dart';
+
 class CustomPreviousExperienceCard extends StatefulWidget {
-  final String id;
+  final String? id;
   final String userName;
   final String date;
   final String description;
@@ -24,7 +26,7 @@ class CustomPreviousExperienceCard extends StatefulWidget {
 
   const CustomPreviousExperienceCard({
     super.key,
-    required this.id,
+    this.id,
     required this.userName,
     required this.date,
     required this.description,
@@ -61,6 +63,9 @@ class _CustomPreviousExperienceCardState
 
   @override
   Widget build(BuildContext context) {
+    String imagePath =
+    CustomAppImages.getImage(widget.description);
+
     return Card(
       elevation: 3,
       margin: const EdgeInsets.all(12),
@@ -80,12 +85,12 @@ class _CustomPreviousExperienceCardState
                       widget.userImage != null &&
                           widget.userImage!.startsWith("http")
                       ? NetworkImage(widget.userImage!)
-                      : null,
-                  child:
-                      (widget.userImage == null ||
-                          !widget.userImage!.startsWith("http"))
-                      ? const Icon(Icons.person)
-                      : null,
+                          : AssetImage(widget.userImage!) as ImageProvider,
+                  // child:
+                  //     (widget.userImage == null ||
+                  //         !widget.userImage!.startsWith("http"))
+                  //     ? const Icon(Icons.person)
+                  //     : null,
                 ),
 
                 10.pw,
@@ -94,7 +99,7 @@ class _CustomPreviousExperienceCardState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Experience",
+                      widget.userName,
                       style: AppTextStyles.font16Medium.copyWith(
                         color: AppColors.onPrimaryFixed,
                       ),
@@ -102,7 +107,7 @@ class _CustomPreviousExperienceCardState
                     Row(
                       children: [
                         Text(
-                          widget.userName,
+                          "Experience",
                           style: AppTextStyles.font10Regular.copyWith(
                             color: AppColors.neutralGray,
                           ),

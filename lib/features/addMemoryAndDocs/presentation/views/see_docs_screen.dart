@@ -5,6 +5,7 @@ import 'package:rafiq_app/core/helpers/date_format_helper.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 
+import '../../../../core/common/widgets/custom_app_images.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../data/models/document_model.dart';
 import '../widgets/widgets/custom_see_doc_card.dart';
@@ -16,6 +17,9 @@ class SeeDocsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imagePath =
+    CustomAppImages.getImage(doc.title);
+
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
 
@@ -47,27 +51,31 @@ class SeeDocsScreen extends StatelessWidget {
           20.ph,
 
           Expanded(
-            flex: 4,
+            flex: 7,
             child: Container(
               padding: const EdgeInsets.all(20),
               color: AppColors.lightSurface,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: doc.fileUrl != null && doc.fileUrl!.isNotEmpty
-                    ? Image.network(
-                  doc.fullImageUrl!,
+                child:
+                // doc.fileUrl != null && doc.fileUrl!.isNotEmpty
+                //     ?
+                Image.asset(
+                  // doc.fullImageUrl!,
+                  imagePath,
                   width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) =>
                   const Center(child: Icon(Icons.broken_image)),
                 )
-                    : const Center(child: Icon(Icons.insert_drive_file)),
+
+                    // : const Centerter(child: Icon(Icons.insert_drive_file)),
               ),
             ),
           ),
 
           Expanded(
-            flex: 6,
+            flex: 3,
             child: SingleChildScrollView(
               child: CustomSeeDocCard(
                 title: doc.title,

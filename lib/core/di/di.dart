@@ -31,8 +31,11 @@ import '../../features/dailyExercise/presentation/cubit/exercise_cubit.dart';
 import '../../features/foods/data/api/foods_api_service.dart';
 import '../../features/foods/data/repository/food_repository.dart';
 import '../../features/foods/presentation/cubit/food_cubit.dart';
+import '../../features/mother/data/api/mother_profile_photo_api_service.dart';
+import '../../features/mother/data/repository/mother_profile_photo_repository.dart';
 import '../../features/mother/presentation/cubit/mother_comments_cubit.dart';
 import '../../features/mother/presentation/cubit/mother_experiences_cubit.dart';
+import '../../features/mother/presentation/cubit/mother_profile_photo_cubit.dart';
 import '../network/dio_factory.dart';
 import '../storage/secure_storage_service.dart';
 import '../storage/shared_prefs_service.dart';
@@ -110,6 +113,13 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<ExercisesApiService>(
     () => ExercisesApiService(getIt<Dio>()),
   );
+  /// ================= PROFILE IMAGE API =================
+
+  getIt.registerLazySingleton<MotherProfilePhotoApiService>(
+        () => MotherProfilePhotoApiService(
+      getIt<Dio>(),
+    ),
+  );
 
   /// ================= REPOSITORIES =================
 
@@ -148,6 +158,12 @@ Future<void> configureDependencies() async {
 
   getIt.registerLazySingleton<ExercisesRepository>(
     () => ExercisesRepository(getIt()),
+  );
+
+  getIt.registerLazySingleton<MotherProfilePhotoRepository>(
+        () => MotherProfilePhotoRepository(
+      getIt<MotherProfilePhotoApiService>(),
+    ),
   );
 
   /// ================= CUBITS =================
@@ -232,4 +248,14 @@ getIt.registerFactory(
     getIt<CryRepository>(),
   ),
 );
+
+
+  /// ================= PROFILE IMAGE CUBIT =================
+
+  getIt.registerFactory<ProfileImageCubit>(
+        () => ProfileImageCubit(
+      getIt<MotherProfilePhotoRepository>(),
+    ),
+  );
+
 }

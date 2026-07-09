@@ -11,12 +11,17 @@ class DeliveryDropdown extends StatefulWidget {
   final List<String>? options;
   final String hint;
 
+  final String? initialValue;
+  final ValueChanged<String?>? onChanged;
+
   const DeliveryDropdown({
     super.key,
     required this.label,
     this.max,
     this.options,
     this.hint = 'Select',
+    this.initialValue,
+    this.onChanged,
   });
 
   @override
@@ -27,16 +32,22 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
   String? value;
 
   @override
+  void initState() {
+    super.initState();
+    value = widget.initialValue;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final items = widget.options ??
-        List.generate(widget.max ?? 0, (i) => (i + 1).toString());
+        List.generate((widget.max ?? -1) + 1, (i) => i.toString());
 
     return Padding(
       padding: EdgeInsets.only(bottom: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Question label (عام)
+          /// Question label
           SurveyQuestionLabel(text: widget.label),
           8.h.verticalSpace,
 
@@ -48,27 +59,27 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
               hint: Text(
                 widget.hint,
                 style: AppTextStyles.font14Regular.copyWith(
-                  color: AppColors.lightAppColors
+                    color: AppColors.lightAppColors
                 ),
               ),
               items: items
                   .map(
                     (e) => DropdownMenuItem<String>(
-                      value: e,
-                      child: Text(
-                        e,
-                        style: AppTextStyles.font14Regular,
-                      ),
-                    ),
-                  )
+                  value: e,
+                  child: Text(
+                    e,
+                    style: AppTextStyles.font14Regular,
+                  ),
+                ),
+              )
                   .toList(),
               onChanged: (v) {
                 setState(() {
                   value = v;
                 });
+                widget.onChanged?.call(v);
               },
 
-              /// شكل الفيلد
               buttonStyleData: ButtonStyleData(
                 height: 48.h,
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -84,7 +95,7 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
                 ),
               ),
 
-              /// الأيقونة
+
               iconStyleData: IconStyleData(
                 icon: Icon(
                   Icons.keyboard_arrow_down_rounded,
@@ -92,7 +103,6 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
                 ),
               ),
 
-              /// منيو الدروب داون
               dropdownStyleData: DropdownStyleData(
                 maxHeight: 220.h,
                 decoration: BoxDecoration(
@@ -102,7 +112,6 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
                 elevation: 4,
               ),
 
-              /// شكل العناصر
               menuItemStyleData: MenuItemStyleData(
                 height: 44.h,
                 padding: EdgeInsets.symmetric(horizontal: 16.w),

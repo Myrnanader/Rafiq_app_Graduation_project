@@ -91,8 +91,10 @@ class DepressionResultScreen extends StatelessWidget {
               96.h.verticalSpace,
               Center(
                 child: DepressionScoreIndicator(
-                  value: score / 30,
-                  score: score,
+                  // value: score / 30,
+                  // score: score,
+                  value: 15 / 30,
+                  score: 15,
                 ),
               ),
               40.h.verticalSpace,

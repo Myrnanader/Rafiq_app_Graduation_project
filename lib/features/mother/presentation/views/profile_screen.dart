@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rafiq_app/core/di/di.dart';
 import 'package:rafiq_app/core/helpers/functions.dart';
 import 'package:rafiq_app/features/auth/presentation/cubit/user_cubit.dart';
@@ -12,6 +14,8 @@ import '../../../../../core/helpers/extensions.dart';
 import '../../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../../core/theming/app_colors.dart';
 import '../../../../core/routing/app_routes.dart';
+import '../cubit/mother_profile_photo_cubit.dart';
+import '../cubit/mother_profile_photo_state.dart';
 import '../widgets/widgets/custom_profile_button.dart';
 import '../widgets/widgets/profile_image.dart';
 import '../widgets/widgets/profile_info_card.dart';
@@ -23,16 +27,13 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => getIt<UserCubit>()..getProfile()),
+        BlocProvider(create: (_) => getIt<MotherProfileCubit>()..getChildren()),
         BlocProvider(
-          create: (_) => getIt<UserCubit>()..getProfile(),
-        ),
-        BlocProvider(
-          create: (_) =>
-              getIt<MotherProfileCubit>()..getChildren(),
-        ),
+            create: (_) => getIt<ProfileImageCubit>()..loadImage(),
+          ),
       ],
 
-      /// 🔥 الحل هنا (مهم جدًا)
       child: Builder(
         builder: (context) {
           return Scaffold(
@@ -44,14 +45,11 @@ class ProfileScreen extends StatelessWidget {
                   5.ph,
                   IconButton(
                     onPressed: () => GoRouter.of(context).pop(),
-                    icon: SvgPicture.asset(
-                      "assets/icons/back_arrow.svg",
-                    ),
+                    icon: SvgPicture.asset("assets/icons/back_arrow.svg"),
                   ),
                 ],
               ),
-              title: Text("My Profile",
-                  style: AppTextStyles.font20SemiBold),
+              title: Text("My Profile", style: AppTextStyles.font20SemiBold),
               centerTitle: true,
             ),
             body: SingleChildScrollView(
@@ -59,7 +57,32 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   30.ph,
-                  ProfileImage(image: 'assets/images/memory.png'),
+                  BlocBuilder<ProfileImageCubit, ProfileImageState>(
+                    builder: (context, state) {
+                      String image = 'assets/images/flower2.jpg';
+
+                      if (state is ProfileImageSuccess) {
+                        image = state.imageUrl;
+                      }
+
+                      return ProfileImage(
+                        image: image,
+                        onCameraTap: () async {
+                          final picker = ImagePicker();
+
+                          final pickedImage = await picker.pickImage(
+                            source: ImageSource.gallery,
+                          );
+
+                          if (pickedImage != null) {
+                            context.read<ProfileImageCubit>().uploadImage(
+                              pickedImage.path,
+                            );
+                          }
+                        },
+                      );
+                    },
+                  ),
                   10.ph,
 
                   /// 👤 name
@@ -70,11 +93,15 @@ class ProfileScreen extends StatelessWidget {
 
                         return Column(
                           children: [
-                            Text(profile.fullName,
-                                style: AppTextStyles.font16Medium),
+                            Text(
+                              profile.fullName,
+                              style: AppTextStyles.font16Medium,
+                            ),
                             8.ph,
-                            Text("Expecting Mother",
-                                style: AppTextStyles.font13Medium),
+                            Text(
+                              "Expecting Mother",
+                              style: AppTextStyles.font13Medium,
+                            ),
                           ],
                         );
                       }
@@ -93,8 +120,8 @@ class ProfileScreen extends StatelessWidget {
                           onPressed: () {
                             context.push(
                               AppRoutes.addMemoryScreen,
-                            //   extra: context
-                            //       .read<MotherProfileCubit>(), // 🔥
+                              //   extra: context
+                              //       .read<MotherProfileCubit>(), // 🔥
                             );
                           },
                         ),
@@ -108,7 +135,7 @@ class ProfileScreen extends StatelessWidget {
                             context.push(
                               AppRoutes.docsScreen,
                               // extra: context
-                                  // .read<MotherProfileCubit>(),
+                              // .read<MotherProfileCubit>(),
                             );
                           },
                         ),
@@ -134,8 +161,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             const Divider(indent: 20, endIndent: 25),
                             ProfileInfoCard(
-                              image:
-                                  "assets/icons/pregnant_vector.svg",
+                              image: "assets/icons/pregnant_vector.svg",
                               title: 'Current Pregnancy Month',
                               value:
                                   '${calculateMonth(profile.pregnancyWeek)}th Month',
@@ -153,7 +179,11 @@ class ProfileScreen extends StatelessWidget {
                   BlocBuilder<MotherProfileCubit, MotherProfileState>(
                     builder: (context, state) {
                       if (state is ChildrenLoading) {
-                        return const CircularProgressIndicator();
+                        return Center(
+                          child: Lottie.asset(
+                            "assets/animations/Heart_Loading.json",
+                          ),
+                        );
                       }
 
                       if (state is ChildrenLoaded) {
@@ -165,8 +195,7 @@ class ProfileScreen extends StatelessWidget {
                           children: state.children.map((baby) {
                             return ListTile(
                               title: Text(baby.nickname),
-                              subtitle: Text(
-                                  formatDate(baby.dateOfBirth)),
+                              subtitle: Text(formatDate(baby.dateOfBirth)),
                             );
                           }).toList(),
                         );
@@ -188,8 +217,7 @@ class ProfileScreen extends StatelessWidget {
                           onPressed: () {
                             context.push(
                               AppRoutes.babyProfileScreen,
-                              extra: context
-                                  .read<MotherProfileCubit>(), // 🔥
+                              extra: context.read<MotherProfileCubit>(), // 🔥
                             );
                           },
                         ),
@@ -201,9 +229,8 @@ class ProfileScreen extends StatelessWidget {
                           text: 'Add Father\'s Id',
                           onPressed: () {
                             context.push(
-                              AppRoutes.addFatherIdScreen, 
-                              extra: context
-                                  .read<MotherProfileCubit>(),
+                              AppRoutes.addFatherIdScreen,
+                              extra: context.read<MotherProfileCubit>(),
                             );
                           },
                         ),

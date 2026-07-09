@@ -129,6 +129,7 @@ class _VaccinationsScreenState extends State<VaccinationsScreen> {
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../core/theming/app_colors.dart';
@@ -220,7 +221,9 @@ class _VaccinationsScreenState extends State<VaccinationsScreen> {
           child: BlocBuilder<VaccinationsCubit, VaccinationsState>(
             builder: (context, state) {
               if (state is VaccinationsLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(child:
+                Lottie.asset("assets/animations/Heart_Loading.json"),
+                );
               }
 
               if (state is VaccinationsError) {

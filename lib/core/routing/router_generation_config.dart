@@ -47,6 +47,7 @@ import '../../features/dailyExercise/presentation/cubit/exercise_cubit.dart';
 import '../../features/dailyExercise/presentation/views/add_exercise_screen.dart';
 import '../../features/dailyExercise/presentation/views/exercise_details_screen.dart';
 import '../../features/dailyExercise/presentation/views/exercise_screen.dart';
+import '../../features/delivery/data/models/delivery_prediction_response.dart';
 import '../../features/delivery/presentation/view/delivery_result_screen.dart';
 import '../../features/delivery/presentation/view/delivery_start_screen.dart';
 import '../../features/delivery/presentation/view/delivery_survey_screen.dart';
@@ -497,7 +498,9 @@ abstract class RouterGenerationConfig {
 
         GoRoute(
           path: AppRoutes.deliveryResultScreen,
-          builder: (context, state) => const DeliveryResultScreen(),
+          builder: (context, state) => DeliveryResultScreen(
+            response: state.extra as DeliveryPredictionResponse?,
+          ),
         ),
 
         /// ChatBot

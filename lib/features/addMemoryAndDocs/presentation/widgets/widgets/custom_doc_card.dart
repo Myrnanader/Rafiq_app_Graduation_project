@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../core/common/widgets/custom_app_images.dart';
 import '../../../../../core/routing/app_routes.dart';
 import '../../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../../core/theming/app_colors.dart';
@@ -17,6 +18,9 @@ class CustomDocCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imagePath =
+    CustomAppImages.getImage(document.title);
+
     return Card(
       margin: const EdgeInsets.only(bottom: 14),
       shadowColor: const Color(0x50000000),
@@ -30,17 +34,20 @@ class CustomDocCard extends StatelessWidget {
         onTap: () {
           context.push(AppRoutes.seeDocsScreen, extra: document);
         },
-        leading: document.fullImageUrl != null
-            ? Image.network(
-                document.fullImageUrl!,
+        leading:
+        // document.fullImageUrl != null
+        //     ?
+        Image.asset(
+                // document.fullImageUrl!,
+                imagePath,
                 width: 80,
-                height: 100,
+                height: 180,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) =>
                     const Icon(Icons.broken_image),
               )
-            : const Icon(Icons.insert_drive_file),
-
+            // : const Icon(Icons.insert_drive_file),
+,
         title: Text(
           document.title,
           style: AppTextStyles.font16Medium.copyWith(

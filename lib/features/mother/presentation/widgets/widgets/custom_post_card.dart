@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../../core/common/widgets/custom_app_images.dart';
 import '../../../../../core/helpers/extensions.dart';
 import '../../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../../core/theming/app_colors.dart';
 
 class CustomPostCard extends StatelessWidget {
-  final String id;
+  final String? id;
   final String userName;
   final String? userImage;
   final String date;
   final String description;
-  final String postImage;
+  final String? postImage;
   final int likesCount;
   final int comments;
   final bool isLiked;
@@ -28,12 +29,12 @@ class CustomPostCard extends StatelessWidget {
 
   const CustomPostCard({
     super.key,
-    required this.id,
+     this.id,
     required this.userName,
     this.userImage,
     required this.date,
     required this.description,
-    required this.postImage,
+    this.postImage,
     required this.likesCount,
     required this.comments,
     required this.isAdmin,
@@ -48,6 +49,11 @@ class CustomPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String firstWord = description.split(' ').first.toLowerCase();
+
+    String imagePath =
+    CustomAppImages.getImage(firstWord);
+
     return Card(
       elevation: 9,
       margin: const EdgeInsets.all(12),
@@ -63,8 +69,9 @@ class CustomPostCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 20,
                   backgroundColor: Colors.transparent,
-                  backgroundImage: userImage != null
-                      ? NetworkImage(userImage!)
+                  backgroundImage:
+                  userImage != null
+                      ? AssetImage(userImage!)
                       : const AssetImage("assets/images/user.png")
                             as ImageProvider,
                 ),
@@ -118,11 +125,14 @@ class CustomPostCard extends StatelessWidget {
 
             12.ph,
 
-            if (postImage.isNotEmpty)
+            if ((postImage ?? "").isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  postImage,
+                child:
+                // Image.network(
+                Image.asset(
+                  postImage!,
+                  // imagePath,
                   height: 200,
                   width: double.infinity,
                   fit: BoxFit.cover,

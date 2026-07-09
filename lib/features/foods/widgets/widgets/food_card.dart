@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/common/widgets/custom_app_images.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../core/theming/app_colors.dart';
 
@@ -10,6 +11,9 @@ class FoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imagePath =
+    CustomAppImages.getImage(food.title);
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12.0),
       shadowColor: const Color(0x50000000),
@@ -24,7 +28,8 @@ class FoodCard extends StatelessWidget {
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: Image.asset(
-            food.image,
+            // food.image,
+            imagePath,
             width: 50,
             height: 50,
             fit: BoxFit.cover,

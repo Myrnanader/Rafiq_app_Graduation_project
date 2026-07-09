@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/common/widgets/custom_app_images.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../core/theming/app_colors.dart';
@@ -15,6 +16,9 @@ class ExerciseDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imagePath =
+    CustomAppImages.getImage(exercise.title);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.lightBackground,
@@ -62,15 +66,18 @@ class ExerciseDetailsScreen extends StatelessWidget {
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25),
                 ),
-                child: exercise.fullImageUrl != null
-              ? Image.network(
-                exercise.fullImageUrl!,
+                child:
+                // exercise.fullImageUrl != null
+              // ?
+                Image.asset(
+                // exercise.fullImageUrl!,
+                  imagePath,
                 width: double.infinity,
                 fit: BoxFit.cover,
                 errorBuilder: (_, _, _) =>
                 const Icon(Icons.broken_image),
               )
-                    : const Icon(Icons.image),
+                    // : const Icon(Icons.image),
 
       ),
             ),

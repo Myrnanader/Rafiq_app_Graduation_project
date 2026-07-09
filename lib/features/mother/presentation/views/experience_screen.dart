@@ -41,9 +41,10 @@ class ExperienceScreen extends StatelessWidget {
         child: ListView(
           children: [
             CustomExperienceInfoCard(
-              userImage: post.fullImageUrl ?? 'assets/images/user.png',
+              userImage: post.authorImageUrl ?? 'assets/images/user.png',
               userName: post.authorName ?? "Anonymous",
-              date: post.createdAt?.toTimeAgo() ?? "",
+              // date: post.createdAt?.toTimeAgo() ?? "",
+              date: "28 min ago",
               description: "Mother",
             ),
 

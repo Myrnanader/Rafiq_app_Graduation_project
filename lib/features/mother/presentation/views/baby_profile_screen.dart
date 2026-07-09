@@ -153,7 +153,7 @@ class BabyProfileScreenState extends State<BabyProfileScreen> {
                                       });
                                     },
                                   ),
-                                  15.pw,
+                                  12.pw,
                                   GenderButton(
                                     gender: 'Boy',
                                     isSelected: _selectedGender == 'boy',
@@ -190,7 +190,7 @@ class BabyProfileScreenState extends State<BabyProfileScreen> {
             ),
     
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(15.0),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

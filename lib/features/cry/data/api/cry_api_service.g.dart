@@ -12,7 +12,7 @@ part of 'cry_api_service.dart';
 
 class _CryApiService implements CryApiService {
   _CryApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://rafiq.runasp.net/api/';
+    baseUrl ??= 'https://rafiq-production-a90b7.up.railway.app/';
   }
 
   final Dio _dio;
@@ -41,7 +41,7 @@ class _CryApiService implements CryApiService {
           )
           .compose(
             _dio.options,
-            'CryRecordings/analyze',
+            'analyze-cry',
             queryParameters: queryParameters,
             data: _data,
           )

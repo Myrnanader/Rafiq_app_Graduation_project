@@ -44,14 +44,11 @@ class _WeightStepperInputState extends State<WeightStepperInput> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            'Weight',
-            style: AppTextStyles.font16Medium,
-          ),
+          Text('Weight', style: AppTextStyles.font16Medium),
           10.ph,
 
           Container(
-            height: 42,
+            height: 50,
             width: 100,
             decoration: BoxDecoration(
               border: Border.all(color: AppColors.primary, width: 1.0),
@@ -61,13 +58,11 @@ class _WeightStepperInputState extends State<WeightStepperInput> {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 13.0, bottom: 26),
+                    padding: const EdgeInsets.only(left: 15.0, bottom: 15),
                     child: TextField(
                       controller: _weightController,
                       keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
@@ -85,30 +80,29 @@ class _WeightStepperInputState extends State<WeightStepperInput> {
                   ),
                 ),
 
-                Container(
-                  width: 1.5,
-                  height: 42.0,
-                  color: AppColors.primary,
-                ),
+                Container(width: 1.5, height: 42.0, color: AppColors.primary),
 
-                SizedBox(
-                  height: 42,
-                  child: Column(
-                    children: [
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: SvgPicture.asset(
-                          "assets/icons/down_arrow.svg",
-                          width: 12,
-                          height: 12,
-                          colorFilter: ColorFilter.mode(
-                            AppColors.softPurple,
-                            BlendMode.srcIn,
+                GestureDetector(
+                  onTap: _decrementWeight,
+                  child: SizedBox(
+                    height: 48,
+                    child: Column(
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          icon: SvgPicture.asset(
+                            "assets/icons/down_arrow.svg",
+                            width: 12,
+                            height: 12,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.softPurple,
+                              BlendMode.srcIn,
+                            ),
                           ),
+                          onPressed: _decrementWeight,
                         ),
-                        onPressed: _decrementWeight,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../core/common/widgets/custom_app_images.dart';
 import '../../../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../../../core/theming/app_colors.dart';
 import '../../../data/models/food_model.dart';
@@ -12,6 +13,9 @@ class FoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imagePath =
+    CustomAppImages.getImage(food.name);
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12.0),
       shadowColor: const Color(0x50000000),
@@ -23,22 +27,24 @@ class FoodCard extends StatelessWidget {
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 15,
+          horizontal: 16,
+          vertical: 16,
         ),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child:
           // food.fullImageUrl != null
-          //     ? Image.network(
-          //         food.fullImageUrl!,
-          //         width: 50,
-          //         height: 50,
-          //         fit: BoxFit.cover,
-          //         errorBuilder: (_, _, _) => const Icon(Icons.broken_image),
-          //       )
+          //     ?
+              Image.asset(
+                  // food.fullImageUrl!,
+                imagePath,
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, _, _) => const Icon(Icons.broken_image),
+                )
           //     :
-          const Icon(Icons.fastfood),
+          // const Icon(Icons.fastfood),
         ),
 
         title: Text(
@@ -56,7 +62,7 @@ class FoodCard extends StatelessWidget {
         trailing: isAdmin
             ? IconButton(
                 onPressed: onDelete,
-                icon: const Icon(Icons.delete, color: AppColors.neutralGray),
+                icon: const Icon(Icons.delete, color: AppColors.grey),
               )
             : null,
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/routing/app_routes.dart';
@@ -86,7 +87,9 @@ class _FoodScreenState extends State<FoodScreen> {
             child: BlocBuilder<FoodsCubit, FoodsState>(
               builder: (context, state) {
                 if (state is FoodsLoading) {
-                  return const Center(child: CircularProgressIndicator(color: AppColors.lavender,));
+                  return Center(child:
+                      Lottie.asset("assets/animations/Heart_Loading.json"),
+                  );
                 }
 
                 if (state is FoodsError) {
@@ -137,7 +140,7 @@ class _FoodScreenState extends State<FoodScreen> {
       ),
       floatingActionButton: BlocBuilder<UserCubit, UserState>(
         builder: (context, userState) {
-          if (userState is UserLoaded && userState.profile.role == "Admin") {
+          // if (userState is UserLoaded && userState.profile.role == "Admin") {
             return FloatingActionButton(
               backgroundColor: AppColors.primary,
               shape: CircleBorder(),
@@ -149,9 +152,9 @@ class _FoodScreenState extends State<FoodScreen> {
               },
               child: const Icon(Icons.add, color: AppColors.lightBackground),
             );
-          }
+          // }
 
-          return const SizedBox.shrink();
+          // return const SizedBox.shrink();
         },
       ),
     );

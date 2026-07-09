@@ -51,66 +51,77 @@ class _NotificationDetailsScreenState extends State<NotificationDetailsScreen> {
         ),
         centerTitle: true,
       ),
-      body: Card(
-        elevation: 1,
-        margin: const EdgeInsets.only(left: 25, right: 25, bottom: 100, top: 30),
-        color: AppColors.lightBackground,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.primary,
-                      border: Border.all(color: AppColors.primary),
-                    ),
-                    child: ClipOval(
-                      child: SvgPicture.asset(
-                        'assets/icons/stress.svg',
-                        fit: BoxFit.cover,
-                        width: 40,
-                        height: 40,
-                        colorFilter: ColorFilter.mode(
-                          AppColors.lightBackground,
-                          BlendMode.srcIn,
+      body: SingleChildScrollView(
+        child: Card(
+          elevation: 1,
+          margin: const EdgeInsets.only(left: 25, right: 25, bottom: 100, top: 30),
+          color: AppColors.lightBackground,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.primary,
+                        border: Border.all(color: AppColors.primary),
+                      ),
+                      child: ClipOval(
+                        child: SvgPicture.asset(
+                          'assets/icons/stress.svg',
+                          fit: BoxFit.cover,
+                          width: 40,
+                          height: 40,
+                          colorFilter: ColorFilter.mode(
+                            AppColors.lightBackground,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-
-                  15.pw,
-                  Text(
-                    "Emotional Health Alert",
-                    style: AppTextStyles.font16Medium.copyWith(
-                      color: AppColors.midNight,
-                    ),
-                  ),
-                ],
-              ),
-              10.ph,
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  spacing: 5,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+        
+                    15.pw,
                     Text(
-                      "Hi Sara,\nBased on the answers you provided, it seems that you may be experiencing feelings of sadness and pressure after childbirth, which is completely normal and happens to many mothers.\n\nThe most important thing right now is that you are not alone, and with rest and support, things can get better.\n\n• Allow yourself to talk and express your feelings.\n• Ask for help and give yourself time to recover.\n• Use the app to receive daily advice and continuous support.\n• With time, you will be able to reduce this pressure and start feeling better.",
-                      style: AppTextStyles.font14Regular.copyWith(
-                        color: AppColors.neutralGray,
+                      "Emotional Health Alert",
+                      style: AppTextStyles.font16Medium.copyWith(
+                        color: AppColors.midNight,
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
+                10.ph,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    spacing: 5,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '''Hi Mr Ahmed, 
+
+Based on the answers your wife provided, it appears that she may be experiencing signs of postpartum depression. This is a common condition that affects many mothers after childbirth, and with the right support, most women recover successfully.
+
+Your support can make a significant difference during this time.
+
+• Listen to her without judgment and encourage her to share how she feels.
+• Help with caring for the baby and household responsibilities whenever possible.
+• Encourage her to get enough rest and take time for herself.
+• Support her in seeking professional help if her symptoms persist or become more severe.''',
+                        style: AppTextStyles.font14Regular.copyWith(
+                          color: AppColors.neutralGray,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

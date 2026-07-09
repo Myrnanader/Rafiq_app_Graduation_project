@@ -15,7 +15,8 @@ class AppImages {
   static const String survey = 'assets/images/survey.png';
   static const String miniBaby = 'assets/images/mini_baby.png';
   static const String growthBaby = 'assets/images/growth_baby.png';
-  static const String growthCursor = 'assets/images/growth_cursor.png';  static const String chatbot = 'assets/images/chatbot.png';
+  static const String growthCursor = 'assets/images/growth_cursor.png';
+  static const String chatbot = 'assets/images/chatbot.png';
   static const String send = 'assets/images/send.png';
   static const String chatRobot = 'assets/images/chat_robot.png';
 }

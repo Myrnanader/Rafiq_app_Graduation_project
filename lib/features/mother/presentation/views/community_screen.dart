@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
@@ -100,7 +101,11 @@ class CommunityScreenState extends State<CommunityScreen>
                 return BlocBuilder<PostsCubit, PostsState>(
                   builder: (context, state) {
                     if (state is PostsLoading) {
-                      return const Center(child: CircularProgressIndicator(color: AppColors.lavender,));
+                      return Center(
+                        child: Lottie.asset(
+                          "assets/animations/Heart_Loading.json",
+                        ),
+                      );
                     }
 
                     if (state is PostsError) {
@@ -155,13 +160,18 @@ class CommunityScreenState extends State<CommunityScreen>
                                 canDelete: true,
                                 onDelete: () async {
                                   if (isAdmin) {
-                                    await context.read<PostsCubit>().deleteAnyPost(post.id);
+                                    await context
+                                        .read<PostsCubit>()
+                                        .deleteAnyPost(post.id);
                                   } else {
-                                    await context.read<PostsCubit>().deleteMyPost(post.id);
+                                    await context
+                                        .read<PostsCubit>()
+                                        .deleteMyPost(post.id);
                                   }
 
                                   await context.read<PostsCubit>().getFeed();
-                                }, isAdmin: false,
+                                },
+                                isAdmin: false,
                               );
                             },
                           );
@@ -195,7 +205,11 @@ class CommunityScreenState extends State<CommunityScreen>
                 return BlocBuilder<ExperiencesCubit, ExperiencesState>(
                   builder: (context, state) {
                     if (state is ExperiencesLoading) {
-                      return const Center(child: CircularProgressIndicator(color: AppColors.lavender,));
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.lavender,
+                        ),
+                      );
                     }
 
                     if (state is ExperiencesError) {

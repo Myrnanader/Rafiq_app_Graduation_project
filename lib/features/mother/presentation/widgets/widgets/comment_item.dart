@@ -12,6 +12,7 @@ class CommentItem extends StatefulWidget {
   final String commentId;
   final bool isLiked;
   final String userName;
+  final String userImage;
   final String time;
   final String comment;
   final int repliesCount;
@@ -26,6 +27,7 @@ class CommentItem extends StatefulWidget {
     super.key,
     required this.commentId,
     required this.userName,
+    required this.userImage,
     required this.time,
     required this.comment,
     required this.likes,
@@ -67,9 +69,12 @@ class _CommentItemState extends State<CommentItem> {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.primary, width: .5),
             ),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               radius: 18,
               backgroundColor: Colors.transparent,
+              backgroundImage: widget.userImage.startsWith("http")
+                  ? NetworkImage(widget.userImage)
+                  : AssetImage(widget.userImage) as ImageProvider,
             ),
           ),
           10.pw,

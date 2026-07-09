@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-
+import 'dart:async';
+import 'package:lottie/lottie.dart';
 import '../../../core/helpers/extensions.dart';
 import '../../../core/theme/app_texts/app_text_styles.dart';
 import '../../../core/theming/app_colors.dart';
@@ -17,9 +18,23 @@ class ArticleScreen extends StatefulWidget {
 }
 
 class _ArticleScreenState extends State<ArticleScreen> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 1), () {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     final ProfileResponse profileResponse = ProfileResponse();
 
     final int week = profileResponse.pregnancyWeek == 0
@@ -62,17 +77,24 @@ class _ArticleScreenState extends State<ArticleScreen> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: articles.map((article) {
-            return CustomArticleCard(
-              title: article["title"],
-              postImage: article["image"],
-              content: article["content"],
-            );
-          }).toList(),
-        ),
-      ),
+      body: isLoading
+          ? Center(
+              child: Lottie.asset(
+                "assets/animations/Heart_Loading.json",
+                repeat: false,
+              ),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: articles.map((article) {
+                  return CustomArticleCard(
+                    title: article["title"],
+                    postImage: article["image"],
+                    content: article["content"],
+                  );
+                }).toList(),
+              ),
+            ),
     );
   }
 }

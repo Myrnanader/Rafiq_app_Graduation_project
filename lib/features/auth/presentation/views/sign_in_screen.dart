@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rafiq_app/core/common/widgets/custom_button.dart';
 import 'package:rafiq_app/core/helpers/extensions.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
@@ -57,10 +58,7 @@ class _SignInScreenState extends State<SignInScreen> {
           builder: (context, state) {
             return SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 22.w,
-                  vertical: 40.h,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 40.h),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -90,16 +88,23 @@ class _SignInScreenState extends State<SignInScreen> {
                       24.h.ph,
 
                       state is AuthLoading
-                          ? const CircularProgressIndicator()
+                          ? Center(
+                              child: SizedBox(
+                                height: 120.h,
+                                width: 120.w,
+                                child: Lottie.asset(
+                                  "assets/animations/Heart_Loading.json",
+                                ),
+                              ),
+                            )
                           : CustomButton(
                               text: 'Sign in',
                               onTap: () {
                                 if (formKey.currentState?.validate() ?? false) {
                                   context.read<AuthCubit>().login(
-                                        email: emailController.text.trim(),
-                                        password:
-                                            passwordController.text.trim(),
-                                      );
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text.trim(),
+                                  );
                                 }
                               },
                               color: AppColors.onPrimary,

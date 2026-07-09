@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/theme/app_texts/app_text_styles.dart';
@@ -46,7 +47,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
     context.read<ExercisesCubit>()
       ..setTrimester(trimester)
-      ..getByTrimester(trimester);  }
+      ..getByTrimester(trimester);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             child: BlocBuilder<ExercisesCubit, ExercisesState>(
               builder: (context, state) {
                 if (state is ExercisesLoading) {
-                  return const Center(child: CircularProgressIndicator(color: AppColors.lavender,));
+                  return Center(
+                    child: Lottie.asset("assets/animations/Heart_Loading.json"),
+                  );
                 }
 
                 if (state is ExercisesError) {
@@ -117,7 +121,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       return ExerciseCard(
                         exercise: item,
                         onDelete: () async {
-                          await context.read<ExercisesCubit>().deleteExercise(item.id);
+                          await context.read<ExercisesCubit>().deleteExercise(
+                            item.id,
+                          );
                           if (context.mounted) {
                             context.read<ExercisesCubit>().getByTrimester(
                               context.read<ExercisesCubit>().currentTrimester,
@@ -145,7 +151,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 await context.push(AppRoutes.addExerciseScreen);
                 if (context.mounted) {
                   context.read<ExercisesCubit>().getByTrimester(
-                      context.read<ExercisesCubit>().currentTrimester
+                    context.read<ExercisesCubit>().currentTrimester,
                   );
                 }
               },

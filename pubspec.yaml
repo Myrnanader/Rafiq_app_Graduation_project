@@ -84,10 +84,10 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
-  build_runner: ^2.4.8
-  retrofit_generator: ^10.2.3
-  json_serializable: ^6.8.0
-  injectable_generator: ^2.6.2
+  build_runner: ^2.10.1
+  retrofit_generator: ^10.2.4
+  json_serializable: ^6.10.0
+  injectable_generator: ^2.8.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -112,7 +112,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/fonts/
-#    - assets/animations/
+    - assets/animations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

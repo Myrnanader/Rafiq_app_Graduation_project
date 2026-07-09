@@ -4,6 +4,7 @@ import 'package:rafiq_app/core/helpers/date_format_helper.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
 import 'package:rafiq_app/core/theming/app_colors.dart';
 
+import '../../../../../core/common/widgets/custom_app_images.dart';
 import '../../../../../core/routing/app_routes.dart';
 import '../../../data/models/memory_model.dart';
 
@@ -19,6 +20,9 @@ class CustomMemoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imagePath =
+    CustomAppImages.getImage(memory.title);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

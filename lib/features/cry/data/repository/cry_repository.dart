@@ -10,18 +10,14 @@ class CryRepository {
 
   Future<CryAnalysisResult> analyzeCry({
     required String filePath,
-    required String childId,
   }) async {
     try {
       final file = await MultipartFile.fromFile(
         filePath,
-        filename: 'cry_recording.m4a',
+        filename: 'cry_recording.wav',
       );
 
-      return await _apiService.analyzeCry(
-        file,
-        childId,
-      );
+      return await _apiService.analyzeCry(file);
     } on DioException catch (error) {
       throw ApiErrorHandler.handle(error);
     } catch (e) {

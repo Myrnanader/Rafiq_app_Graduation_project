@@ -17,6 +17,5 @@ abstract class CryApiService {
   @MultiPart()
   Future<CryAnalysisResult> analyzeCry(
       @Part(name: "file") MultipartFile file,
-      @Part(name: "childId") String childId,
       );
 }

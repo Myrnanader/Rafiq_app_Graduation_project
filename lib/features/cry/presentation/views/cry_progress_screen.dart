@@ -128,12 +128,7 @@ class CryProgressScreen extends StatelessWidget {
                     CryPrimaryButton(
                       text: 'Stop & Analyze',
                       onTap: () {
-                        context
-                            .read<CryCubit>()
-                            .stopAndAnalyze(
-                              childId:
-                                  childId,
-                            );
+                        context.read<CryCubit>().stopAndAnalyze();
                       },
                     ),
 

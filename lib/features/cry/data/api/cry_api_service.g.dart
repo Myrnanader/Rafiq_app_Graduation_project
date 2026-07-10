@@ -22,16 +22,12 @@ class _CryApiService implements CryApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<CryAnalysisResult> analyzeCry(
-    MultipartFile file,
-    String childId,
-  ) async {
+  Future<CryAnalysisResult> analyzeCry(MultipartFile file) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = FormData();
     _data.files.add(MapEntry('file', file));
-    _data.fields.add(MapEntry('childId', childId));
     final _options = _setStreamType<CryAnalysisResult>(
       Options(
             method: 'POST',

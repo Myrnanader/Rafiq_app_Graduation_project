@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rafiq_app/core/common/widgets/app_gradient_background.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
 import 'package:rafiq_app/core/theme/app_texts/app_text_styles.dart';
@@ -78,17 +79,23 @@ class CryAnalysisScreen extends StatelessWidget {
                       child: Text("$seconds sec"),
                     ),
 
-                  if (isUploading) const CircularProgressIndicator(),
-
+                  if (isUploading)
+                    Center(
+                      child: SizedBox(
+                        height: 120.h,
+                        width: 120.w,
+                        child: Lottie.asset(
+                          "assets/animations/Heart_Loading.json",
+                        ),
+                      ),
+                    ),
                   20.h.verticalSpace,
 
                   CryRecordButton(
                     isRecording: isRecording,
                     onTap: () {
                       if (isRecording) {
-                        context.read<CryCubit>().stopAndAnalyze(
-                          childId: childId,
-                        );
+                        context.read<CryCubit>().stopAndAnalyze();
                       } else {
                         context.read<CryCubit>().startRecording();
                       }

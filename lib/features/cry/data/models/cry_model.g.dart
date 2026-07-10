@@ -8,31 +8,24 @@ part of 'cry_model.dart';
 
 CryAnalysisResult _$CryAnalysisResultFromJson(Map<String, dynamic> json) =>
     CryAnalysisResult(
-      status: json['status'] as String,
-      reason: json['reason'] as String,
-      recordingId: json['recordingId'] as String,
-      metadata: json['metadata'] == null
-          ? null
-          : CryMetadata.fromJson(json['metadata'] as Map<String, dynamic>),
+      cryDetected: json['cry_detected'] as bool,
+      probabilitiesPerSecond:
+          (json['probabilities_per_second'] as List<dynamic>?)
+              ?.map((e) => (e as num).toDouble())
+              .toList() ??
+          [],
+      analysisProbs:
+          (json['analysis_probs'] as List<dynamic>?)
+              ?.map((e) => (e as num).toDouble())
+              .toList() ??
+          [],
+      cryType: json['cry_type'] as String?,
     );
 
 Map<String, dynamic> _$CryAnalysisResultToJson(CryAnalysisResult instance) =>
     <String, dynamic>{
-      'status': instance.status,
-      'reason': instance.reason,
-      'metadata': instance.metadata,
-      'recordingId': instance.recordingId,
-    };
-
-CryMetadata _$CryMetadataFromJson(Map<String, dynamic> json) => CryMetadata(
-  fileName: json['fileName'] as String?,
-  contentType: json['contentType'] as String?,
-  fileSizeBytes: (json['fileSizeBytes'] as num?)?.toInt(),
-);
-
-Map<String, dynamic> _$CryMetadataToJson(CryMetadata instance) =>
-    <String, dynamic>{
-      'fileName': instance.fileName,
-      'contentType': instance.contentType,
-      'fileSizeBytes': instance.fileSizeBytes,
+      'cry_detected': instance.cryDetected,
+      'probabilities_per_second': instance.probabilitiesPerSecond,
+      'cry_type': instance.cryType,
+      'analysis_probs': instance.analysisProbs,
     };

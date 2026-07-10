@@ -21,59 +21,59 @@ class CryResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AppGradientBackground(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-          ),
-          child: Column(
-            children: [
-              const CryAppBar(
-                title: 'Analysis Result',
-              ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              children: [
+                const CryAppBar(
+                  title: 'Analysis Result',
+                ),
 
-              30.h.verticalSpace,
+                30.h.verticalSpace,
 
-              const CrySectionHeader(
-                title: 'Cry Analysis',
-                subtitle:
-                    'Analysis completed successfully',
-              ),
+                const CrySectionHeader(
+                  title: 'Cry Analysis',
+                  subtitle: 'Analysis completed successfully',
+                ),
 
-              40.h.verticalSpace,
+                40.h.verticalSpace,
 
-              const CryIllustration(),
+                const CryIllustration(),
 
-              32.h.verticalSpace,
+                32.h.verticalSpace,
 
-              Text(
-                "Status: ${result.status}",
-              ),
+                Text(
+                  result.cryDetected
+                      ? "Cry detected: Yes"
+                      : "Cry detected: No",
+                ),
 
-              16.h.verticalSpace,
+                16.h.verticalSpace,
 
-              Text(
-                "Reason: ${result.reason}",
-              ),
+                if (result.cryDetected)
+                  Text(
+                    "Cry type: ${result.cryType ?? 'Unknown'}",
+                  )
+                else
+                  const Text(
+                    "No cry pattern detected in this recording.",
+                  ),
 
-              16.h.verticalSpace,
+                16.h.verticalSpace,
 
-              Text(
-                "Recording ID: ${result.recordingId}",
-              ),
+                CryPrimaryButton(
+                  text: 'Analyze Again',
+                  onTap: () {
+                    context.go(
+                      AppRoutes.selectCryChildScreen,
+                    );
+                  },
+                ),
 
-              const Spacer(),
-
-              CryPrimaryButton(
-                text: 'Analyze Again',
-                onTap: () {
-                  context.go(
-                    AppRoutes.selectCryChildScreen,
-                  );
-                },
-              ),
-
-              80.h.verticalSpace,
-            ],
+                40.h.verticalSpace,
+              ],
+            ),
           ),
         ),
       ),

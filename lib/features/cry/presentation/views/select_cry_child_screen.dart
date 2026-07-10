@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rafiq_app/core/common/widgets/app_gradient_background.dart';
 import 'package:rafiq_app/core/di/di.dart';
 import 'package:rafiq_app/core/routing/app_routes.dart';
@@ -47,10 +48,10 @@ class SelectCryChildScreen extends StatelessWidget {
                     builder: (context, state) {
                       if (state is ChildrenLoading) {
                         return Center(
-                          child:
-                              CircularProgressIndicator(
-                            color:
-                                AppColors.primary,
+                          child: SizedBox(
+                            child: Lottie.asset(
+                              "assets/animations/Heart_Loading.json",
+                            ),
                           ),
                         );
                       }

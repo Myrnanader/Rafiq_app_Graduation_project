@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
@@ -38,15 +39,28 @@ class CryCubit extends Cubit<CryState> {
 
       final tempDir = await getTemporaryDirectory();
 
+      // final filePath =
+      //     '${tempDir.path}/cry_${DateTime.now().millisecondsSinceEpoch}.m4a';
+      //
+      // _recordedFilePath = filePath;
+      //
+      // await _recorder.start(
+      //   const RecordConfig(
+      //     encoder: AudioEncoder.aacLc,
+      //     bitRate: 128000,
+      //     sampleRate: 44100,
+      //   ),
+      //   path: filePath,
+      // );
+
       final filePath =
-          '${tempDir.path}/cry_${DateTime.now().millisecondsSinceEpoch}.m4a';
+          '${tempDir.path}/cry_${DateTime.now().millisecondsSinceEpoch}.wav';
 
       _recordedFilePath = filePath;
 
       await _recorder.start(
         const RecordConfig(
-          encoder: AudioEncoder.aacLc,
-          bitRate: 128000,
+          encoder: AudioEncoder.wav,
           sampleRate: 44100,
         ),
         path: filePath,
@@ -71,8 +85,7 @@ class CryCubit extends Cubit<CryState> {
   // ====================================================
   // STOP & ANALYZE
   // ====================================================
-
-  Future<void> stopAndAnalyze({required String childId}) async {
+  Future<void> stopAndAnalyze() async {
     try {
       _recordingTimer?.cancel();
 
@@ -87,15 +100,15 @@ class CryCubit extends Cubit<CryState> {
 
       final result = await _repository.analyzeCry(
         filePath: path,
-        childId: childId,
       );
 
       emit(CrySuccess(result));
-    } catch (_) {
-      emit(const CryError('Analysis failed'));
+    } catch (e, st) {
+      debugPrint('Cry analyze error: $e');
+      debugPrint('$st');
+      emit(CryError('Analysis failed: $e')); // مؤقتًا للتشخيص فقط
     }
   }
-
   // ====================================================
   // CANCEL
   // ====================================================
